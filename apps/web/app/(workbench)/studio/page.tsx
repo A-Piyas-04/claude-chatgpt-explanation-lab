@@ -48,6 +48,7 @@ import {
   useStrategies,
 } from "@/lib/hooks";
 import { useSystemStatus } from "@/components/shell";
+import { TREATMENT_ORDER, TREATMENTS } from "@/lib/generated";
 
 type ExperimentType =
   | "baseline"
@@ -86,7 +87,12 @@ const TYPE_META: Record<
 };
 
 const TREATMENT_PRESETS: { label: string; sets: string[][] }[] = [
-  { label: "Each treatment alone (T1–T6)", sets: [["T1"], ["T2"], ["T3"], ["T4"], ["T5"], ["T6"]] },
+  {
+    label: `Each treatment alone (${TREATMENT_ORDER.length} arms)`,
+    // Derived from the generated contract, so adding a treatment in the
+    // backend surfaces here without editing this file.
+    sets: TREATMENTS.map((t) => [t.key]),
+  },
   { label: "Language vs structure (T1, T5, T1+T5)", sets: [["T1"], ["T5"], ["T1", "T5"]] },
   { label: "Sequencing vs vocabulary (T1, T2)", sets: [["T1"], ["T2"]] },
   { label: "All treatments combined", sets: [["T1", "T2", "T3", "T4", "T5", "T6"]] },
@@ -833,9 +839,11 @@ function TreatmentSetEditor({
   onChange: (sets: string[][]) => void;
   strategies: { key: string; name: string; boundary_note: string; description: string }[];
 }) {
-  const allKeys = strategies.length
+  // Prefer live data (it carries the researcher's own versions); fall back to
+  // the generated contract rather than a hardcoded list.
+  const allKeys: string[] = strategies.length
     ? strategies.map((s) => s.key)
-    : ["T1", "T2", "T3", "T4", "T5", "T6"];
+    : TREATMENT_ORDER;
 
   return (
     <div className="space-y-2">

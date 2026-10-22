@@ -1,0 +1,8 @@
+{
+  "name": "@explanationlab/shared-schemas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Generated contract shared by the API and the web app. Regenerate with: python -m explanationlab.export_schemas",
+  "main": "index.ts",
+  "types": "index.ts"
+}

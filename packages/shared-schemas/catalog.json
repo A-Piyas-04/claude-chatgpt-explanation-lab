@@ -1,0 +1,370 @@
+{
+  "_generated_by": "python -m explanationlab.export_schemas",
+  "_warning": "Generated file. Edit the Python source, then regenerate.",
+  "enums": {
+    "Provider": [
+      "openai",
+      "anthropic",
+      "manual"
+    ],
+    "ExperimentType": [
+      "baseline",
+      "prompt_intervention",
+      "ablation",
+      "cross_model",
+      "human_study"
+    ],
+    "ExperimentStatus": [
+      "draft",
+      "configured",
+      "running",
+      "completed",
+      "failed",
+      "evaluated",
+      "reported"
+    ],
+    "ResponseKind": [
+      "source",
+      "transformed"
+    ],
+    "ResponseOrigin": [
+      "api",
+      "manual_import",
+      "demo_fixture"
+    ],
+    "LearnerLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "PromptCondition": [
+      "default",
+      "generic_tutor",
+      "structured_pedagogical",
+      "custom"
+    ],
+    "Treatment": [
+      "T1",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6"
+    ],
+    "RunStatus": [
+      "pending",
+      "running",
+      "succeeded",
+      "failed",
+      "skipped"
+    ],
+    "ItemFormat": [
+      "multiple_choice",
+      "short_answer",
+      "scenario",
+      "likert"
+    ],
+    "EvalDimension": [
+      "A_immediate_comprehension",
+      "B_mechanistic_understanding",
+      "C_transfer",
+      "D_perceived_clarity",
+      "E_cognitive_effort",
+      "F_misconception",
+      "G_time",
+      "H_delayed_retention"
+    ],
+    "GradingMode": [
+      "manual",
+      "ai_assisted",
+      "auto_objective"
+    ],
+    "StudyStatus": [
+      "draft",
+      "open",
+      "closed"
+    ],
+    "EvidenceClass": [
+      "automated_diagnostic",
+      "ai_judge_opinion",
+      "human_preference",
+      "human_comprehension"
+    ]
+  },
+  "treatments": [
+    {
+      "key": "T1",
+      "name": "Vocabulary and sentence clarification",
+      "category": "language",
+      "description": "Reduces lexical and syntactic load: unnecessary jargon, over-long sentences, indirect phrasing and unresolved references. Content and order untouched.",
+      "boundary_note": "Must not reorder concepts, add examples or analogies, add headings, or add mechanism detail. Sentence-level only.",
+      "default_params": {
+        "max_sentence_words": 28,
+        "preserve_paragraph_breaks": true
+      },
+      "version": 1
+    },
+    {
+      "key": "T2",
+      "name": "Prerequisite-aware concept sequencing",
+      "category": "structure",
+      "description": "Reorders the explanation so no idea arrives before the ideas it depends on, using the concept dependency analysis. Wording left alone.",
+      "boundary_note": "Must not simplify vocabulary, add examples, or add formatting. Reordering and minimal connective tissue only. This is what makes H2 testable.",
+      "default_params": {
+        "allow_minimal_bridging_sentences": true,
+        "max_added_prerequisites": 3
+      },
+      "version": 1
+    },
+    {
+      "key": "T3",
+      "name": "Mechanism and causal explanation",
+      "category": "content",
+      "description": "Turns description into mechanism: what happens, why, how the parts interact, and the intermediate steps the source skipped.",
+      "boundary_note": "Must not simplify vocabulary, reorder the overall structure, or add analogies. Adds causal detail in place.",
+      "default_params": {
+        "expand_compressed_steps": true,
+        "mark_unknown_mechanisms": true
+      },
+      "version": 1
+    },
+    {
+      "key": "T4",
+      "name": "Concrete examples and analogies",
+      "category": "content",
+      "description": "Adds one worked example and, if useful, one analogy — each explicitly mapped to the concept, with the limits of the mapping stated.",
+      "boundary_note": "Must not simplify vocabulary, reorder concepts, or add formatting. Adds grounding only, and only where the plan says it is warranted.",
+      "default_params": {
+        "max_examples": 1,
+        "max_analogies": 1,
+        "require_mapping_statement": true
+      },
+      "version": 1
+    },
+    {
+      "key": "T5",
+      "name": "Structural and visual presentation",
+      "category": "presentation",
+      "description": "Applies structure that reveals the conceptual shape: headings, short paragraphs, ordered steps for procedures, a table where a comparison is genuinely being made, and a diagram specification where flow matters.",
+      "boundary_note": "Must not change wording, order, or content. Pure presentation — this is what makes H3 (presentation vs comprehension) testable.",
+      "default_params": {
+        "allow_tables": true,
+        "allow_diagram_spec": true,
+        "max_heading_depth": 3
+      },
+      "version": 1
+    },
+    {
+      "key": "T6",
+      "name": "Audience adaptation",
+      "category": "audience",
+      "description": "Re-pitches the explanation for a specific learner profile by changing what is assumed and what is unpacked — not by changing the facts.",
+      "boundary_note": "Must not change technical content. Adjusts assumed prior knowledge and depth of unpacking only. Expect the expertise-reversal effect: more scaffolding should help beginners and hinder advanced learners.",
+      "default_params": {
+        "respect_assumed_knowledge": true
+      },
+      "version": 1
+    }
+  ],
+  "prompt_conditions": [
+    {
+      "key": "condition_a_default",
+      "name": "Condition A — Default (no pedagogical instruction)",
+      "condition": "default",
+      "description": "No system prompt. Captures default model behaviour. Intentionally empty: any instruction here would itself be an intervention."
+    },
+    {
+      "key": "condition_b_generic_tutor",
+      "name": "Condition B — Generic tutor prompt",
+      "condition": "generic_tutor",
+      "description": "The conventional one-line tutor instruction. Represents ordinary prompting practice so Condition C is tested against a fair baseline."
+    },
+    {
+      "key": "condition_c_structured_pedagogical",
+      "name": "Condition C — Structured pedagogical prompt",
+      "condition": "structured_pedagogical",
+      "description": "Specifies a teaching process rather than a writing style, with explicit anti-patronising and anti-padding constraints."
+    }
+  ],
+  "judge_rubric": {
+    "version": 1,
+    "dimensions": [
+      {
+        "metric": "clarity",
+        "question": "Can each individual statement be understood on first reading?",
+        "anchors": {
+          "1": "Most sentences require re-reading; dense or convoluted throughout.",
+          "3": "Generally followable; several sentences carry too many ideas at once.",
+          "5": "Each sentence lands on first reading without loss of precision."
+        }
+      },
+      {
+        "metric": "logical_progression",
+        "question": "Does each part follow from what came before?",
+        "anchors": {
+          "1": "Ideas appear in an order that does not build; jumps are frequent.",
+          "3": "Mostly ordered, with some ideas arriving before their groundwork.",
+          "5": "Every step rests on something already established."
+        }
+      },
+      {
+        "metric": "prerequisite_handling",
+        "question": "Are concepts the reader needs first actually provided first?",
+        "anchors": {
+          "1": "Relies throughout on knowledge it never supplies.",
+          "3": "Supplies some prerequisites; assumes others silently.",
+          "5": "Needed prerequisites are introduced before use, without padding."
+        }
+      },
+      {
+        "metric": "mechanism_explanation",
+        "question": "Does it explain how and why, not only what?",
+        "anchors": {
+          "1": "Definitions and assertions only; no causal account.",
+          "3": "Some mechanism, with intermediate steps left implicit.",
+          "5": "Causes, interactions and intermediate steps are explicit."
+        }
+      },
+      {
+        "metric": "example_quality",
+        "question": "If examples or analogies are used, do they aid understanding?",
+        "anchors": {
+          "1": "Examples are decorative, unrelated, or actively misleading.",
+          "3": "Relevant examples, but the mapping to the concept is left implicit.",
+          "5": "Example is apt, mapped explicitly, and its limits are stated. Score 5 also applies if no example was needed and none was given."
+        }
+      },
+      {
+        "metric": "audience_suitability",
+        "question": "Is it pitched at the stated learner, neither over nor under their head?",
+        "anchors": {
+          "1": "Badly mismatched: unexplained expert content, or patronising basics.",
+          "3": "Roughly right with stretches that miss the level.",
+          "5": "Consistently pitched at the stated learner."
+        }
+      },
+      {
+        "metric": "unnecessary_complexity",
+        "question": "Is complexity intrinsic to the subject rather than added by the writing? (5 = no added complexity)",
+        "anchors": {
+          "1": "Heavy added complexity: avoidable jargon, indirection, padding.",
+          "3": "Some avoidable density.",
+          "5": "All remaining difficulty belongs to the subject itself."
+        }
+      },
+      {
+        "metric": "information_loss",
+        "question": "Is substantive content preserved rather than dropped? (5 = nothing lost)",
+        "anchors": {
+          "1": "Essential content, caveats or qualifications are missing.",
+          "3": "Minor detail lost.",
+          "5": "Content is intact; any simplification is of expression, not substance."
+        }
+      },
+      {
+        "metric": "factual_fidelity",
+        "question": "Is it internally consistent and free of claims it cannot support? (5 = no problems detected)",
+        "anchors": {
+          "1": "Contains claims that contradict each other or are plainly unsupported.",
+          "3": "Mostly sound with one or two questionable assertions.",
+          "5": "No problems detected. This is not verification of correctness."
+        }
+      }
+    ]
+  },
+  "model_catalog_seed": {
+    "pricing_verified_on": "2026-10-22",
+    "models": [
+      {
+        "provider": "anthropic",
+        "model_id": "claude-opus-5-5",
+        "display_name": "Claude Opus 5.5",
+        "tier": "frontier",
+        "input_cost_per_mtok": 4.0,
+        "output_cost_per_mtok": 20.0,
+        "supports_temperature": false,
+        "supports_effort": true,
+        "default_effort": "medium",
+        "notes": "Rejects temperature (HTTP 400). Thinking cannot be disabled; use effort. Provider default effort is medium."
+      },
+      {
+        "provider": "anthropic",
+        "model_id": "claude-sonnet-5-5",
+        "display_name": "Claude Sonnet 5.5",
+        "tier": "balanced",
+        "input_cost_per_mtok": 2.0,
+        "output_cost_per_mtok": 10.0,
+        "supports_temperature": false,
+        "supports_effort": true,
+        "default_effort": "high",
+        "notes": "Rejects non-default temperature (HTTP 400). Effort default is high."
+      },
+      {
+        "provider": "anthropic",
+        "model_id": "claude-haiku-5-5",
+        "display_name": "Claude Haiku 5.5",
+        "tier": "economy",
+        "input_cost_per_mtok": 0.1,
+        "output_cost_per_mtok": 0.5,
+        "supports_temperature": false,
+        "supports_effort": true,
+        "default_effort": "medium",
+        "notes": "Rejects non-default temperature. Listed prices apply up to 100K input tokens; longer prompts are billed higher."
+      },
+      {
+        "provider": "openai",
+        "model_id": "gpt-6-astra",
+        "display_name": "GPT-6 Astra",
+        "tier": "frontier",
+        "input_cost_per_mtok": 10.0,
+        "output_cost_per_mtok": 50.0,
+        "supports_temperature": false,
+        "supports_effort": true,
+        "default_effort": null,
+        "notes": "Flagship. Reasoning model: sampling controls are not accepted. Standard-tier short-context pricing."
+      },
+      {
+        "provider": "openai",
+        "model_id": "gpt-6.1-sol",
+        "display_name": "GPT-6.1 Sol",
+        "tier": "balanced",
+        "input_cost_per_mtok": 2.0,
+        "output_cost_per_mtok": 10.0,
+        "supports_temperature": false,
+        "supports_effort": true,
+        "default_effort": null,
+        "notes": "Mid-tier; balances intelligence and cost."
+      },
+      {
+        "provider": "openai",
+        "model_id": "gpt-6-luna",
+        "display_name": "GPT-6 Luna",
+        "tier": "economy",
+        "input_cost_per_mtok": 0.1,
+        "output_cost_per_mtok": 0.5,
+        "supports_temperature": false,
+        "supports_effort": true,
+        "default_effort": null,
+        "notes": "Small model for cost-sensitive, high-volume work (e.g. bulk judging)."
+      },
+      {
+        "provider": "openai",
+        "model_id": "gpt-5.4",
+        "display_name": "GPT-5.4 (previous generation)",
+        "tier": "legacy",
+        "input_cost_per_mtok": 2.5,
+        "output_cost_per_mtok": 15.0,
+        "supports_temperature": true,
+        "supports_effort": false,
+        "default_effort": null,
+        "notes": "Kept deliberately: it still accepts `temperature`, which makes it the only way to run a temperature-controlled condition. Useful for separating sampling effects from model effects."
+      }
+    ]
+  },
+  "evidence_class_meaning": {
+    "automated_diagnostic": "Deterministic surface measure. Describes a text; does not measure understanding.",
+    "ai_judge_opinion": "A judge model's rating. Subject to known biases; not comprehension evidence.",
+    "human_preference": "Participant self-report. Perceived ease can diverge from actual understanding.",
+    "human_comprehension": "Measured learner performance. The primary evidence in this platform."
+  }
+}

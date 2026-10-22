@@ -1,0 +1,78 @@
+# Repeatable local development.
+#
+# Three profiles of use:
+#   docker compose up db            -> just Postgres; run API and web on the host
+#   docker compose up               -> db + api + web, all containerised
+#   docker compose up db api worker -> background worker as its own process
+#
+# API keys are read from your .env and are never baked into an image.
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: explab
+      POSTGRES_PASSWORD: explab
+      POSTGRES_DB: explanationlab
+    ports:
+      - "5432:5432"
+    volumes:
+      - explab_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U explab -d explanationlab"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: ./apps/api
+    environment:
+      DATABASE_URL: postgresql+psycopg://explab:explab@db:5432/explanationlab
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      RESEARCHER_API_TOKEN: ${RESEARCHER_API_TOKEN:-}
+      MAX_BATCH_REQUESTS: ${MAX_BATCH_REQUESTS:-120}
+      COST_CONFIRMATION_THRESHOLD_USD: ${COST_CONFIRMATION_THRESHOLD_USD:-1.00}
+      DAILY_SPEND_CAP_USD: ${DAILY_SPEND_CAP_USD:-25.00}
+      # The worker service below owns job execution in this topology.
+      RUN_WORKER_IN_API: "false"
+      CORS_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head &&
+             python -m explanationlab.seed &&
+             uvicorn explanationlab.main:app --host 0.0.0.0 --port 8000"
+
+  worker:
+    build:
+      context: ./apps/api
+    environment:
+      DATABASE_URL: postgresql+psycopg://explab:explab@db:5432/explanationlab
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      DAILY_SPEND_CAP_USD: ${DAILY_SPEND_CAP_USD:-25.00}
+    depends_on:
+      api:
+        condition: service_started
+    command: python -m explanationlab.jobs.worker
+
+  web:
+    build:
+      context: ./apps/web
+    environment:
+      # Server-side only. The browser never sees either value.
+      API_BASE_URL: http://api:8000
+      RESEARCHER_API_TOKEN: ${RESEARCHER_API_TOKEN:-}
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  explab_pgdata:
