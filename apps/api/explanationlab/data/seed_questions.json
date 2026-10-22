@@ -1,0 +1,233 @@
+{
+  "_README": [
+    "Seed research question bank. 15 questions across four domains.",
+    "Each question carries a `factual_checklist`: the essential claims a correct",
+    "explanation should contain. These were written by the project authors and are",
+    "marked reviewed_by 'project author (initial pass)' — they are a starting point",
+    "for a domain reviewer, not a validated answer key.",
+    "`conceptual_difficulty` is an explicit field because the brief warns against",
+    "assuming all questions have equally difficult conceptual structure. Questions",
+    "differ in how many interacting parts a correct mental model needs."
+  ],
+  "questions": [
+    {
+      "text": "How does Redis caching reduce database load?",
+      "domain": "software_engineering",
+      "topic": "caching",
+      "conceptual_difficulty": "moderate",
+      "factual_checklist": [
+        "A cache stores the result of an expensive operation so it can be reused.",
+        "A cache hit avoids querying the database entirely; a miss does not.",
+        "Reduction in load comes from fewer queries reaching the database, not from faster queries.",
+        "Cached copies can become stale when the underlying data changes.",
+        "Invalidation or expiry is required to manage staleness.",
+        "The benefit depends on repeated reads of the same data; unique requests gain nothing."
+      ]
+    },
+    {
+      "text": "What happens when a browser sends an HTTPS request?",
+      "domain": "software_engineering",
+      "topic": "networking_security",
+      "conceptual_difficulty": "high",
+      "factual_checklist": [
+        "DNS resolution maps the hostname to an IP address.",
+        "A TCP connection is established before any TLS exchange.",
+        "A TLS handshake negotiates protocol version and cipher suite.",
+        "The server presents a certificate which the client validates against a trust chain.",
+        "Key exchange establishes symmetric session keys; bulk data uses symmetric encryption.",
+        "The HTTP request is sent inside the encrypted channel.",
+        "Encryption protects confidentiality and integrity in transit, not data at rest on either end."
+      ]
+    },
+    {
+      "text": "How does a database transaction maintain consistency?",
+      "domain": "software_engineering",
+      "topic": "databases",
+      "conceptual_difficulty": "high",
+      "factual_checklist": [
+        "A transaction groups operations so they succeed or fail as a unit (atomicity).",
+        "Consistency means the database moves between states that satisfy its declared constraints.",
+        "Isolation controls what concurrent transactions can observe of each other.",
+        "Durability means a committed transaction survives failure.",
+        "Rollback undoes a partial transaction, usually via a write-ahead log or undo information.",
+        "Isolation levels trade correctness guarantees against concurrency.",
+        "Consistency in ACID is not the same as consistency in CAP."
+      ]
+    },
+    {
+      "text": "Why does a race condition occur?",
+      "domain": "software_engineering",
+      "topic": "concurrency",
+      "conceptual_difficulty": "moderate",
+      "factual_checklist": [
+        "Two or more operations access shared mutable state concurrently.",
+        "At least one operation writes to that state.",
+        "The outcome depends on the relative timing of the operations.",
+        "Non-atomic read-modify-write sequences are a common cause.",
+        "The bug is often intermittent because timing varies between runs.",
+        "Mutual exclusion, atomic operations, or removing shared mutability prevent it."
+      ]
+    },
+    {
+      "text": "How does a message queue improve reliability?",
+      "domain": "software_engineering",
+      "topic": "distributed_systems",
+      "conceptual_difficulty": "moderate",
+      "factual_checklist": [
+        "A queue decouples the producer from the consumer in time.",
+        "Work is persisted so it survives a consumer being unavailable.",
+        "The producer does not block on the consumer completing the work.",
+        "Retries become possible because the message remains available until acknowledged.",
+        "Queues absorb bursts, smoothing load on the consumer.",
+        "Delivery is typically at-least-once, so consumers must tolerate duplicates.",
+        "A queue adds latency and operational complexity; it is a trade-off, not a free gain."
+      ]
+    },
+    {
+      "text": "How does Retrieval-Augmented Generation work?",
+      "domain": "ai_ml",
+      "topic": "rag",
+      "conceptual_difficulty": "moderate",
+      "factual_checklist": [
+        "Source documents are split into chunks and embedded into vectors ahead of time.",
+        "A query is embedded using the same embedding model.",
+        "Retrieval finds chunks whose vectors are nearest to the query vector.",
+        "Retrieved text is inserted into the model's prompt as context.",
+        "The model generates an answer conditioned on that retrieved context.",
+        "Model weights are not updated; this is not fine-tuning.",
+        "Answer quality is bounded by retrieval quality: irrelevant retrieval yields a poor answer."
+      ]
+    },
+    {
+      "text": "Why are embeddings useful for semantic search?",
+      "domain": "ai_ml",
+      "topic": "embeddings",
+      "conceptual_difficulty": "moderate",
+      "factual_checklist": [
+        "An embedding maps text to a point in a high-dimensional vector space.",
+        "Texts with similar meaning are placed close together in that space.",
+        "Similarity is computed geometrically, commonly by cosine similarity.",
+        "This matches meaning rather than shared keywords, so paraphrases can match.",
+        "Query and documents must be embedded by the same model for distances to be meaningful.",
+        "Embeddings capture the training distribution's notion of similarity, which may not match the user's."
+      ]
+    },
+    {
+      "text": "How does gradient descent update model parameters?",
+      "domain": "ai_ml",
+      "topic": "optimisation",
+      "conceptual_difficulty": "high",
+      "factual_checklist": [
+        "A loss function measures how wrong the model's predictions are.",
+        "The gradient is the vector of partial derivatives of the loss with respect to each parameter.",
+        "The gradient points in the direction of steepest increase in loss.",
+        "Parameters are updated in the opposite direction of the gradient.",
+        "The learning rate scales the size of each step.",
+        "The process repeats over many batches of data.",
+        "Too large a learning rate can diverge; too small converges slowly."
+      ]
+    },
+    {
+      "text": "What is the difference between training and inference?",
+      "domain": "ai_ml",
+      "topic": "ml_lifecycle",
+      "conceptual_difficulty": "low",
+      "factual_checklist": [
+        "Training adjusts model parameters using labelled or self-supervised data.",
+        "Inference uses fixed parameters to produce an output for new input.",
+        "Training requires computing gradients and a backward pass; inference does not.",
+        "Training is typically done once or periodically; inference runs per request.",
+        "Inference is usually far cheaper per example than training.",
+        "A model does not learn from the inputs it sees at inference time unless explicitly retrained."
+      ]
+    },
+    {
+      "text": "Why can a large language model hallucinate?",
+      "domain": "ai_ml",
+      "topic": "llm_behaviour",
+      "conceptual_difficulty": "high",
+      "factual_checklist": [
+        "The model is trained to produce likely continuations, not to verify truth.",
+        "It has no built-in mechanism to check a claim against an external source.",
+        "Plausible-sounding text and true text are not distinguished by the training objective.",
+        "Gaps or errors in training data can be reproduced or interpolated over.",
+        "Specific details such as names, numbers and citations are especially prone to fabrication.",
+        "Fluency is not evidence of accuracy.",
+        "Retrieval or tool use can reduce but does not eliminate the problem."
+      ]
+    },
+    {
+      "text": "Why is a p-value not the probability that a hypothesis is true?",
+      "domain": "mathematics_statistics",
+      "topic": "inference",
+      "conceptual_difficulty": "high",
+      "factual_checklist": [
+        "A p-value is the probability of data at least as extreme as observed, assuming the null hypothesis is true.",
+        "It is a conditional probability of data given a hypothesis, not of a hypothesis given data.",
+        "Transposing that conditional is a logical error.",
+        "Obtaining the probability of a hypothesis requires a prior and Bayes' theorem.",
+        "A small p-value does not quantify effect size or practical importance.",
+        "A large p-value is not evidence that the null hypothesis is true."
+      ]
+    },
+    {
+      "text": "How does gradient descent find a minimum?",
+      "domain": "mathematics_statistics",
+      "topic": "optimisation",
+      "conceptual_difficulty": "high",
+      "factual_checklist": [
+        "It follows the local downhill direction given by the negative gradient.",
+        "It is a local method: it uses no information about the global shape of the surface.",
+        "It converges to a point where the gradient is approximately zero (a stationary point).",
+        "A stationary point may be a local minimum, a saddle point, or a plateau.",
+        "Convexity guarantees a local minimum is global; most interesting problems are non-convex.",
+        "Step size determines whether it converges, oscillates, or diverges."
+      ]
+    },
+    {
+      "text": "Why does correlation not establish causation?",
+      "domain": "mathematics_statistics",
+      "topic": "causal_inference",
+      "conceptual_difficulty": "moderate",
+      "factual_checklist": [
+        "Correlation measures statistical association between two variables.",
+        "An association is consistent with several causal structures.",
+        "A third variable can cause both (confounding).",
+        "The causal direction may be the reverse of the one assumed.",
+        "Selection effects and sampling can create association without causation.",
+        "Coincidence can produce association, especially with many comparisons.",
+        "Randomised assignment or explicit causal assumptions are needed to support a causal claim."
+      ]
+    },
+    {
+      "text": "How does GPS determine location?",
+      "domain": "everyday_technical",
+      "topic": "positioning",
+      "conceptual_difficulty": "high",
+      "factual_checklist": [
+        "Satellites broadcast signals containing a precise transmission timestamp and their own position.",
+        "The receiver measures signal travel time to compute distance to each satellite.",
+        "Distance to one satellite places the receiver on a sphere; intersecting spheres narrow the position.",
+        "Three satellites would suffice with a perfect clock; a fourth is needed to solve for receiver clock error.",
+        "The receiver solves for four unknowns: three position coordinates and a time offset.",
+        "Accuracy is limited by atmospheric delay, signal reflection, and satellite geometry.",
+        "The receiver only listens; it does not transmit to the satellites."
+      ]
+    },
+    {
+      "text": "Why does a refrigerator move heat from inside to outside?",
+      "domain": "everyday_technical",
+      "topic": "thermodynamics",
+      "conceptual_difficulty": "moderate",
+      "factual_checklist": [
+        "Heat flows spontaneously only from hotter to colder, so moving it the other way requires work.",
+        "A refrigerant cycles between liquid and gas phases.",
+        "Evaporating refrigerant absorbs heat from inside the cabinet.",
+        "A compressor does work on the refrigerant, raising its pressure and temperature.",
+        "The refrigerant then condenses outside, releasing heat to the warmer room.",
+        "An expansion valve drops the pressure so the refrigerant can evaporate cold again.",
+        "A refrigerator moves heat; it does not destroy it, so the room net warms."
+      ]
+    }
+  ]
+}
