@@ -280,6 +280,12 @@ class ResponseOut(ORMModel):
     model_id: str
     label: str
     text: str
+    # The exact prompts this response was generated from. Exposed because
+    # inspecting prompt configuration is a reproducibility requirement (§7);
+    # these are the researcher's own templates, never a credential. Participant
+    # payloads are built by a separate allow-list and never include them.
+    system_prompt_snapshot: str
+    user_prompt_snapshot: str
     applied_treatments: list[Any]
     control_limitations: list[Any]
     generation_settings: dict

@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  @apply bg-canvas text-ink antialiased;
+}
+
+/* Distraction-free reading mode: measured line length and serif face, because
+   the thing under study is how readable a text is. */
+.prose-reading {
+  @apply font-reading text-[1.0625rem] leading-[1.75] text-ink;
+  max-width: 68ch;
+}
+.prose-reading h1 { @apply font-sans text-2xl font-semibold mt-8 mb-3 leading-tight; }
+.prose-reading h2 { @apply font-sans text-xl font-semibold mt-7 mb-2 leading-snug; }
+.prose-reading h3 { @apply font-sans text-base font-semibold mt-6 mb-2; }
+.prose-reading p { @apply my-4; }
+.prose-reading ul { @apply my-4 list-disc pl-6 space-y-1.5; }
+.prose-reading ol { @apply my-4 list-decimal pl-6 space-y-1.5; }
+.prose-reading li > ul, .prose-reading li > ol { @apply my-1.5; }
+.prose-reading code {
+  @apply font-mono text-[0.875em] bg-accent-soft text-accent-strong px-1 py-0.5 rounded;
+}
+.prose-reading pre {
+  @apply font-mono text-xs bg-ink text-canvas p-4 rounded-md overflow-x-auto my-5 leading-relaxed;
+}
+.prose-reading pre code { @apply bg-transparent text-canvas p-0; }
+.prose-reading blockquote {
+  @apply border-l-2 border-line-strong pl-4 italic text-ink-muted my-5;
+}
+.prose-reading table { @apply my-5 w-full border-collapse text-[0.9375rem] font-sans; }
+.prose-reading th {
+  @apply border border-line bg-canvas px-3 py-2 text-left font-semibold;
+}
+.prose-reading td { @apply border border-line px-3 py-2 align-top; }
+.prose-reading hr { @apply my-8 border-line; }
+.prose-reading strong { @apply font-semibold; }
+.prose-reading a { @apply text-accent underline underline-offset-2; }
+
+/* Compact variant for side-by-side comparison, where vertical space is scarce. */
+.prose-compact {
+  @apply font-sans text-[0.9375rem] leading-[1.65] text-ink;
+}
+.prose-compact h1 { @apply text-lg font-semibold mt-5 mb-2; }
+.prose-compact h2 { @apply text-base font-semibold mt-4 mb-1.5; }
+.prose-compact h3 { @apply text-sm font-semibold mt-3 mb-1; }
+.prose-compact p { @apply my-2.5; }
+.prose-compact ul { @apply my-2.5 list-disc pl-5 space-y-1; }
+.prose-compact ol { @apply my-2.5 list-decimal pl-5 space-y-1; }
+.prose-compact code {
+  @apply font-mono text-[0.85em] bg-accent-soft text-accent-strong px-1 rounded;
+}
+.prose-compact pre {
+  @apply font-mono text-2xs bg-ink text-canvas p-3 rounded overflow-x-auto my-3;
+}
+.prose-compact table { @apply my-3 w-full border-collapse text-sm; }
+.prose-compact th { @apply border border-line bg-canvas px-2 py-1 text-left font-semibold; }
+.prose-compact td { @apply border border-line px-2 py-1 align-top; }
+.prose-compact blockquote { @apply border-l-2 border-line-strong pl-3 text-ink-muted my-3; }
+
+/* Unified diff rendering for treatment changes. */
+.diff-line-add { @apply bg-accent-soft text-accent-strong; }
+.diff-line-del { @apply bg-danger-soft text-danger line-through decoration-danger/40; }
+.diff-line-meta { @apply text-ink-faint; }
+
+::selection { @apply bg-accent-soft; }
+
+.react-flow__attribution { display: none; }
