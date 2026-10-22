@@ -608,6 +608,7 @@ function ManualImport({ questionId, onDone }: { questionId: string; onDone: () =
   const models = useModels();
   const [provider, setProvider] = React.useState("anthropic");
   const [modelId, setModelId] = React.useState("");
+  const [label, setLabel] = React.useState("");
   const [text, setText] = React.useState("");
   const [notes, setNotes] = React.useState("");
 
@@ -617,6 +618,7 @@ function ManualImport({ questionId, onDone }: { questionId: string; onDone: () =
         question_id: questionId,
         provider,
         model_id: modelId,
+        label,
         text,
         interface: "web_chat",
         captured_at: new Date().toISOString(),
@@ -636,6 +638,7 @@ function ManualImport({ questionId, onDone }: { questionId: string; onDone: () =
           <Select value={provider} onChange={(e) => setProvider(e.target.value)}>
             <option value="anthropic">anthropic</option>
             <option value="openai">openai</option>
+            <option value="gemini">gemini</option>
             <option value="manual">manual / other</option>
           </Select>
         </Field>
@@ -661,6 +664,13 @@ function ManualImport({ questionId, onDone }: { questionId: string; onDone: () =
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Paste the full response here."
+          />
+        </Field>
+        <Field label="Answer label" className="sm:col-span-2" hint="Identifies this answer in study results; participants will not see it.">
+          <Input
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            placeholder="e.g. Claude web — original"
           />
         </Field>
         <Field label="Capture notes" className="sm:col-span-2" hint="Anything about how it was obtained.">

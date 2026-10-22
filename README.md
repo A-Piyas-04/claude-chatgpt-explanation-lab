@@ -86,11 +86,15 @@ lifetime — the flag propagates into every transformation, evaluation, aggregat
 and export, and is rendered as a warning wherever it appears. Demo output is
 never presented as a research finding.
 
-To run real experiments, add either key to `.env` and restart the API:
+For live model calls, add a supported API key to `.env` and restart the API.
+With only a Gemini key, Gemini can run analysis, transformation, and AI grading
+on manually imported ChatGPT or Claude web answers; it cannot generate those
+providers' answers. Follow [the real web-answer workflow](Docs/MANUAL_WORKFLOW.md).
 
 ```bash
 OPENAI_API_KEY=sk-...
 ANTHROPIC_API_KEY=sk-ant-...
+GEMINI_API_KEY=...
 ```
 
 ### With Docker instead
@@ -115,7 +119,7 @@ docker compose up db
 | ------- | ---- |
 | `bash scripts/setup.sh` | Install everything, migrate, seed. Re-runnable. |
 | `bash scripts/test.sh` | API tests, API lint, web typecheck, web production build. |
-| `cd apps/api && .venv/.../python -m pytest -q` | Backend tests only (65 tests, no network, no spend). |
+| `cd apps/api && .venv/.../python -m pytest -q` | Backend tests only (no network, no spend). |
 | `cd apps/api && .venv/.../python -m explanationlab.seed` | Re-seed. Idempotent; never overwrites your prompt edits. |
 | `cd apps/api && .venv/.../python -m alembic upgrade head` | Apply migrations. |
 | `cd apps/api && .venv/.../python -m alembic revision --autogenerate -m "..."` | New migration after a model change. |
@@ -157,7 +161,7 @@ All settings live in `.env` (see `.env.example`). Highlights:
 | Variable | Default | Purpose |
 | -------- | ------- | ------- |
 | `DATABASE_URL` | SQLite file | Postgres for real studies; SQLite needs no setup |
-| `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` | empty | Empty ⇒ demo mode |
+| `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GEMINI_API_KEY` | empty | All empty ⇒ demo mode |
 | `RESEARCHER_API_TOKEN` | empty | Empty ⇒ API accepts **local requests only** |
 | `MAX_BATCH_REQUESTS` | 120 | Hard ceiling on model calls per experiment |
 | `COST_CONFIRMATION_THRESHOLD_USD` | 1.00 | Batches above this need explicit confirmation |
@@ -222,7 +226,7 @@ explanationlab/
 | [`Docs/TRANSFORMATION_ENGINE.md`](Docs/TRANSFORMATION_ENGINE.md) | Every strategy, prompt, schema and fidelity check |
 | [`Docs/DATABASE_SCHEMA.md`](Docs/DATABASE_SCHEMA.md) | Entities and relationships |
 | [`Docs/USER_GUIDE.md`](Docs/USER_GUIDE.md) | Step-by-step for each experiment |
-| [`Docs/MANUAL_WORKFLOW.md`](Docs/MANUAL_WORKFLOW.md) | Running a real study with only web plans and no API key |
+| [`Docs/MANUAL_WORKFLOW.md`](Docs/MANUAL_WORKFLOW.md) | Comparing ChatGPT and Claude web answers with a Gemini key and no participants |
 | [`Docs/KNOWN_LIMITATIONS.md`](Docs/KNOWN_LIMITATIONS.md) | What this cannot do, and what is unfinished |
 
 ---

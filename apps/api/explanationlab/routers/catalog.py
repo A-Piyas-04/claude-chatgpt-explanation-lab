@@ -196,7 +196,7 @@ def refresh_models(db: Session = Depends(get_db)) -> dict:
     """
     report: dict = {"providers": {}, "discovered": [], "unverified": []}
 
-    for provider in (Provider.OPENAI.value, Provider.ANTHROPIC.value):
+    for provider in (Provider.OPENAI.value, Provider.ANTHROPIC.value, Provider.GEMINI.value):
         if not provider_configured(provider):
             report["providers"][provider] = {
                 "status": "skipped",

@@ -5,6 +5,7 @@
     "Provider": [
       "openai",
       "anthropic",
+      "gemini",
       "manual"
     ],
     "ExperimentType": [
@@ -358,6 +359,18 @@
         "supports_effort": false,
         "default_effort": null,
         "notes": "Kept deliberately: it still accepts `temperature`, which makes it the only way to run a temperature-controlled condition. Useful for separating sampling effects from model effects."
+      },
+      {
+        "provider": "gemini",
+        "model_id": "gemini-3.5-flash-lite",
+        "display_name": "Gemini 3.5 Flash-Lite",
+        "tier": "economy",
+        "input_cost_per_mtok": 0.3,
+        "output_cost_per_mtok": 2.5,
+        "supports_temperature": true,
+        "supports_effort": false,
+        "default_effort": null,
+        "notes": "Google lists this text model on the API free tier, subject to project quotas. Prices shown are paid-tier estimates; verify your project's billing tier."
       }
     ]
   },

@@ -13,6 +13,7 @@ from ..enums import Provider
 from .anthropic_provider import AnthropicProvider
 from .base import BaseProvider, ProviderError
 from .demo import DemoProvider
+from .gemini_provider import GeminiProvider
 from .openai_provider import OpenAIProvider
 
 _CACHE: dict[str, BaseProvider] = {}
@@ -24,6 +25,8 @@ def provider_configured(provider: str) -> bool:
         return settings.has_openai
     if provider == Provider.ANTHROPIC.value:
         return settings.has_anthropic
+    if provider == Provider.GEMINI.value:
+        return settings.has_gemini
     if provider == Provider.MANUAL.value:
         return True
     return False
@@ -32,21 +35,22 @@ def provider_configured(provider: str) -> bool:
 def get_provider(provider: str, *, allow_demo: bool = True) -> BaseProvider:
     """Return an adapter for ``provider``.
 
-    When credentials are absent and ``allow_demo`` is set, a demo adapter is
-    returned that tags its output synthetic. With ``allow_demo=False`` the
-    missing credential is raised instead — used by endpoints that must not
-    fabricate data.
+    Fixture substitution is available only when *no* provider is configured.
+    Once any live provider is configured, selecting an unconfigured provider
+    raises instead of mixing real and synthetic calls in one workflow.
     """
     if provider_configured(provider) and provider != Provider.MANUAL.value:
         if provider not in _CACHE:
-            _CACHE[provider] = (
-                OpenAIProvider() if provider == Provider.OPENAI.value else AnthropicProvider()
-            )
+            _CACHE[provider] = {
+                Provider.OPENAI.value: OpenAIProvider,
+                Provider.ANTHROPIC.value: AnthropicProvider,
+                Provider.GEMINI.value: GeminiProvider,
+            }[provider]()
         return _CACHE[provider]
 
-    if not allow_demo:
+    if not allow_demo or not get_settings().demo_mode:
         raise ProviderError(
-            f"Provider '{provider}' is not configured and demo substitution is disabled.",
+            f"Provider '{provider}' is not configured. Choose a configured live provider.",
             error_type="provider_not_configured",
         )
 
@@ -69,6 +73,11 @@ def provider_status() -> list[dict]:
             "provider": Provider.ANTHROPIC.value,
             "configured": settings.has_anthropic,
             "mode": "live" if settings.has_anthropic else "demo",
+        },
+        {
+            "provider": Provider.GEMINI.value,
+            "configured": settings.has_gemini,
+            "mode": "live" if settings.has_gemini else "demo",
         },
     ]
 

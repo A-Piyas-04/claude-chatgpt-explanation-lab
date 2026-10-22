@@ -31,6 +31,7 @@ services:
       DATABASE_URL: postgresql+psycopg://explab:explab@db:5432/explanationlab
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       RESEARCHER_API_TOKEN: ${RESEARCHER_API_TOKEN:-}
       MAX_BATCH_REQUESTS: ${MAX_BATCH_REQUESTS:-120}
       COST_CONFIRMATION_THRESHOLD_USD: ${COST_CONFIRMATION_THRESHOLD_USD:-1.00}
@@ -55,6 +56,7 @@ services:
       DATABASE_URL: postgresql+psycopg://explab:explab@db:5432/explanationlab
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       DAILY_SPEND_CAP_USD: ${DAILY_SPEND_CAP_USD:-25.00}
     depends_on:
       api:

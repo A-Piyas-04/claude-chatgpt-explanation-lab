@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     # --- Provider credentials ---
     openai_api_key: str = ""
     anthropic_api_key: str = ""
+    gemini_api_key: str = ""
 
     # --- Researcher auth ---
     researcher_api_token: str = ""
@@ -63,13 +64,17 @@ class Settings(BaseSettings):
         return bool(self.anthropic_api_key.strip())
 
     @property
+    def has_gemini(self) -> bool:
+        return bool(self.gemini_api_key.strip())
+
+    @property
     def demo_mode(self) -> bool:
         """True when no live provider credentials are configured.
 
         In demo mode the app stays fully navigable, every generated response is
         a fixture, and every such row is flagged synthetic for its whole life.
         """
-        return not (self.has_openai or self.has_anthropic)
+        return not (self.has_openai or self.has_anthropic or self.has_gemini)
 
     @property
     def auth_enabled(self) -> bool:
@@ -82,6 +87,7 @@ class Settings(BaseSettings):
             "providers": {
                 "openai": {"configured": self.has_openai},
                 "anthropic": {"configured": self.has_anthropic},
+                "gemini": {"configured": self.has_gemini},
             },
             "auth_enabled": self.auth_enabled,
             "limits": {

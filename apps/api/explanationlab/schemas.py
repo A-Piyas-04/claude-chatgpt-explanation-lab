@@ -384,6 +384,11 @@ class StudyCreate(BaseModel):
     items: list[AssessmentItemIn] = Field(default_factory=list, max_length=30)
 
 
+class ProxyRunIn(BaseModel):
+    provider: Provider
+    model_id: str = Field(min_length=1, max_length=120)
+
+
 class StudyOut(ORMModel):
     id: str
     name: str

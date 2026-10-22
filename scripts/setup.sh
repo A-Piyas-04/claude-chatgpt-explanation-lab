@@ -60,7 +60,7 @@ Then open http://localhost:3000
 If port 3000 is taken, run the web app on another port:
     cd apps/web && PORT=3100 npm run dev
 
-To run real experiments, add OPENAI_API_KEY and/or ANTHROPIC_API_KEY to .env
-and restart the API. Until then every generated explanation is a local fixture,
-flagged SYNTHETIC, and costs nothing.
+For live model calls, add OPENAI_API_KEY, ANTHROPIC_API_KEY, or GEMINI_API_KEY
+to .env and restart the API. ChatGPT and Claude web answers can also be
+imported as real data without their API keys (see Docs/MANUAL_WORKFLOW.md).
 MESSAGE

@@ -11,6 +11,7 @@ from ..analytics import aggregate
 from ..db import get_db
 from ..enums import GradingMode, ItemFormat, StudyStatus
 from ..evaluation.judge import grade_short_answer
+from ..evaluation.proxy import evaluate_study
 from ..models import (
     AssessmentItem,
     GradingRubric,
@@ -25,7 +26,7 @@ from ..models import (
 )
 from ..providers.base import ProviderError
 from ..reports import exports
-from ..schemas import GradeIn, StudyCreate, StudyOut
+from ..schemas import GradeIn, ProxyRunIn, StudyCreate, StudyOut
 from ..security import new_study_token, require_researcher
 from ..studies.scoring import summarise_submission
 
@@ -98,11 +99,16 @@ def create_study(payload: StudyCreate, db: Session = Depends(get_db)) -> Study:
     for index, response_id in enumerate(payload.response_ids):
         response = by_id[response_id]
         treatments = "+".join(response.applied_treatments or []) or "untransformed"
+        condition_label = (
+            response.label[:200]
+            if response.origin == "manual_import" and response.label
+            else f"{response.provider}/{response.model_id} [{treatments}]"[:200]
+        )
         db.add(
             StudyCondition(
                 study_id=study.id,
                 # Researcher-facing label; never leaves the researcher API.
-                label=f"{response.provider}/{response.model_id} [{treatments}]",
+                label=condition_label,
                 response_id=response.id,
                 order_index=index,
             )
@@ -222,6 +228,62 @@ def rotate_token(study_id: str, db: Session = Depends(get_db)) -> Study:
 @router.get("/studies/{study_id}/results")
 def study_results(study_id: str, db: Session = Depends(get_db)) -> dict:
     return aggregate.study_results(db, _get_study(db, study_id))
+
+
+@router.post("/studies/{study_id}/proxy-evaluation", status_code=201)
+def run_proxy_evaluation(
+    study_id: str, payload: ProxyRunIn, db: Session = Depends(get_db)
+) -> dict:
+    """Audit answerability with a live model; never create participant records."""
+    study = _get_study(db, study_id)
+    try:
+        result = evaluate_study(
+            db, study, provider=payload.provider.value, model_id=payload.model_id
+        )
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    except ProviderError as exc:
+        db.commit()  # preserve model usage and error records
+        raise HTTPException(502, {"message": str(exc), "error_type": exc.error_type}) from exc
+
+    body = (
+        f"# AI proxy answerability audit — {study.name}\n\n"
+        f"Model: {payload.provider.value}/{payload.model_id}\n\n"
+        f"No-explanation baseline: {result['baseline_correct_count']}/{result['item_count']} "
+        "items already answered correctly.\n\n"
+        f"Diagnostic items: {result['diagnostic_item_count']}.\n\n"
+        + "\n".join(
+            f"- {condition['label']}: {condition['grounded_correct']}/{result['item_count']} "
+            "answers correct with a quote found in the text; "
+            f"{condition['diagnostic_grounded_correct']}/{result['diagnostic_item_count']} "
+            "on diagnostic items."
+            for condition in result["conditions"]
+        )
+        + f"\n\n**Limit:** {result['warning']}\n"
+    )
+    report = ResearchReport(
+        title=f"{study.name} — AI proxy audit",
+        kind="ai_proxy_answerability",
+        study_id=study.id,
+        body_markdown=body,
+        data=result,
+        contains_synthetic_data=False,
+    )
+    db.add(report)
+    db.commit()
+    return {"id": report.id, **result}
+
+
+@router.get("/studies/{study_id}/proxy-evaluation")
+def latest_proxy_evaluation(study_id: str, db: Session = Depends(get_db)) -> dict | None:
+    _get_study(db, study_id)
+    report = db.execute(
+        select(ResearchReport)
+        .where(ResearchReport.study_id == study_id)
+        .where(ResearchReport.kind == "ai_proxy_answerability")
+        .order_by(ResearchReport.created_at.desc(), ResearchReport.id.desc())
+    ).scalars().first()
+    return {"id": report.id, **report.data} if report else None
 
 
 @router.get("/studies/{study_id}/comparison")

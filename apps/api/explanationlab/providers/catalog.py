@@ -4,6 +4,7 @@ Verified against official provider documentation on **2026-10-22**:
 
 - OpenAI pricing/models: https://developers.openai.com/api/docs/pricing
 - Anthropic pricing/models: https://docs.anthropic.com/en/docs/about-claude/models
+- Gemini pricing/models: https://ai.google.dev/gemini-api/docs/pricing
 
 Two deliberate design choices:
 
@@ -189,7 +190,28 @@ OPENAI_SEEDS = [
     ),
 ]
 
-ALL_SEEDS = ANTHROPIC_SEEDS + OPENAI_SEEDS
+GEMINI_SEEDS = [
+    CatalogSeed(
+        provider=Provider.GEMINI.value,
+        model_id="gemini-3.5-flash-lite",
+        display_name="Gemini 3.5 Flash-Lite",
+        tier="economy",
+        input_cost_per_mtok=0.30,
+        output_cost_per_mtok=2.50,
+        context_window=None,
+        supports_temperature=True,
+        supports_effort=False,
+        supports_max_output_tokens=True,
+        supports_structured_output=True,
+        default_effort=None,
+        notes=(
+            "Google lists this text model on the API free tier, subject to project quotas. "
+            "Prices shown are paid-tier estimates; verify your project's billing tier."
+        ),
+    ),
+]
+
+ALL_SEEDS = ANTHROPIC_SEEDS + OPENAI_SEEDS + GEMINI_SEEDS
 
 # Fallback capabilities for a model ID discovered live but absent from the seed
 # list. Conservative: assume no sampling control, so we never send a parameter

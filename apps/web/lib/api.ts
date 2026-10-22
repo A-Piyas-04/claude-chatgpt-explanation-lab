@@ -71,7 +71,7 @@ export const api = {
 // Shared types (mirrors packages/shared-schemas/types.ts)
 // ---------------------------------------------------------------------------
 
-export type Provider = "openai" | "anthropic" | "manual";
+export type Provider = "openai" | "anthropic" | "gemini" | "manual";
 export type TreatmentKey = "T1" | "T2" | "T3" | "T4" | "T5" | "T6";
 export type EvidenceClass =
   | "automated_diagnostic"

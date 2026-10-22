@@ -9,7 +9,7 @@ import catalog from "./catalog.json";
 
 export { catalog };
 
-export type Provider = "openai" | "anthropic" | "manual";
+export type Provider = "openai" | "anthropic" | "gemini" | "manual";
 export type ExperimentType = "baseline" | "prompt_intervention" | "ablation" | "cross_model" | "human_study";
 export type ExperimentStatus = "draft" | "configured" | "running" | "completed" | "failed" | "evaluated" | "reported";
 export type ResponseKind = "source" | "transformed";

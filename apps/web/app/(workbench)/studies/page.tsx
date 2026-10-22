@@ -184,9 +184,11 @@ export default function StudiesPage() {
       />
 
       <Caveat tone="accent" className="mb-5">
-        Automated diagnostics and AI judge scores are useful for triage, but only measured learner
-        performance answers whether an explanation taught anything. Comprehension here is never
-        simulated with another model.
+        Start by <Link href="/compare" className="underline">importing real ChatGPT and Claude
+        answers in Comparison</Link>. Then build a study from those answers. On its <strong>AI
+        proxy</strong> tab, Gemini can check answerability without participants. The separate
+        participant link and <strong>Results</strong> tab measure human comprehension only when
+        real people submit answers. AI proxy scores do not count as human results.
       </Caveat>
 
       {building ? (
@@ -233,8 +235,8 @@ export default function StudiesPage() {
                 <Loading />
               ) : (responses.data ?? []).length < 2 ? (
                 <Caveat tone="warn">
-                  This question has fewer than two stored answers. Generate or transform more
-                  variants first.
+                  This question has fewer than two stored answers. Import real web-chat answers in
+                  Comparison, then return here.
                 </Caveat>
               ) : (
                 <div className="max-h-56 space-y-1.5 overflow-y-auto rounded-md border border-line bg-canvas px-3 py-2.5">

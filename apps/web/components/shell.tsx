@@ -77,8 +77,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
                 Demo mode
               </Badge>
             ) : (
-              <Badge tone="success" title="Live provider credentials are configured.">
-                Live
+              <Badge tone="success" title="Use a configured provider for live calls.">
+                {status?.provider_status.filter((provider) => provider.configured).map((provider) => provider.provider).join(", ")} live
               </Badge>
             )}
             <button
@@ -122,7 +122,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
               <span className="font-semibold">SYNTHETIC</span> for their whole lifetime and must
               never be reported as research findings. Add{" "}
               <code className="font-mono">OPENAI_API_KEY</code> or{" "}
-              <code className="font-mono">ANTHROPIC_API_KEY</code> to{" "}
+              <code className="font-mono">ANTHROPIC_API_KEY</code> or{" "}
+              <code className="font-mono">GEMINI_API_KEY</code> to{" "}
               <code className="font-mono">.env</code> and restart the API to run real experiments.
             </p>
           </div>

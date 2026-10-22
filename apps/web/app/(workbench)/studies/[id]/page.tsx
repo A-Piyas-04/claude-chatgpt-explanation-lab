@@ -110,6 +110,33 @@ interface SubmissionRow {
   }[];
 }
 
+interface ProxyEvaluation {
+  id: string;
+  evidence_class: "ai_proxy_answerability";
+  provider: string;
+  model_id: string;
+  item_count: number;
+  baseline_correct_count: number;
+  diagnostic_item_count: number;
+  estimated_cost_usd: number;
+  warning: string;
+  conditions: {
+    condition_id: string;
+    label: string;
+    grounded_correct: number;
+    diagnostic_grounded_correct: number;
+    items: {
+      item_id: string;
+      question: string;
+      correct: boolean;
+      quote_found: boolean;
+      grounded_correct: boolean;
+      baseline_correct: boolean;
+      evidence_quote: string;
+    }[];
+  }[];
+}
+
 export default function StudyDetailPage() {
   const params = useParams<{ id: string }>();
   const id = params.id;
@@ -117,6 +144,7 @@ export default function StudyDetailPage() {
   const models = useModels();
   const [tab, setTab] = React.useState("setup");
   const [aiGradeKey, setAiGradeKey] = React.useState("");
+  const [proxyKey, setProxyKey] = React.useState("");
   const [report, setReport] = React.useState<string | null>(null);
   const [copied, setCopied] = React.useState(false);
 
@@ -131,6 +159,10 @@ export default function StudyDetailPage() {
   const results = useQuery({
     queryKey: ["study-results", id],
     queryFn: () => api.get<StudyResults>(`studies/${id}/results`),
+  });
+  const proxy = useQuery({
+    queryKey: ["study-proxy", id],
+    queryFn: () => api.get<ProxyEvaluation | null>(`studies/${id}/proxy-evaluation`),
   });
 
   const setStatus = useMutation({
@@ -151,6 +183,14 @@ export default function StudyDetailPage() {
       );
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["study-submissions", id] }),
+  });
+
+  const runProxy = useMutation({
+    mutationFn: () => {
+      const { provider, model_id } = parseModelKey(proxyKey);
+      return api.post<ProxyEvaluation>(`studies/${id}/proxy-evaluation`, { provider, model_id });
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["study-proxy", id] }),
   });
 
   const makeReport = useMutation({
@@ -229,6 +269,7 @@ export default function StudyDetailPage() {
           { id: "setup", label: "Setup" },
           { id: "grading", label: "Grading", count: pendingGrading },
           { id: "results", label: "Results" },
+          { id: "proxy", label: "AI proxy" },
           { id: "report", label: "Report" },
         ]}
         active={tab}
@@ -464,6 +505,71 @@ export default function StudyDetailPage() {
         ) : (
           <StudyResultsView results={results.data!} />
         )
+      ) : null}
+
+      {tab === "proxy" ? (
+        <div className="space-y-5">
+          <Caveat tone="warn">
+            An AI proxy is not a participant. This audit checks whether Gemini can answer the
+            study questions with quotes from each explanation, and which questions it already
+            knew without reading anything. Its scores never enter human Results.
+          </Caveat>
+          <Card>
+            <CardHeader title="Run automated answerability audit" description="Requires 2–4 real answers and 1–10 multiple-choice items." />
+            <div className="flex flex-wrap items-end gap-3 px-4 py-3">
+              <Field label="Proxy model" className="min-w-[15rem]">
+                <Select value={proxyKey} onChange={(e) => setProxyKey(e.target.value)}>
+                  <option value="">Select…</option>
+                  {[...grouped.entries()].map(([provider, entries]) => (
+                    <optgroup key={provider} label={provider}>
+                      {entries.filter((model) => model.is_enabled).map((model) => (
+                        <option key={modelKey(model)} value={modelKey(model)}>{model.model_id}</option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </Select>
+              </Field>
+              <Button variant="primary" disabled={!proxyKey} loading={runProxy.isPending} onClick={() => runProxy.mutate()}>
+                Run AI proxy
+              </Button>
+            </div>
+            {runProxy.error ? <div className="px-4 pb-3"><ErrorState error={runProxy.error} /></div> : null}
+          </Card>
+          {proxy.data ? (
+            <Card>
+              <CardHeader title="Latest AI proxy result" description={`${proxy.data.provider}/${proxy.data.model_id} · estimated ${formatUsd(proxy.data.estimated_cost_usd)}`} />
+              <div className="space-y-4 px-4 py-4">
+                <Caveat tone="warn">{proxy.data.warning}</Caveat>
+                <p className="text-sm">
+                  Without any explanation, Gemini already answered {proxy.data.baseline_correct_count}/{proxy.data.item_count} items correctly.
+                  {proxy.data.diagnostic_item_count === 0 ? " No item can test added answerability in this audit; write harder, less familiar questions." : ` ${proxy.data.diagnostic_item_count} item(s) remain diagnostic.`}
+                </p>
+                <Table head={["Answer", "Correct with quote", "On diagnostic items"]}>
+                  {proxy.data.conditions.map((condition) => (
+                    <Tr key={condition.condition_id}>
+                      <Td>{condition.label}</Td>
+                      <Td>{condition.grounded_correct}/{proxy.data!.item_count}</Td>
+                      <Td>{condition.diagnostic_grounded_correct}/{proxy.data!.diagnostic_item_count}</Td>
+                    </Tr>
+                  ))}
+                </Table>
+                {proxy.data.conditions.map((condition) => (
+                  <Disclosure key={condition.condition_id} summary={`Inspect ${condition.label}`}>
+                    <ul className="space-y-2 text-xs">
+                      {condition.items.map((item) => (
+                        <li key={item.item_id}>
+                          <strong>{item.grounded_correct ? "Supported" : "Not supported"}</strong> · {item.question}
+                          {item.baseline_correct ? " · Gemini knew this without the text" : ""}
+                          {item.evidence_quote ? <p className="mt-1 italic">Quote: {item.evidence_quote}{item.quote_found ? "" : " (not found verbatim)"}</p> : null}
+                        </li>
+                      ))}
+                    </ul>
+                  </Disclosure>
+                ))}
+              </div>
+            </Card>
+          ) : null}
+        </div>
       ) : null}
 
       {tab === "report" ? (
