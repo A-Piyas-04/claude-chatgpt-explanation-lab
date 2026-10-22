@@ -222,6 +222,7 @@ explanationlab/
 | [`Docs/TRANSFORMATION_ENGINE.md`](Docs/TRANSFORMATION_ENGINE.md) | Every strategy, prompt, schema and fidelity check |
 | [`Docs/DATABASE_SCHEMA.md`](Docs/DATABASE_SCHEMA.md) | Entities and relationships |
 | [`Docs/USER_GUIDE.md`](Docs/USER_GUIDE.md) | Step-by-step for each experiment |
+| [`Docs/MANUAL_WORKFLOW.md`](Docs/MANUAL_WORKFLOW.md) | Running a real study with only web plans and no API key |
 | [`Docs/KNOWN_LIMITATIONS.md`](Docs/KNOWN_LIMITATIONS.md) | What this cannot do, and what is unfinished |
 
 ---
