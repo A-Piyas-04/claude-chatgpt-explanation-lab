@@ -20,7 +20,6 @@ from ..models import (
     ParticipantSubmission,
     Study,
     StudyAssignment,
-    utcnow,
 )
 
 

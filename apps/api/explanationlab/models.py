@@ -14,7 +14,7 @@ Two invariants the rest of the codebase relies on:
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import (
     JSON,
@@ -39,8 +39,8 @@ from .enums import (
     JobKind,
     JobStatus,
     LearnerLevel,
-    Provider,
     PromptCondition,
+    Provider,
     ResponseKind,
     ResponseOrigin,
     RunStatus,
@@ -53,7 +53,7 @@ def _uuid() -> str:
 
 
 def utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class TimestampMixin:

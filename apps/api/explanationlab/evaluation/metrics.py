@@ -302,6 +302,22 @@ def compute_metrics(text: str, *, factual_checklist: list[str] | None = None) ->
     }
 
 
+def _has_skipped_level(levels: list[int]) -> bool:
+    """True if the heading hierarchy jumps a level (e.g. H1 straight to H3).
+
+    A skipped level means the visual hierarchy does not match the conceptual
+    one, which is the "formatting that does not reveal structure" complaint.
+    """
+    if not levels:
+        return False
+    previous = levels[0]
+    for level in levels[1:]:
+        if level > previous + 1:
+            return True
+        previous = level
+    return False
+
+
 def _terminology_introduction(text: str, terms: list[str]) -> dict:
     """Is each candidate term explained near its first use?
 

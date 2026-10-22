@@ -6,12 +6,7 @@ database, and into the generated TypeScript catalogue consumed by the web app.
 
 from __future__ import annotations
 
-from enum import Enum
-
-
-class StrEnum(str, Enum):
-    def __str__(self) -> str:  # pragma: no cover - trivial
-        return self.value
+from enum import StrEnum
 
 
 class Provider(StrEnum):

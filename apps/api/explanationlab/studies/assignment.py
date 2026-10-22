@@ -20,7 +20,6 @@ from __future__ import annotations
 import hashlib
 import random
 import secrets
-from dataclasses import dataclass
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session

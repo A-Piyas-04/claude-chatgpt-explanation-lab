@@ -13,7 +13,7 @@ construction rather than by careful coding at the call site.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -39,7 +39,6 @@ from ..models import (
     ExperimentRun,
     FidelityReport,
     LearnerProfile,
-    ModelCatalogEntry,
     PromptVersion,
     ResearchQuestion,
     Response,
@@ -47,7 +46,7 @@ from ..models import (
     utcnow,
 )
 from ..prompts import registry as prompt_registry
-from ..providers.base import GenerationRequest, ProviderError
+from ..providers.base import GenerationRequest
 from ..providers.catalog import estimate_cost_usd
 from ..transformations.pipeline import (
     LearnerContext,
@@ -430,8 +429,8 @@ def create_experiment(db: Session, spec: ExperimentSpec) -> tuple[Experiment, di
         estimated_cost_usd=projection["estimated_cost_usd"],
         config={
             "spec": {
-                "source_models": [vars(m) for m in spec.source_models],
-                "transform_models": [vars(m) for m in spec.transform_models],
+                "source_models": [asdict(m) for m in spec.source_models],
+                "transform_models": [asdict(m) for m in spec.transform_models],
                 "prompt_template_keys": spec.prompt_template_keys,
                 "treatment_sets": spec.treatment_sets,
                 "base_prompt_key": spec.base_prompt_key,
@@ -773,7 +772,13 @@ def _store_metrics(db: Session, response: Response, question: ResearchQuestion |
         response.text,
         factual_checklist=list(question.factual_checklist or []) if question else [],
     )
-    db.merge(TextMetrics(response_id=response.id, metrics=metrics, metrics_version=metrics["metrics_version"]))
+    db.merge(
+        TextMetrics(
+            response_id=response.id,
+            metrics=metrics,
+            metrics_version=metrics["metrics_version"],
+        )
+    )
     db.flush()
 
 
