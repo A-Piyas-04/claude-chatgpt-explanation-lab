@@ -1,0 +1,247 @@
+{
+  "variant_response_id": "570175e4-7c91-4a8d-9539-1e80953ba6a0",
+  "text": "A B-tree index speeds up lookups by turning a scan of the whole table into a short walk down a tree.\n\nHow a B-tree index makes lookups faster\n\nWithout a B-tree index, finding a row by some column means reading every row, which is a full table scan. A full table scan is O(n). A B-tree keeps the indexed values in sorted order, organized as a shallow, wide tree.\n\nEach node is sized to fit a disk page, which is commonly 4 to 16 KB. Each node holds hundreds of keys. Each key has a pointer to a child node.\nA lookup starts at the root, binary-searches the keys in that root node to pick the right child, and repeats the process until the lookup reaches a leaf. The leaf holds the key and a pointer to the actual row, or in a clustered index, the leaf holds the row itself.\nBecause each node has such a high fan-out, meaning the number of child nodes per parent node is large, the tree stays very shallow. With approximately 500 keys per node, three levels address about 125 million entries, and four levels address about 60 billion. So a lookup costs O(log n) page reads, usually 3 to 4 page reads. The top levels are almost always cached in memory, so often only one or two page reads actually hit disk.\nSorted order also helps beyond exact matches. Range queries like BETWEEN, >, and <, ORDER BY, prefix matches like LIKE 'abc%', and min and max can all walk adjacent leaves. In most implementations, known as B+trees, adjacent leaves are linked together.\n\nWhat a B-tree index costs you\n\nSlower writes. Every INSERT and DELETE must update each B-tree index on the table. An UPDATE to an indexed column must remove and re-insert the entry. Each B-tree index adds extra page writes plus write-ahead log traffic.\nPage splits and fragmentation. When a node fills up, the node splits, which costs extra input and output operations. Random keys, like UUIDv4, scatter inserts across the B-tree index and cause more splits and cache misses than sequential keys. Over time, deletes and splits leave pages partly empty, so B-tree indexes can bloat and need rebuilding or vacuuming.\nStorage space. A B-tree index stores a copy of the indexed columns plus pointers. Wide or numerous B-tree indexes can rival or exceed the size of the table itself, and wide or numerous B-tree indexes compete with table data for buffer cache memory.\nMaintenance and planning overhead. More B-tree indexes mean longer bulk loads, longer backups and rebuilds, and more choices for the query planner, which can occasionally pick a poor plan. Unused B-tree indexes pay all the write costs and give nothing back.\nLimited usefulness in some cases. A B-tree index does not help when the query is not selective, meaning if a filter matches 30% of the table, a sequential scan is often faster. A B-tree index does not help when a function is applied to the column, such as WHERE lower(name) = ... without a matching expression index. A B-tree index does not help when a composite index is queried without its leading column.\n\nRule of thumb: B-tree indexes trade write speed and space for read speed. B-tree indexes pay off on columns that are frequently filtered, joined, or sorted on and are reasonably selective, and B-tree indexes hurt on write-heavy tables with many rarely used B-tree indexes.",
+  "applied_treatments": [
+    "T1"
+  ],
+  "treatment_order": [
+    "T1"
+  ],
+  "analysis": {
+    "main_topic": "B-tree database indexes, their performance benefits for lookups, and their costs",
+    "primary_claims": [
+      "A B-tree index reduces lookup complexity from O(n) full table scan to O(log n) tree traversal.",
+      "High fan-out and shallow trees mean very few page reads are needed to address billions of entries.",
+      "B-trees support range queries, order by, and prefix matches because leaf nodes are linked in sorted order.",
+      "Indexes slow down writes because every insertion, deletion, and update requires modifying the index and write-ahead log.",
+      "Page splits, fragmentation, storage space consumption, and maintenance overhead are major costs of maintaining indexes."
+    ],
+    "key_concepts": [
+      "B-tree index",
+      "Full table scan",
+      "Disk page",
+      "Root node",
+      "Leaf node",
+      "Fan-out",
+      "Clustered index",
+      "Page splits",
+      "Fragmentation",
+      "Buffer cache memory",
+      "Query planner",
+      "Composite index"
+    ],
+    "prerequisite_concepts": [
+      "Big O notation",
+      "Tree data structures",
+      "Disk storage and memory caching",
+      "Relational database tables and rows"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "full table scan",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "O(n)",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "disk page",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "root",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "leaf",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "clustered index",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "fan-out",
+        "explained_in_text": false,
+        "necessary": false
+      },
+      {
+        "term": "O(log n)",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "write-ahead log",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "UUIDv4",
+        "explained_in_text": false,
+        "necessary": false
+      },
+      {
+        "term": "buffer cache memory",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "query planner",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "composite index",
+        "explained_in_text": false,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "LIKE 'abc%'",
+      "UUIDv4",
+      "WHERE lower(name) = ..."
+    ],
+    "missing_intermediate_steps": [
+      "Detailed explanation of how binary search operates within a single disk page node during a traversal."
+    ],
+    "assumed_prior_knowledge": [
+      "Understanding of database operations like INSERT, DELETE, UPDATE, and SELECT",
+      "Basic knowledge of data structures (trees, nodes, leaves)",
+      "Familiarity with memory versus disk storage access times"
+    ],
+    "possible_confusions": [
+      "Assuming that B-trees speed up all queries regardless of selectivity or function usage",
+      "Confusing how clustered indexes store rows directly compared to non-clustered indexes using pointers"
+    ],
+    "ambiguous_references": [
+      "they (referring to B+trees linked leaves)"
+    ]
+  },
+  "plan": {
+    "learner_level": "intermediate",
+    "learning_objectives": [
+      "Understand how B-tree indexes reduce lookup time from O(n) to O(log n).",
+      "Explain the structural role of root, internal, and leaf nodes in a B-tree.",
+      "Identify the trade-offs and costs associated with maintaining B-tree indexes, including write overhead, storage space, and fragmentation."
+    ],
+    "prerequisite_order": [
+      "Relational database tables and rows",
+      "Basic knowledge of data structures (trees, nodes, leaves)",
+      "Disk storage and memory caching concepts",
+      "Big O notation (O(n) vs O(log n))"
+    ],
+    "explanation_sequence": [
+      "Introduce the problem of full table scans and O(n) lookup complexity.",
+      "Explain how a B-tree organizes sorted data into a shallow, wide tree structure.",
+      "Walk through a lookup traversal from root node to leaf node using disk pages.",
+      "Highlight why high fan-out leads to few page reads (O(log n)).",
+      "Discuss how sorted leaves enable range queries and order operations.",
+      "Examine the costs: slower writes, page splits, fragmentation, and storage overhead.",
+      "Provide a rule of thumb for when to use indexes."
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": true,
+    "needs_diagram": true,
+    "analogy_rationale": "An analogy comparing a B-tree index to a phone book or a non-fiction book index helps clarify how a multi-level tree avoids reading every single page.",
+    "detail_level": "thorough",
+    "techniques_not_needed": []
+  },
+  "fidelity": {
+    "verdict": "clean",
+    "warnings": [],
+    "numeric_drift": [],
+    "preserved_claims": [
+      "A B-tree keeps keys in sorted order so the database can narrow down to a row instead of scanning every row.",
+      "Each step down the tree removes a large share of the remaining rows, so lookups take roughly logarithmic time.",
+      "The index must be updated on every insert, update, and delete, which makes writes slower.",
+      "The index takes up extra storage space in addition to the table itself."
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewrite successfully preserves all technical details, quantities, caveats, and structure of the original explanation without introducing any warnings or factual alterations.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 0,
+    "llm_warning_count": 0,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T1",
+      "name": "Vocabulary and sentence clarification",
+      "stats": {
+        "words_before": 490,
+        "words_after": 572,
+        "word_delta": 82,
+        "sentences_before": 27,
+        "sentences_after": 37,
+        "avg_sentence_words_before": 18.15,
+        "avg_sentence_words_after": 15.46,
+        "headings_added": 0,
+        "list_items_added": 0,
+        "table_rows_added": 0,
+        "word_similarity": 0.8098
+      },
+      "unified_diff": "--- T1:before\n+++ T1:after\n@@ -1,20 +1,20 @@\n A B-tree index speeds up lookups by turning a scan of the whole table into a short walk down a tree.\n \n-How it makes lookups faster\n+How a B-tree index makes lookups faster\n \n-Without an index, finding a row by some column means reading every row (a full table scan), which is O(n). A B-tree keeps the indexed values in sorted order, organized as a shallow, wide tree:\n+Without a B-tree index, finding a row by some column means reading every row, which is a full table scan. A full table scan is O(n). A B-tree keeps the indexed values in sorted order, organized as a shallow, wide tree.\n \n-Each node is sized to fit a disk page (commonly 4-16 KB) and holds hundreds of keys, each with a pointer to a child node.\n-A lookup starts at the root, binary-searches the keys in that node to pick the right child, and repeats until it reaches a leaf. The leaf holds the key and a pointer to the actual row (or, in a clustered index, the row itself).\n-Because each node has such a high fan-out, the tree stays very shallow. With ~500 keys per node, three levels address about 125 million entries and four levels address about 60 billion. So a lookup costs O(log n) page reads, usually 3-4, and the top levels are almost always cached in memory, so often only one or two reads actually hit disk.\n-Sorted order also helps beyond exact matches. Range queries (BETWEEN, >, <), ORDER BY, prefix matches (LIKE 'abc%'), and min/max can all walk adjacent leaves, which in most implementations (B+trees) are linked together.\n+Each node is sized to fit a disk page, which is commonly 4 to 16 KB. Each node holds hundreds of keys. Each key has a pointer to a child node.\n+A lookup starts at the root, binary-searches the keys in that root node to pick the right child, and repeats the process until the lookup reaches a leaf. The leaf holds the key and a pointer to the actual row, or in a clustered index, the leaf holds the row itself.\n+Because each node has such a high fan-out, meaning the number of child nodes per parent node is large, the tree stays very shallow. With approximately 500 keys per node, three levels address about 125 million entries, and four levels address about 60 billion. So a lookup costs O(log n) page reads, usually 3 to 4 page reads. The top levels are almost always cached in memory, so often only one or two page reads actually hit disk.\n+Sorted order also helps beyond exact matches. Range queries like BETWEEN, >, and <, ORDER BY, prefix matches like LIKE 'abc%', and min and max can all walk adjacent leaves. In most implementations, known as B+trees, adjacent leaves are linked together.\n \n-What it costs you\n+What a B-tree index costs you\n \n-Slower writes. Every INSERT and DELETE must update each index on the table, and an UPDATE to an indexed column must remove and re-insert the entry. Each index adds extra page writes plus write-ahead log traffic.\n-Page splits and fragmentation. When a node fills up, it splits, which costs extra I/O. Random keys (like UUIDv4) scatter inserts across the tree and cause more splits and cache misses than sequential keys. Over time, deletes and splits leave pages partly empty, so indexes can bloat and need rebuilding or vacuuming.\n-Storage space. An index stores a copy of the indexed columns plus pointers. Wide or numerous indexes can rival or exceed the size of the table itself, and they compete with table data for buffer cache memory.\n-Maintenance and planning overhead. More indexes mean longer bulk loads, longer backups and rebuilds, and more choices for the query planner, which can occasionally pick a poor plan. Unused indexes pay all the write costs and give nothing back.\n-Limited usefulness in some cases. A B-tree doesn’t help when the query isn’t selective (if a filter matches 30% of the table, a sequential scan is often faster), when a function is applied to the column (WHERE lower(name) = ... without a matching expression index), or when a composite index is queried without its leading column.\n+Slower writes. Every INSERT and DELETE must update each B-tree index on the table. An UPDATE to an indexed column must remove and re-insert the entry. Each B-tree index adds extra page writes plus write-ahead log traffic.\n+Page splits and fragmentation. When a node fills up, the node splits, which costs extra input and output operations. Random keys, like UUIDv4, scatter inserts across the B-tree index and cause more splits and cache misses than sequential keys. Over time, deletes and splits leave pages partly empty, so B-tree indexes can bloat and need rebuilding or vacuuming.\n+Storage space. A B-tree index stores a copy of the indexed columns plus pointers. Wide or numerous B-tree indexes can rival or exceed the size of the table itself, and wide or numerous B-tree indexes compete with table data for buffer cache memory.\n+Maintenance and planning overhead. More B-tree indexes mean longer bulk loads, longer backups and rebuilds, and more choices for the query planner, which can occasionally pick a poor plan. Unused B-tree indexes pay all the write costs and give nothing back.\n+Limited usefulness in some cases. A B-tree index does not help when the query is not selective, meaning if a filter matches 30% of the table, a sequential scan is often faster. A B-tree index does not help when a function is applied to the column, such as WHERE lower(name) = ... without a matching expression index. A B-tree index does not help when a composite index is queried without its leading column.\n \n-Rule of thumb: indexes trade write speed and space for read speed, so they pay off on columns that are frequently filtered, joined, or sorted on and are reasonably selective, and they hurt on write-heavy tables with many rarely used indexes.\n+Rule of thumb: B-tree indexes trade write speed and space for read speed. B-tree indexes pay off on columns that are frequently filtered, joined, or sorted on and are reasonably selective, and B-tree indexes hurt on write-heavy tables with many rarely used B-tree indexes.",
+      "text_after": "A B-tree index speeds up lookups by turning a scan of the whole table into a short walk down a tree.\n\nHow a B-tree index makes lookups faster\n\nWithout a B-tree index, finding a row by some column means reading every row, which is a full table scan. A full table scan is O(n). A B-tree keeps the indexed values in sorted order, organized as a shallow, wide tree.\n\nEach node is sized to fit a disk page, which is commonly 4 to 16 KB. Each node holds hundreds of keys. Each key has a pointer to a child node.\nA lookup starts at the root, binary-searches the keys in that root node to pick the right child, and repeats the process until the lookup reaches a leaf. The leaf holds the key and a pointer to the actual row, or in a clustered index, the leaf holds the row itself.\nBecause each node has such a high fan-out, meaning the number of child nodes per parent node is large, the tree stays very shallow. With approximately 500 keys per node, three levels address about 125 million entries, and four levels address about 60 billion. So a lookup costs O(log n) page reads, usually 3 to 4 page reads. The top levels are almost always cached in memory, so often only one or two page reads actually hit disk.\nSorted order also helps beyond exact matches. Range queries like BETWEEN, >, and <, ORDER BY, prefix matches like LIKE 'abc%', and min and max can all walk adjacent leaves. In most implementations, known as B+trees, adjacent leaves are linked together.\n\nWhat a B-tree index costs you\n\nSlower writes. Every INSERT and DELETE must update each B-tree index on the table. An UPDATE to an indexed column must remove and re-insert the entry. Each B-tree index adds extra page writes plus write-ahead log traffic.\nPage splits and fragmentation. When a node fills up, the node splits, which costs extra input and output operations. Random keys, like UUIDv4, scatter inserts across the B-tree index and cause more splits and cache misses than sequential keys. Over time, deletes and splits leave pages partly empty, so B-tree indexes can bloat and need rebuilding or vacuuming.\nStorage space. A B-tree index stores a copy of the indexed columns plus pointers. Wide or numerous B-tree indexes can rival or exceed the size of the table itself, and wide or numerous B-tree indexes compete with table data for buffer cache memory.\nMaintenance and planning overhead. More B-tree indexes mean longer bulk loads, longer backups and rebuilds, and more choices for the query planner, which can occasionally pick a poor plan. Unused B-tree indexes pay all the write costs and give nothing back.\nLimited usefulness in some cases. A B-tree index does not help when the query is not selective, meaning if a filter matches 30% of the table, a sequential scan is often faster. A B-tree index does not help when a function is applied to the column, such as WHERE lower(name) = ... without a matching expression index. A B-tree index does not help when a composite index is queried without its leading column.\n\nRule of thumb: B-tree indexes trade write speed and space for read speed. B-tree indexes pay off on columns that are frequently filtered, joined, or sorted on and are reasonably selective, and B-tree indexes hurt on write-heavy tables with many rarely used B-tree indexes."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1420,
+      "output_tokens": 938,
+      "latency_ms": 5094,
+      "cost_usd": 0.002771,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2261,
+      "output_tokens": 393,
+      "latency_ms": 2088,
+      "cost_usd": 0.001661,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T1 — Vocabulary and sentence clarification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1265,
+      "output_tokens": 748,
+      "latency_ms": 4703,
+      "cost_usd": 0.002249,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2507,
+      "output_tokens": 160,
+      "latency_ms": 3787,
+      "cost_usd": 0.001152,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.007833,
+  "is_synthetic": false,
+  "control_limitations": []
+}

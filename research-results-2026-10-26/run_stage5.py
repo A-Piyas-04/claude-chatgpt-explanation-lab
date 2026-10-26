@@ -63,7 +63,7 @@ def main() -> None:
         bases = list(conn.execute("""
             SELECT r.id, r.provider, q.id AS question_id
             FROM responses r JOIN research_questions q ON q.id = r.question_id
-            WHERE trim(q.topic) = ? AND r.origin = 'manual_import'
+            WHERE trim(q.topic, ' ' || char(9)) = ? AND r.origin = 'manual_import'
               AND lower(r.label) LIKE '%base%' AND r.is_synthetic = 0
             ORDER BY r.provider DESC
         """, (topic,)))
