@@ -3,6 +3,8 @@ caching,chatgpt,gpt-6-luna,gemini-3.5-flash-lite,T2,7ac6680a-25b1-4216-b8d9-d583
 caching,claude,claude-sonnet-5-5,gemini-3.5-flash-lite,T2,7ecd8f9f-d2e8-418f-8f96-dee096278d2a,2b2760c8-88b7-4b88-a0c8-610b7d45d518,clean,,462,462,0,19.25,19.25,3,3,0.006798,transform-caching-claude-T2.json
 databases,chatgpt,gpt-6-luna,gemini-3.5-flash-lite,T2,fe4b2942-b26f-4bc3-bef3-df0640e69137,75a65eec-d3a4-4575-8442-5e1e4b418544,clean,,595,595,0,15.26,15.26,3,3,0.00863,transform-databases-chatgpt-T2.json
 databases,claude,claude-sonnet-5-5,gemini-3.5-flash-lite,T2,41e2edb9-7232-46f7-baeb-4efbcdc058b7,e52c37c9-8fbf-49a9-8fba-cc269ad31278,clean,,488,488,0,18.07,18.07,3,3,0.008449,transform-databases-claude-T2.json
+tcp,chatgpt,gpt-6-luna,gemini-3.5-flash-lite,T2,4ffa3cbb-1e8d-4a46-ad5d-69e476710992,801d6936-0c69-4448-b8ec-bca863a38c8c,serious_concerns,numeric_change,762,833,71,12.29,13.22,4,4,0.009049,transform-tcp-chatgpt-T2.json
+tcp,claude,claude-sonnet-5-5,gemini-3.5-flash-lite,T2,3cfaae4b-bf68-4beb-9eef-a00f8f92bce1,497782e3-bcd3-45a7-a4a6-6982604a205b,clean,,493,598,105,18.96,22.15,4,4,0.007902,transform-tcp-claude-T2.json
 immunology,chatgpt,gpt-6-luna,gemini-3.5-flash-lite,T2,77fa0bb5-fe74-4069-b4ce-c01aed582d0f,8b8649cf-3149-42ea-8359-33764409b5de,clean,,601,601,0,14.66,14.66,3,3,0.007957,transform-immunology-chatgpt-T2.json
 immunology,claude,claude-sonnet-5-5,gemini-3.5-flash-lite,T2,0f26480d-7a72-4396-8964-0f189a6a59fd,20065d60-4b1b-4b8d-9800-e74020c5927c,clean,,437,475,38,17.48,19.0,2,3,0.008374,transform-immunology-claude-T2.json
 interest,chatgpt,gpt-6-luna,gemini-3.5-flash-lite,T2,fb628255-20fd-4e30-b898-169bff702874,6a65a6cd-203b-4c57-886d-db9648994959,clean,,376,376,0,9.17,9.17,3,3,0.007267,transform-interest-chatgpt-T2.json

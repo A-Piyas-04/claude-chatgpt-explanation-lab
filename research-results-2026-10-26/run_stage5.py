@@ -73,8 +73,11 @@ def main() -> None:
         for author in ("chatgpt", "claude"):
             path = OUT / f"transform-{topic}-{author}-{treatment}.json"
             result = json.loads(path.read_text(encoding="utf-8"))
-            assert result["fidelity"]["verdict"] == "clean", (topic, author, "variant is not clean")
-            variants[author] = result["variant_response_id"]
+            if result["fidelity"]["verdict"] == "clean":
+                variants[author] = result["variant_response_id"]
+            else:
+                print(topic, author, "excluded from study:", result["fidelity"]["verdict"], flush=True)
+        assert variants, (topic, "no clean transformed variant")
         config_path = OUT / f"study-{topic}-config.json"
         if config_path.exists():
             config = json.loads(config_path.read_text(encoding="utf-8"))
@@ -85,8 +88,7 @@ def main() -> None:
                 "response_ids": [
                     by_author["chatgpt"]["id"],
                     by_author["claude"]["id"],
-                    variants["chatgpt"],
-                    variants["claude"],
+                    *[variants[author] for author in ("chatgpt", "claude") if author in variants],
                 ],
                 "items": shuffled_items(topic, bank[topic], index),
                 "seed": 20261026 + index,
