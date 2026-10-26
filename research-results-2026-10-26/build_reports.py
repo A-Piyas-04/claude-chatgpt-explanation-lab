@@ -142,7 +142,7 @@ def build_stage4(conn: sqlite3.Connection, treatment: str) -> list[dict]:
             bw, bs, bc = short_metrics(baseline)
             files = (
                 ("gemini-3.5-flash-lite", OUT / f"transform-{topic}-{author}-{treatment}.json"),
-                ("gemini-3.5-flash", OUT / f"cross-{topic}-{author}-{treatment}-gemini-3.5-flash.json"),
+                ("gemini-3.1-flash-lite", OUT / f"cross-{topic}-{author}-{treatment}-gemini-3.1-flash-lite.json"),
             )
             for rewriter, path in files:
                 if not path.exists():
@@ -183,7 +183,7 @@ def build_stage4(conn: sqlite3.Connection, treatment: str) -> list[dict]:
         "| Rewriter | Cells | Clean | Warnings | Serious concerns | Median word change |",
         "| --- | ---: | ---: | ---: | ---: | ---: |",
     ]
-    for rewriter in ("gemini-3.5-flash-lite", "gemini-3.5-flash"):
+    for rewriter in ("gemini-3.5-flash-lite", "gemini-3.1-flash-lite"):
         group = by_rewriter[rewriter]
         counts = Counter(row["fidelity_verdict"] for row in group)
         median = statistics.median([row["word_delta"] for row in group]) if group else 0
@@ -196,7 +196,7 @@ def build_stage4(conn: sqlite3.Connection, treatment: str) -> list[dict]:
         "",
         "Any change can reflect the treatment, the rewriter, a second pass, or their interaction. The all-5/5 Gemini judge cannot rank these outputs, and no human comprehension outcome was collected. The CSV supports matched descriptive comparisons and fidelity screening, not a causal portability claim.",
         "",
-        "The app has no catalogue price for `gemini-3.5-flash`; its zero cost estimate in raw results means **unestimated**, not free.",
+        "The app has no catalogue price for `gemini-3.1-flash-lite`; its zero cost estimate in raw results means **unestimated**, not free.",
         "",
     ]
     (OUT / "experiment-4-report.md").write_text("\n".join(lines), encoding="utf-8")

@@ -18,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(__file__).resolve().parent
 API = "http://localhost:3000/api/proxy"
-MODEL = "gemini-3.5-flash"
+MODEL = "gemini-3.1-flash-lite"
 
 
 def main() -> None:
@@ -39,7 +39,7 @@ def main() -> None:
     for source in sources:
         topic = source["topic"].strip()
         author = "chatgpt" if source["provider"] == "openai" else "claude"
-        path = OUT / f"cross-{topic}-{author}-{treatment}-gemini-3.5-flash.json"
+        path = OUT / f"cross-{topic}-{author}-{treatment}-{MODEL}.json"
         if path.exists():
             print(topic, author, "already saved", flush=True)
             continue
