@@ -1,0 +1,55 @@
+{
+  "name": "AI proxy - tcp - baselines vs T2",
+  "question_id": "de0e80af-c6f5-488c-afd6-4c3086098001",
+  "response_ids": [
+    "4ffa3cbb-1e8d-4a46-ad5d-69e476710992",
+    "3cfaae4b-bf68-4beb-9eef-a00f8f92bce1",
+    "497782e3-bcd3-45a7-a4a6-6982604a205b"
+  ],
+  "items": [
+    {
+      "format": "multiple_choice",
+      "dimension": "A_immediate_comprehension",
+      "prompt": "Which message starts the TCP three-way handshake?",
+      "options": [
+        "SYN-ACK",
+        "SYN",
+        "ACK"
+      ],
+      "correct_option_index": 1,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "B_mechanistic_understanding",
+      "prompt": "What does the server's SYN-ACK do?",
+      "options": [
+        "Only closes the connection",
+        "Acknowledges the client's sequence number and sends the server's sequence number",
+        "Acknowledges the server's own number without replying to the client"
+      ],
+      "correct_option_index": 1,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "C_transfer",
+      "prompt": "After receiving the server's SYN-ACK, which message confirms the server's starting sequence number?",
+      "options": [
+        "No further message",
+        "A second server SYN",
+        "The client's final ACK"
+      ],
+      "correct_option_index": 2,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    }
+  ],
+  "seed": 20261028,
+  "balance_conditions": true
+}

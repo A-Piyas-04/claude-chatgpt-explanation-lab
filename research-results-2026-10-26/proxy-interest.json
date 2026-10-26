@@ -1,0 +1,195 @@
+{
+  "id": "6478feb2-b28c-4ed2-8fe0-4716efe2ea17",
+  "evidence_class": "ai_proxy_answerability",
+  "provider": "gemini",
+  "model_id": "gemini-3.5-flash-lite",
+  "study_id": "c88e17e4-fd06-4ce0-9cb5-ee1a771e4386",
+  "item_count": 3,
+  "baseline_correct_count": 3,
+  "diagnostic_item_count": 0,
+  "conditions": [
+    {
+      "condition_id": "5f1136f8-a2f2-4d94-ada4-6dcc18bf3700",
+      "label": "chatgpt - base",
+      "response_id": "fb628255-20fd-4e30-b898-169bff702874",
+      "items": [
+        {
+          "item_id": "ef30d881-9076-4226-b422-5ecfa88f5f5e",
+          "dimension": "A_immediate_comprehension",
+          "question": "What amount is simple interest calculated on each period?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "simple interest is calculated only on your original money",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "9b2a344b-2a05-495c-ae7e-1805ef1e7599",
+          "dimension": "B_mechanistic_understanding",
+          "question": "What makes compound interest grow faster than simple interest over time?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "Compound interest earns money on your original money and on the money your money has already earned.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "9f809dcb-b97f-4a0d-a38d-92bd8b488960",
+          "dimension": "C_transfer",
+          "question": "At the same positive rate and starting principal, why does the compound-interest balance pull farther ahead over repeated periods?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "Each year's interest is calculated on an increasingly larger balance.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "cff02618-ece1-4f32-a2b0-cfc9924848a3",
+      "label": "claude - base",
+      "response_id": "1183e608-2143-4cc2-b81e-0755c4fc29cf",
+      "items": [
+        {
+          "item_id": "ef30d881-9076-4226-b422-5ecfa88f5f5e",
+          "dimension": "A_immediate_comprehension",
+          "question": "What amount is simple interest calculated on each period?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "Simple interest is calculated only on your original amount (the principal).",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "9b2a344b-2a05-495c-ae7e-1805ef1e7599",
+          "dimension": "B_mechanistic_understanding",
+          "question": "What makes compound interest grow faster than simple interest over time?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "Compound interest is calculated on the principal plus all the interest you’ve already earned, so interest earns interest.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "9f809dcb-b97f-4a0d-a38d-92bd8b488960",
+          "dimension": "C_transfer",
+          "question": "At the same positive rate and starting principal, why does the compound-interest balance pull farther ahead over repeated periods?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "Compound interest grows by a fixed percentage of an ever-larger balance, which is an exponential curve.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "770315e1-646d-4ce8-98f8-5c9a3da688c7",
+      "label": "gemini/gemini-3.5-flash-lite [T2]",
+      "response_id": "6a65a6cd-203b-4c57-886d-db9648994959",
+      "items": [
+        {
+          "item_id": "ef30d881-9076-4226-b422-5ecfa88f5f5e",
+          "dimension": "A_immediate_comprehension",
+          "question": "What amount is simple interest calculated on each period?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "simple interest is calculated only on your original money",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "9b2a344b-2a05-495c-ae7e-1805ef1e7599",
+          "dimension": "B_mechanistic_understanding",
+          "question": "What makes compound interest grow faster than simple interest over time?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "Compound interest earns money on your original money and on the money your money has already earned.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "9f809dcb-b97f-4a0d-a38d-92bd8b488960",
+          "dimension": "C_transfer",
+          "question": "At the same positive rate and starting principal, why does the compound-interest balance pull farther ahead over repeated periods?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "Each year's interest is calculated on an increasingly larger balance.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "8cb91c22-670c-44a0-aae1-523e37f06e71",
+      "label": "gemini/gemini-3.5-flash-lite [T2]",
+      "response_id": "0a31de56-9c29-4a4f-bb13-6412dbc164d0",
+      "items": [
+        {
+          "item_id": "ef30d881-9076-4226-b422-5ecfa88f5f5e",
+          "dimension": "A_immediate_comprehension",
+          "question": "What amount is simple interest calculated on each period?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "Simple interest is calculated only on your original amount (the principal).",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "9b2a344b-2a05-495c-ae7e-1805ef1e7599",
+          "dimension": "B_mechanistic_understanding",
+          "question": "What makes compound interest grow faster than simple interest over time?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "Compound interest is calculated on the principal plus all the interest you’ve already earned, so interest earns interest.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "9f809dcb-b97f-4a0d-a38d-92bd8b488960",
+          "dimension": "C_transfer",
+          "question": "At the same positive rate and starting principal, why does the compound-interest balance pull farther ahead over repeated periods?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "Compound interest grows by a fixed percentage of an ever-larger balance, which is an exponential curve.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    }
+  ],
+  "estimated_cost_usd": 0.004566,
+  "contains_synthetic_data": false,
+  "warning": "Gemini is an AI proxy, not a human learner. Correct answers can come from prior model knowledge. The no-explanation baseline flags those items. Exact quote matching checks textual support, not understanding. These scores must never be reported as human comprehension."
+}

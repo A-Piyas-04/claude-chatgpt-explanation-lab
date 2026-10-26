@@ -1,0 +1,150 @@
+{
+  "id": "a7a07454-6e44-4abe-a99b-a06403171087",
+  "evidence_class": "ai_proxy_answerability",
+  "provider": "gemini",
+  "model_id": "gemini-3.5-flash-lite",
+  "study_id": "4d3465b9-03dd-4ca7-b8db-932a333073a6",
+  "item_count": 3,
+  "baseline_correct_count": 3,
+  "diagnostic_item_count": 0,
+  "conditions": [
+    {
+      "condition_id": "1366e57e-9552-41f6-8580-fe8f6cccc1cf",
+      "label": "chatgpt - base",
+      "response_id": "4ffa3cbb-1e8d-4a46-ad5d-69e476710992",
+      "items": [
+        {
+          "item_id": "9ba93263-5218-4e0a-b1cf-593c1af62fb2",
+          "dimension": "A_immediate_comprehension",
+          "question": "Which message starts the TCP three-way handshake?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "TCP uses three messages: SYN, SYN-ACK, and ACK.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "19282612-ad31-4140-8ec7-f2fc82c98c4e",
+          "dimension": "B_mechanistic_understanding",
+          "question": "What does the server's SYN-ACK do?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "The server acknowledges the client's SYN by sending Ack = 101 and sends its own SYN with sequence number 500.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "842f7487-de9f-4250-982c-0af1dc07b4c0",
+          "dimension": "C_transfer",
+          "question": "After receiving the server's SYN-ACK, which message confirms the server's starting sequence number?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "The final ACK tells the server that the client received its SYN.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "c9f3201a-d2c9-4933-96b5-1c23fef6e9b0",
+      "label": "claude - base",
+      "response_id": "3cfaae4b-bf68-4beb-9eef-a00f8f92bce1",
+      "items": [
+        {
+          "item_id": "9ba93263-5218-4e0a-b1cf-593c1af62fb2",
+          "dimension": "A_immediate_comprehension",
+          "question": "Which message starts the TCP three-way handshake?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "SYN (client → server): The client sends a segment with the SYN flag set and its own initial sequence number, say x.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "19282612-ad31-4140-8ec7-f2fc82c98c4e",
+          "dimension": "B_mechanistic_understanding",
+          "question": "What does the server's SYN-ACK do?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "The server replies with both SYN and ACK set. The ACK field is x+1, confirming it received the client’s SYN... The segment also carries the server’s own initial sequence number, y.",
+          "quote_found": false,
+          "grounded_correct": false,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "842f7487-de9f-4250-982c-0af1dc07b4c0",
+          "dimension": "C_transfer",
+          "question": "After receiving the server's SYN-ACK, which message confirms the server's starting sequence number?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "ACK (client → server): The client sends a segment with ACK set and acknowledgment number y+1.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 2,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "fca65887-0a7d-4fae-813f-8ed1107b9ccf",
+      "label": "gemini/gemini-3.5-flash-lite [T2]",
+      "response_id": "497782e3-bcd3-45a7-a4a6-6982604a205b",
+      "items": [
+        {
+          "item_id": "9ba93263-5218-4e0a-b1cf-593c1af62fb2",
+          "dimension": "A_immediate_comprehension",
+          "question": "Which message starts the TCP three-way handshake?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "SYN (client → server): The client sends a segment with the SYN flag set and its own initial sequence number, say x.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "19282612-ad31-4140-8ec7-f2fc82c98c4e",
+          "dimension": "B_mechanistic_understanding",
+          "question": "What does the server's SYN-ACK do?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "The server replies with both SYN and ACK set. The ACK field is x+1, confirming it received the client’s SYN... The segment also carries the server’s own initial sequence number, y.",
+          "quote_found": false,
+          "grounded_correct": false,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "842f7487-de9f-4250-982c-0af1dc07b4c0",
+          "dimension": "C_transfer",
+          "question": "After receiving the server's SYN-ACK, which message confirms the server's starting sequence number?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "The client sends a segment with ACK set and acknowledgment number y+1.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 2,
+      "diagnostic_grounded_correct": 0
+    }
+  ],
+  "estimated_cost_usd": 0.004001,
+  "contains_synthetic_data": false,
+  "warning": "Gemini is an AI proxy, not a human learner. Correct answers can come from prior model knowledge. The no-explanation baseline flags those items. Exact quote matching checks textual support, not understanding. These scores must never be reported as human comprehension."
+}

@@ -1,0 +1,195 @@
+{
+  "id": "9775e600-82e6-4e82-8053-3b4de61715f7",
+  "evidence_class": "ai_proxy_answerability",
+  "provider": "gemini",
+  "model_id": "gemini-3.5-flash-lite",
+  "study_id": "05d3026b-119d-47cc-a09e-3b9dc40610ae",
+  "item_count": 3,
+  "baseline_correct_count": 3,
+  "diagnostic_item_count": 0,
+  "conditions": [
+    {
+      "condition_id": "90c9eb30-51f6-4de4-b4e8-8b468d2a23f6",
+      "label": "chatgpt - base",
+      "response_id": "77fa0bb5-fe74-4069-b4ce-c01aed582d0f",
+      "items": [
+        {
+          "item_id": "b2421d2e-0bf8-474b-bd18-f9bf6b96a3ca",
+          "dimension": "A_immediate_comprehension",
+          "question": "What does a vaccine present so the immune system can learn to recognize a pathogen?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "A vaccine trains your immune system by showing it a safe version or piece of a pathogen so it can learn to recognize and fight the real one later.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "a7c75a37-537c-4853-a232-a7e2d4b4c7ac",
+          "dimension": "B_mechanistic_understanding",
+          "question": "Which cells can remain after the initial vaccine response and help with later recognition?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "Some activated B and T cells become long-lived memory cells.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "115c77c2-6c54-451a-bea6-5171be4b7e2f",
+          "dimension": "C_transfer",
+          "question": "On a later encounter with the real pathogen, what role do immune memory cells play?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "If the real pathogen enters later, these cells help the immune system respond more quickly and effectively.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "73359c21-b394-4149-b308-5d3547d3d942",
+      "label": "claude - base",
+      "response_id": "0f26480d-7a72-4396-8964-0f189a6a59fd",
+      "items": [
+        {
+          "item_id": "b2421d2e-0bf8-474b-bd18-f9bf6b96a3ca",
+          "dimension": "A_immediate_comprehension",
+          "question": "What does a vaccine present so the immune system can learn to recognize a pathogen?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "A vaccine works by showing your immune system a safe preview of a pathogen, so it can build a response in advance without you ever getting sick.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "a7c75a37-537c-4853-a232-a7e2d4b4c7ac",
+          "dimension": "B_mechanistic_understanding",
+          "question": "Which cells can remain after the initial vaccine response and help with later recognition?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "After the response winds down, long-lived memory B and T cells remain, sometimes for decades.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "115c77c2-6c54-451a-bea6-5171be4b7e2f",
+          "dimension": "C_transfer",
+          "question": "On a later encounter with the real pathogen, what role do immune memory cells play?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "Instead of the slow first-time response, which can take over a week and gives the pathogen a head start, your body responds within hours to days, producing large amounts of antibodies and killer T cells quickly.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "a287851a-e0df-41a3-8917-f366bf20276d",
+      "label": "gemini/gemini-3.5-flash-lite [T2]",
+      "response_id": "8b8649cf-3149-42ea-8359-33764409b5de",
+      "items": [
+        {
+          "item_id": "b2421d2e-0bf8-474b-bd18-f9bf6b96a3ca",
+          "dimension": "A_immediate_comprehension",
+          "question": "What does a vaccine present so the immune system can learn to recognize a pathogen?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "A vaccine trains your immune system by showing it a safe version or piece of a pathogen so it can learn to recognize and fight the real one later.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "a7c75a37-537c-4853-a232-a7e2d4b4c7ac",
+          "dimension": "B_mechanistic_understanding",
+          "question": "Which cells can remain after the initial vaccine response and help with later recognition?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "Some activated B and T cells become long-lived memory cells.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "115c77c2-6c54-451a-bea6-5171be4b7e2f",
+          "dimension": "C_transfer",
+          "question": "On a later encounter with the real pathogen, what role do immune memory cells play?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "If the real pathogen enters later, these cells help the immune system respond more quickly and effectively.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "6e1def2f-9820-4b21-b972-63ae42f37a26",
+      "label": "gemini/gemini-3.5-flash-lite [T2]",
+      "response_id": "20065d60-4b1b-4b8d-9800-e74020c5927c",
+      "items": [
+        {
+          "item_id": "b2421d2e-0bf8-474b-bd18-f9bf6b96a3ca",
+          "dimension": "A_immediate_comprehension",
+          "question": "What does a vaccine present so the immune system can learn to recognize a pathogen?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "A vaccine works by showing your immune system a safe preview of a pathogen, so it can build a response in advance without you ever getting sick.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "a7c75a37-537c-4853-a232-a7e2d4b4c7ac",
+          "dimension": "B_mechanistic_understanding",
+          "question": "Which cells can remain after the initial vaccine response and help with later recognition?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "After the response winds down, long-lived memory B and T cells remain, sometimes for decades.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "115c77c2-6c54-451a-bea6-5171be4b7e2f",
+          "dimension": "C_transfer",
+          "question": "On a later encounter with the real pathogen, what role do immune memory cells play?",
+          "selected_option_index": 0,
+          "correct_option_index": 0,
+          "correct": true,
+          "evidence_quote": "Instead of the slow first-time response, which can take over a week and gives the pathogen a head start, your body responds within hours to days, producing large amounts of antibodies and killer T cells quickly.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    }
+  ],
+  "estimated_cost_usd": 0.005052,
+  "contains_synthetic_data": false,
+  "warning": "Gemini is an AI proxy, not a human learner. Correct answers can come from prior model knowledge. The no-explanation baseline flags those items. Exact quote matching checks textual support, not understanding. These scores must never be reported as human comprehension."
+}

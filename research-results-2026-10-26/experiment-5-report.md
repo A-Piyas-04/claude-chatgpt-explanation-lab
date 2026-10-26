@@ -4,6 +4,25 @@ This is the manual workflow's AI proxy, not the platform's human comprehension e
 
 | Topic | No-text correct | Diagnostic items | Condition | Correct with exact quote | Diagnostic correct with quote |
 | --- | ---: | ---: | --- | ---: | ---: |
+| caching | 3/3 | 0 | chatgpt baseline | 3/3 | 0/0 |
+| caching | 3/3 | 0 | claude baseline | 3/3 | 0/0 |
+| caching | 3/3 | 0 | chatgpt transformed | 3/3 | 0/0 |
+| caching | 3/3 | 0 | claude transformed | 3/3 | 0/0 |
+| databases | 3/3 | 0 | chatgpt baseline | 3/3 | 0/0 |
+| databases | 3/3 | 0 | claude baseline | 3/3 | 0/0 |
+| databases | 3/3 | 0 | chatgpt transformed | 3/3 | 0/0 |
+| databases | 3/3 | 0 | claude transformed | 3/3 | 0/0 |
+| tcp | 3/3 | 0 | chatgpt baseline | 3/3 | 0/0 |
+| tcp | 3/3 | 0 | claude baseline | 2/3 | 0/0 |
+| tcp | 3/3 | 0 | claude transformed | 2/3 | 0/0 |
+| immunology | 3/3 | 0 | chatgpt baseline | 3/3 | 0/0 |
+| immunology | 3/3 | 0 | claude baseline | 3/3 | 0/0 |
+| immunology | 3/3 | 0 | chatgpt transformed | 3/3 | 0/0 |
+| immunology | 3/3 | 0 | claude transformed | 3/3 | 0/0 |
+| interest | 3/3 | 0 | chatgpt baseline | 3/3 | 0/0 |
+| interest | 3/3 | 0 | claude baseline | 3/3 | 0/0 |
+| interest | 3/3 | 0 | chatgpt transformed | 3/3 | 0/0 |
+| interest | 3/3 | 0 | claude transformed | 3/3 | 0/0 |
 
 ## Interpretation
 

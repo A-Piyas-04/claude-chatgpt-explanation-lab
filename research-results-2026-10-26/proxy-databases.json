@@ -1,0 +1,195 @@
+{
+  "id": "64592e3b-3293-4f96-b1a2-1499cc027104",
+  "evidence_class": "ai_proxy_answerability",
+  "provider": "gemini",
+  "model_id": "gemini-3.5-flash-lite",
+  "study_id": "4889de82-d620-4919-a359-323f10049d6a",
+  "item_count": 3,
+  "baseline_correct_count": 3,
+  "diagnostic_item_count": 0,
+  "conditions": [
+    {
+      "condition_id": "628352ad-c8e7-4ec0-86a3-0849475fdadc",
+      "label": "chatgpt - base",
+      "response_id": "fe4b2942-b26f-4bc3-bef3-df0640e69137",
+      "items": [
+        {
+          "item_id": "e86d7c98-1925-4afa-bd91-d19cd9b4916f",
+          "dimension": "A_immediate_comprehension",
+          "question": "How does a B-tree index avoid scanning every table row for a lookup?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "A B-tree database index makes lookups faster by organizing keys in a balanced, sorted tree, so the database can find a record without scanning every row.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "58731847-2eac-4d70-8332-24e0cef10be6",
+          "dimension": "B_mechanistic_understanding",
+          "question": "Why can adding a B-tree index slow inserts, updates, and deletes?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "The trade-off is additional storage and extra work whenever indexed data changes.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "8fc562e7-7eac-4335-b506-98e8b426a187",
+          "dimension": "C_transfer",
+          "question": "A table gets another B-tree index. What additional resource does the index itself require?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "The database must store the index's keys, child pointers, row references, and page structures in addition to the table itself.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "ef0206e8-87cb-4965-93b8-30fc926938ef",
+      "label": "claude - base",
+      "response_id": "41e2edb9-7232-46f7-baeb-4efbcdc058b7",
+      "items": [
+        {
+          "item_id": "e86d7c98-1925-4afa-bd91-d19cd9b4916f",
+          "dimension": "A_immediate_comprehension",
+          "question": "How does a B-tree index avoid scanning every table row for a lookup?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "A B-tree keeps the indexed values in sorted order, organized as a shallow, wide tree",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "58731847-2eac-4d70-8332-24e0cef10be6",
+          "dimension": "B_mechanistic_understanding",
+          "question": "Why can adding a B-tree index slow inserts, updates, and deletes?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "Every INSERT and DELETE must update each index on the table, and an UPDATE to an indexed column must remove and re-insert the entry.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "8fc562e7-7eac-4335-b506-98e8b426a187",
+          "dimension": "C_transfer",
+          "question": "A table gets another B-tree index. What additional resource does the index itself require?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "Storage space. An index stores a copy of the indexed columns plus pointers.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "c2d2597c-dc73-4357-a81e-b36a6988ca51",
+      "label": "gemini/gemini-3.5-flash-lite [T2]",
+      "response_id": "75a65eec-d3a4-4575-8442-5e1e4b418544",
+      "items": [
+        {
+          "item_id": "e86d7c98-1925-4afa-bd91-d19cd9b4916f",
+          "dimension": "A_immediate_comprehension",
+          "question": "How does a B-tree index avoid scanning every table row for a lookup?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "A B-tree database index makes lookups faster by organizing keys in a balanced, sorted tree",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "58731847-2eac-4d70-8332-24e0cef10be6",
+          "dimension": "B_mechanistic_understanding",
+          "question": "Why can adding a B-tree index slow inserts, updates, and deletes?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "The trade-off is additional storage and extra work whenever indexed data changes.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "8fc562e7-7eac-4335-b506-98e8b426a187",
+          "dimension": "C_transfer",
+          "question": "A table gets another B-tree index. What additional resource does the index itself require?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "The database must store the index's keys, child pointers, row references, and page structures in addition to the table itself.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    },
+    {
+      "condition_id": "217d8081-b499-434b-852c-840728cba012",
+      "label": "gemini/gemini-3.5-flash-lite [T2]",
+      "response_id": "e52c37c9-8fbf-49a9-8fba-cc269ad31278",
+      "items": [
+        {
+          "item_id": "e86d7c98-1925-4afa-bd91-d19cd9b4916f",
+          "dimension": "A_immediate_comprehension",
+          "question": "How does a B-tree index avoid scanning every table row for a lookup?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "A B-tree keeps the indexed values in sorted order, organized as a shallow, wide tree:",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "58731847-2eac-4d70-8332-24e0cef10be6",
+          "dimension": "B_mechanistic_understanding",
+          "question": "Why can adding a B-tree index slow inserts, updates, and deletes?",
+          "selected_option_index": 2,
+          "correct_option_index": 2,
+          "correct": true,
+          "evidence_quote": "Every INSERT and DELETE must update each index on the table, and an UPDATE to an indexed column must remove and re-insert the entry.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "item_id": "8fc562e7-7eac-4335-b506-98e8b426a187",
+          "dimension": "C_transfer",
+          "question": "A table gets another B-tree index. What additional resource does the index itself require?",
+          "selected_option_index": 1,
+          "correct_option_index": 1,
+          "correct": true,
+          "evidence_quote": "Storage space. An index stores a copy of the indexed columns plus pointers.",
+          "quote_found": true,
+          "grounded_correct": true,
+          "baseline_correct": true
+        }
+      ],
+      "grounded_correct": 3,
+      "diagnostic_grounded_correct": 0
+    }
+  ],
+  "estimated_cost_usd": 0.004976,
+  "contains_synthetic_data": false,
+  "warning": "Gemini is an AI proxy, not a human learner. Correct answers can come from prior model knowledge. The no-explanation baseline flags those items. Exact quote matching checks textual support, not understanding. These scores must never be reported as human comprehension."
+}

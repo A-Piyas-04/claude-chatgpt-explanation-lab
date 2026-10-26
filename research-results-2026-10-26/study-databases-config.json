@@ -1,0 +1,56 @@
+{
+  "name": "AI proxy - databases - baselines vs T2",
+  "question_id": "1b34b7bc-a84a-4263-be53-cde2971157ed",
+  "response_ids": [
+    "fe4b2942-b26f-4bc3-bef3-df0640e69137",
+    "41e2edb9-7232-46f7-baeb-4efbcdc058b7",
+    "75a65eec-d3a4-4575-8442-5e1e4b418544",
+    "e52c37c9-8fbf-49a9-8fba-cc269ad31278"
+  ],
+  "items": [
+    {
+      "format": "multiple_choice",
+      "dimension": "A_immediate_comprehension",
+      "prompt": "How does a B-tree index avoid scanning every table row for a lookup?",
+      "options": [
+        "It duplicates every table row in memory",
+        "It searches rows in random order",
+        "It narrows the search through sorted keys"
+      ],
+      "correct_option_index": 2,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "B_mechanistic_understanding",
+      "prompt": "Why can adding a B-tree index slow inserts, updates, and deletes?",
+      "options": [
+        "The database can no longer store rows",
+        "The index disables caching",
+        "The index must also be maintained"
+      ],
+      "correct_option_index": 2,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "C_transfer",
+      "prompt": "A table gets another B-tree index. What additional resource does the index itself require?",
+      "options": [
+        "A second database server",
+        "Storage space",
+        "No additional resources"
+      ],
+      "correct_option_index": 1,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    }
+  ],
+  "seed": 20261027,
+  "balance_conditions": true
+}

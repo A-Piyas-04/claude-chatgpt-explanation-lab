@@ -1,0 +1,56 @@
+{
+  "name": "AI proxy - immunology - baselines vs T2",
+  "question_id": "5adc48d7-e2df-4541-8a53-bc6fb1f5d7a5",
+  "response_ids": [
+    "77fa0bb5-fe74-4069-b4ce-c01aed582d0f",
+    "0f26480d-7a72-4396-8964-0f189a6a59fd",
+    "8b8649cf-3149-42ea-8359-33764409b5de",
+    "20065d60-4b1b-4b8d-9800-e74020c5927c"
+  ],
+  "items": [
+    {
+      "format": "multiple_choice",
+      "dimension": "A_immediate_comprehension",
+      "prompt": "What does a vaccine present so the immune system can learn to recognize a pathogen?",
+      "options": [
+        "A safe antigen or weakened or inactivated form",
+        "Only a list of symptoms",
+        "No pathogen-related material"
+      ],
+      "correct_option_index": 0,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "B_mechanistic_understanding",
+      "prompt": "Which cells can remain after the initial vaccine response and help with later recognition?",
+      "options": [
+        "Only platelets",
+        "Only red blood cells",
+        "Memory B and T cells"
+      ],
+      "correct_option_index": 2,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "C_transfer",
+      "prompt": "On a later encounter with the real pathogen, what role do immune memory cells play?",
+      "options": [
+        "They support a faster and stronger response",
+        "They turn into the pathogen",
+        "They prevent any immune response"
+      ],
+      "correct_option_index": 0,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    }
+  ],
+  "seed": 20261029,
+  "balance_conditions": true
+}

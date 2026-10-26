@@ -1,0 +1,56 @@
+{
+  "name": "AI proxy - caching - baselines vs T2",
+  "question_id": "0d875b17-3603-4efc-883f-bdb7bff18e1c",
+  "response_ids": [
+    "7ac6680a-25b1-4216-b8d9-d58317d5e206",
+    "7ecd8f9f-d2e8-418f-8f96-dee096278d2a",
+    "0398fa76-f4a2-4991-ab36-d5b57ce2d23f",
+    "2b2760c8-88b7-4b88-a0c8-610b7d45d518"
+  ],
+  "items": [
+    {
+      "format": "multiple_choice",
+      "dimension": "A_immediate_comprehension",
+      "prompt": "Which policy updates the backing store before considering a write complete?",
+      "options": [
+        "Write-back",
+        "Neither policy",
+        "Write-through"
+      ],
+      "correct_option_index": 2,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "B_mechanistic_understanding",
+      "prompt": "Why can write-back complete writes faster than write-through?",
+      "options": [
+        "It removes the need for a cache",
+        "It delays writes to the backing store",
+        "It writes every change to the backing store twice"
+      ],
+      "correct_option_index": 1,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "C_transfer",
+      "prompt": "A cache fails before its modified data reaches backing storage. Which policy is more exposed to losing that change?",
+      "options": [
+        "Write-through",
+        "Both equally",
+        "Write-back"
+      ],
+      "correct_option_index": 2,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    }
+  ],
+  "seed": 20261026,
+  "balance_conditions": true
+}

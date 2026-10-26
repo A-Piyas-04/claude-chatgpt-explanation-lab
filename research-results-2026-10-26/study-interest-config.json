@@ -1,0 +1,56 @@
+{
+  "name": "AI proxy - interest - baselines vs T2",
+  "question_id": "06f56722-777e-412e-8f35-99d1297ae0d0",
+  "response_ids": [
+    "fb628255-20fd-4e30-b898-169bff702874",
+    "1183e608-2143-4cc2-b81e-0755c4fc29cf",
+    "6a65a6cd-203b-4c57-886d-db9648994959",
+    "0a31de56-9c29-4a4f-bb13-6412dbc164d0"
+  ],
+  "items": [
+    {
+      "format": "multiple_choice",
+      "dimension": "A_immediate_comprehension",
+      "prompt": "What amount is simple interest calculated on each period?",
+      "options": [
+        "The principal plus all past interest",
+        "The original principal",
+        "Only the most recent interest payment"
+      ],
+      "correct_option_index": 1,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "B_mechanistic_understanding",
+      "prompt": "What makes compound interest grow faster than simple interest over time?",
+      "options": [
+        "Past interest also earns interest",
+        "The original principal disappears",
+        "The interest rate must increase every period"
+      ],
+      "correct_option_index": 0,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    },
+    {
+      "format": "multiple_choice",
+      "dimension": "C_transfer",
+      "prompt": "At the same positive rate and starting principal, why does the compound-interest balance pull farther ahead over repeated periods?",
+      "options": [
+        "Compound interest stops using the principal",
+        "The amount that earns compound interest keeps growing",
+        "Simple interest becomes negative"
+      ],
+      "correct_option_index": 1,
+      "misconception_option_indexes": [],
+      "max_score": 1,
+      "is_required": true
+    }
+  ],
+  "seed": 20261030,
+  "balance_conditions": true
+}

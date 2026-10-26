@@ -1,0 +1,275 @@
+{
+  "variant_response_id": "2741734f-884c-4ae9-9530-89cc6251e773",
+  "text": "For an unsorted table, the database may need to examine every row to find the matching ID. Without an index, this is a full table scan where the database must check rows one by one. Worst case: examine all 1,000,000 rows. The lookup cost grows approximately linearly with the number of rows: \\(O(n)\\).\n\nA B-tree database index makes lookups faster by organizing keys in a balanced, sorted tree, so the database can find a record without scanning every row. Because the tree stays balanced, its height grows logarithmically, meaning the lookup cost is \\(O(\\log n)\\). \n\nImagine a database table containing 1,000,000 users, and you run this query:\nSELECT * FROM users WHERE id = 782451;\n\nWith a B-tree index:\nRoot node\nKeys: 300,000 · 600,000 · 900,000\nInternal node\n600,000–900,000\nInternal node\n750,000–800,000\nLeaf node\n782,451 → row location (pointer)\n\nIllustrative structure, not an exact index layout.\n\nA B-tree node stores multiple sorted keys and references to child nodes. At each level, the database chooses the relevant range and follows the corresponding child pointer. Why it works: Each node eliminates large portions of the search space. A B-tree has a high branching factor, meaning one node can direct the search toward many possible ranges. For example, a million entries might require only a handful of tree-level page accesses, rather than scanning a million rows. The actual number depends on the tree's branching factor, page layout, and caching. Now that the lookup mechanism is in place, the physical costs follow.\n\nThere are four main costs:\n1. Extra disk storage\nThe database must store the index's keys, child pointers, row references, and page structures in addition to the table itself.\n\n2. Slower INSERT operations\nWhen a new row is inserted, the database must insert its indexed key in the appropriate location. A page may split if it becomes full, requiring additional work. \n\n3. Slower UPDATE and DELETE operations\nChanging an indexed column may require index entries to be updated or relocated. Deleting a row also requires corresponding index maintenance.\n\n4. Memory and maintenance overhead\nIndex pages consume buffer-cache memory when cached, and the database needs CPU and I/O for index traversal, maintenance, and sometimes rebuilding. \n\nThese costs and benefits are summarized below:\n\n| Operation | Without index | With B-tree index |\n| :--- | :--- | :--- |\n| Find a specific row | Often \\(O(n)\\) | \\(O(\\log n)\\) tree search |\n| Insert a row | Insert into table | Insert into table and maintain index |\n| Update indexed column | Update table | Update table and index |\n| Delete a row | Delete from table | Delete from table and index |\n| Storage | Lower | Higher |\n\nThese are simplified comparisons. A query's actual performance also depends on selectivity, table organization, caching, and whether the index can satisfy the query without accessing the table. Selectivity refers to the ratio of distinct values in a column to the total number of rows; low selectivity means an index is less likely to be useful as it does not sufficiently narrow the search space.\n\nConsider this table:\nCREATE TABLE users (\n    id BIGINT PRIMARY KEY,\n    email VARCHAR(255),\n    name VARCHAR(100)\n);\n\nA primary key normally has an index created automatically. If your application frequently looks up users by email, another index may help:\nCREATE INDEX idx_users_email ON users(email);\n\nNow this query can use the email index:\nSELECT * FROM users WHERE email = 'user@example.com';\n\nHowever, indexing every column is usually a mistake. Each additional index adds storage and write overhead, and a low-selectivity column may offer little benefit for some queries. Practical rule: Index columns frequently used in selective WHERE conditions, joins, and relevant ORDER BY operations. Verify the benefit using EXPLAIN or your database's execution-plan tools.\n\nThe key idea: A B-tree index is a read-performance optimization purchased with storage and write-performance costs. It is most valuable when the speed gained by repeated lookups outweighs the overhead of maintaining the index.",
+  "applied_treatments": [
+    "T2"
+  ],
+  "treatment_order": [
+    "T2"
+  ],
+  "analysis": {
+    "main_topic": "B-tree database indexes",
+    "primary_claims": [
+      "B-tree indexes accelerate lookups by reducing the complexity from O(n) to O(log n).",
+      "Indexes require additional disk storage for keys, pointers, and structural overhead.",
+      "Indexes increase the cost of INSERT, UPDATE, and DELETE operations due to maintenance requirements.",
+      "Indexes are most beneficial for columns frequently used in selective filters, joins, and sorting operations."
+    ],
+    "key_concepts": [
+      "B-tree structure",
+      "Full table scan",
+      "Time complexity (O(n) vs O(log n))",
+      "Branching factor",
+      "Index maintenance",
+      "Buffer-cache memory",
+      "Selectivity"
+    ],
+    "prerequisite_concepts": [
+      "Basic relational database terminology (table, row, column, primary key)",
+      "Concept of a database query",
+      "Fundamental understanding of Big O notation",
+      "General understanding of file system/disk storage"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "B-tree",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "Node",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Leaf node",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Branching factor",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Full table scan",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Selectivity",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "Page split",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Buffer-cache",
+        "explained_in_text": false,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "A table with 1,000,000 users",
+      "SELECT * FROM users WHERE id = 782451",
+      "SELECT * FROM users WHERE email = 'user@example.com'"
+    ],
+    "missing_intermediate_steps": [
+      "Detailed explanation of why tree balancing is required to maintain O(log n) complexity",
+      "Clarification on how a page split physically affects database performance"
+    ],
+    "assumed_prior_knowledge": [
+      "Familiarity with SQL syntax",
+      "Understanding that O(n) represents linear time complexity",
+      "Basic understanding of pointers in computing"
+    ],
+    "possible_confusions": [
+      "The distinction between a clustered index and a non-clustered index is not addressed, which may confuse readers regarding 'row location' versus actual data storage.",
+      "The term 'selectivity' is used as a technical guide but not defined, potentially leading to misuse."
+    ],
+    "ambiguous_references": [
+      "The phrase 'corresponding index maintenance' (in Section 2, cost 3) assumes knowledge of what specifically constitutes 'maintenance' in this context."
+    ]
+  },
+  "plan": {
+    "learner_level": "intermediate",
+    "learning_objectives": [
+      "Understand the mechanical advantage of B-tree logarithmic search over linear scanning",
+      "Identify the trade-offs between read performance and write overhead",
+      "Recognize the impact of index maintenance and storage on database performance"
+    ],
+    "prerequisite_order": [
+      "Fundamental understanding of database tables and rows",
+      "Basic awareness of algorithmic complexity (O(n) vs O(log n))",
+      "Basic SQL query execution awareness"
+    ],
+    "explanation_sequence": [
+      "Contrast O(n) scan against O(log n) tree traversal",
+      "Visualize the B-tree structure as a hierarchical decision-tree",
+      "List the physical costs (disk usage, write operations, page management)",
+      "Formulate a practical heuristic for index creation"
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": true,
+    "needs_diagram": true,
+    "analogy_rationale": "An analogy like a library card catalog or a book index helps bridge the gap between abstract tree pointers and real-world search strategies, making the branching factor concept more intuitive.",
+    "detail_level": "moderate",
+    "techniques_not_needed": [
+      "Deep theoretical analysis of B-tree balancing algorithms, as the learner only needs to grasp the performance implications of the structure."
+    ]
+  },
+  "fidelity": {
+    "verdict": "serious_concerns",
+    "warnings": [
+      {
+        "type": "numeric_change",
+        "severity": "high",
+        "detail": "6 numeric difference(s) detected between source and transformed text. Numbers must not change.",
+        "detector": "deterministic"
+      },
+      {
+        "type": "boundary_violation",
+        "severity": "medium",
+        "detail": "Treatment T2 added presentation structure (7 headings/tables, 0 list items). That is T5's role. This variant is not a clean single-treatment condition and should be excluded from strict ablation analysis.",
+        "detector": "deterministic"
+      }
+    ],
+    "numeric_drift": [
+      {
+        "source_value": "1",
+        "transformed_value": "(absent or fewer occurrences)",
+        "context": "present in the source, missing from the transformed text",
+        "direction": "removed"
+      },
+      {
+        "source_value": "1.000",
+        "transformed_value": "(absent or fewer occurrences)",
+        "context": "present in the source, missing from the transformed text",
+        "direction": "removed"
+      },
+      {
+        "source_value": "000",
+        "transformed_value": "(absent or fewer occurrences)",
+        "context": "present in the source, missing from the transformed text",
+        "direction": "removed"
+      },
+      {
+        "source_value": "2",
+        "transformed_value": "(absent or fewer occurrences)",
+        "context": "present in the source, missing from the transformed text",
+        "direction": "removed"
+      },
+      {
+        "source_value": "3",
+        "transformed_value": "(absent or fewer occurrences)",
+        "context": "present in the source, missing from the transformed text",
+        "direction": "removed"
+      },
+      {
+        "source_value": "4",
+        "transformed_value": "(absent or fewer occurrences)",
+        "context": "present in the source, missing from the transformed text",
+        "direction": "removed"
+      }
+    ],
+    "preserved_claims": [
+      "A B-tree keeps keys in sorted order so the database can narrow down to a row instead of scanning every row.",
+      "Each step down the tree removes a large share of the remaining rows, so lookups take roughly logarithmic time.",
+      "The index must be updated on every insert, update, and delete, which makes writes slower.",
+      "The index takes up extra storage space in addition to the table itself."
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewrite is factually consistent with the original text. It adds a brief definition of selectivity, which is an elaboration rather than a new unsupported claim, as the concept was already referenced in the original.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 2,
+    "llm_warning_count": 0,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T2",
+      "name": "Prerequisite-aware concept sequencing",
+      "stats": {
+        "words_before": 622,
+        "words_after": 662,
+        "word_delta": 40,
+        "sentences_before": 39,
+        "sentences_after": 34,
+        "avg_sentence_words_before": 15.95,
+        "avg_sentence_words_after": 19.47,
+        "headings_added": 0,
+        "list_items_added": -4,
+        "table_rows_added": 7,
+        "word_similarity": 0.7321
+      },
+      "unified_diff": "--- T2:before\n+++ T2:after\n@@ -1,90 +1,48 @@\n-A B-tree database index makes lookups faster by organizing keys in a balanced, sorted tree, so the database can find a record without scanning every row. The trade-off is additional storage and extra work whenever indexed data changes.\n-1. How a B-tree index speeds up a lookup\n+For an unsorted table, the database may need to examine every row to find the matching ID. Without an index, this is a full table scan where the database must check rows one by one. Worst case: examine all 1,000,000 rows. The lookup cost grows approximately linearly with the number of rows: \\(O(n)\\).\n+\n+A B-tree database index makes lookups faster by organizing keys in a balanced, sorted tree, so the database can find a record without scanning every row. Because the tree stays balanced, its height grows logarithmically, meaning the lookup cost is \\(O(\\log n)\\). \n+\n Imagine a database table containing 1,000,000 users, and you run this query:\n SELECT * FROM users WHERE id = 782451;\n \n-\n-Without an index: Full table scan\n-Check rows one by one\n-\n-Row 1 → Row 2 → Row 3 → ... → Row 1,000,000\n-\n-Worst case: examine all 1,000,000 rows.\n-\n-\n-For an unsorted table, the database may need to examine every row to find the matching ID. The lookup cost grows approximately linearly with the number of rows: \\(O(n)\\).\n-With a B-tree index\n+With a B-tree index:\n Root node\n-\n Keys: 300,000 · 600,000 · 900,000\n-\n Internal node\n-\n 600,000–900,000\n-\n-\n Internal node\n-\n 750,000–800,000\n-\n-\n-\n Leaf node\n-\n 782,451 → row location (pointer)\n-\n \n Illustrative structure, not an exact index layout.\n \n-A B-tree node stores multiple sorted keys and references to child nodes. At each level, the database chooses the relevant range and follows the corresponding child pointer.\n+A B-tree node stores multiple sorted keys and references to child nodes. At each level, the database chooses the relevant range and follows the corresponding child pointer. Why it works: Each node eliminates large portions of the search space. A B-tree has a high branching factor, meaning one node can direct the search toward many possible ranges. For example, a million entries might require only a handful of tree-level page accesses, rather than scanning a million rows. The actual number depends on the tree's branching factor, page layout, and caching. Now that the lookup mechanism is in place, the physical costs follow.\n \n-Because the tree stays balanced, its height grows logarithmically:\n-\\[\n-\\text{Lookup cost} = O(\\log n)\n-\\]\n-\n-For example, a million entries might require only a handful of tree-level page accesses, rather than scanning a million rows. The actual number depends on the tree's branching factor, page layout, and caching.\n-\n-Why it works: Each node eliminates large portions of the search space. A B-tree has a high branching factor, meaning one node can direct the search toward many possible ranges.\n-2. What does the index cost you?\n-There are four main costs.\n-\n+There are four main costs:\n 1. Extra disk storage\n-\n The database must store the index's keys, child pointers, row references, and page structures in addition to the table itself.\n \n-\n-\n-\n 2. Slower INSERT operations\n-\n-When a new row is inserted, the database must insert its indexed key in the appropriate location. A page may split if it becomes full, requiring additional work.\n-\n-\n-\n+When a new row is inserted, the database must insert its indexed key in the appropriate location. A page may split if it becomes full, requiring additional work. \n \n 3. Slower UPDATE and DELETE operations\n-\n Changing an indexed column may require index entries to be updated or relocated. Deleting a row also requires corresponding index maintenance.\n \n+4. Memory and maintenance overhead\n+Index pages consume buffer-cache memory when cached, and the database needs CPU and I/O for index traversal, maintenance, and sometimes rebuilding. \n \n+These costs and benefits are summarized below:\n \n+| Operation | Without index | With B-tree index |\n+| :--- | :--- | :--- |\n+| Find a specific row | Often \\(O(n)\\) | \\(O(\\log n)\\) tree search |\n+| Insert a row | Insert into table | Insert into table and maintain index |\n+| Update indexed column | Update table | Update table and index |\n+| Delete a row | Delete from table | Delete from table and index |\n+| Storage | Lower | Higher |\n \n-4. Memory and maintenance overhead\n+These are simplified comparisons. A query's actual performance also depends on selectivity, table organization, caching, and whether the index can satisfy the query without accessing the table. Selectivity refers to the ratio of distinct values in a column to the total number of rows; low selectivity means an index is less likely to be useful as it does not sufficiently narrow the search space.\n \n-Index pages consume buffer-cache memory when cached, and the database needs CPU and I/O for index traversal, maintenance, and sometimes rebuilding.\n-\n-\n-\n-3. The trade-off in one table\n-Operation\tWithout index\tWith B-tree index\n-Find a specific row\tOften \\(O(n)\\)\t\\(O(\\log n)\\) tree search\n-Insert a row\tInsert into table\tInsert into table and maintain index\n-Update indexed column\tUpdate table\tUpdate table and index\n-Delete a row\tDelete from table\tDelete from table and index\n-Storage\tLower\tHigher\n-\n-These are simplified comparisons. A query's actual performance also depends on selectivity, table organization, caching, and whether the index can satisfy the query without accessing the table.\n-4. When should you create an index?\n Consider this table:\n CREATE TABLE users (\n@@ -94,16 +52,11 @@\n );\n \n-\n A primary key normally has an index created automatically. If your application frequently looks up users by email, another index may help:\n CREATE INDEX idx_users_email ON users(email);\n-\n \n Now this query can use the email index:\n SELECT * FROM users WHERE email = 'user@example.com';\n \n+However, indexing every column is usually a mistake. Each additional index adds storage and write overhead, and a low-selectivity column may offer little benefit for some queries. Practical rule: Index columns frequently used in selective WHERE conditions, joins, and relevant ORDER BY operations. Verify the benefit using EXPLAIN or your database's execution-plan tools.\n \n-However, indexing every column is usually a mistake. Each additional index adds storage and write overhead, and a low-selectivity column may offer little benefit for some queries.\n-\n-Practical rule: Index columns frequently used in selective WHERE conditions, joins, and relevant ORDER BY operations. Verify the benefit using EXPLAIN or your database's execution-plan tools.\n-The key idea\n-A B-tree index is a read-performance optimization purchased with storage and write-performance costs. It is most valuable when the speed gained by repeated lookups outweighs the overhead of maintaining the index.\n+The key idea: A B-tree index is a read-performance optimization purchased with storage and write-performance costs. It is most valuable when the speed gained by repeated lookups outweighs the overhead of maintaining the index.",
+      "text_after": "For an unsorted table, the database may need to examine every row to find the matching ID. Without an index, this is a full table scan where the database must check rows one by one. Worst case: examine all 1,000,000 rows. The lookup cost grows approximately linearly with the number of rows: \\(O(n)\\).\n\nA B-tree database index makes lookups faster by organizing keys in a balanced, sorted tree, so the database can find a record without scanning every row. Because the tree stays balanced, its height grows logarithmically, meaning the lookup cost is \\(O(\\log n)\\). \n\nImagine a database table containing 1,000,000 users, and you run this query:\nSELECT * FROM users WHERE id = 782451;\n\nWith a B-tree index:\nRoot node\nKeys: 300,000 · 600,000 · 900,000\nInternal node\n600,000–900,000\nInternal node\n750,000–800,000\nLeaf node\n782,451 → row location (pointer)\n\nIllustrative structure, not an exact index layout.\n\nA B-tree node stores multiple sorted keys and references to child nodes. At each level, the database chooses the relevant range and follows the corresponding child pointer. Why it works: Each node eliminates large portions of the search space. A B-tree has a high branching factor, meaning one node can direct the search toward many possible ranges. For example, a million entries might require only a handful of tree-level page accesses, rather than scanning a million rows. The actual number depends on the tree's branching factor, page layout, and caching. Now that the lookup mechanism is in place, the physical costs follow.\n\nThere are four main costs:\n1. Extra disk storage\nThe database must store the index's keys, child pointers, row references, and page structures in addition to the table itself.\n\n2. Slower INSERT operations\nWhen a new row is inserted, the database must insert its indexed key in the appropriate location. A page may split if it becomes full, requiring additional work. \n\n3. Slower UPDATE and DELETE operations\nChanging an indexed column may require index entries to be updated or relocated. Deleting a row also requires corresponding index maintenance.\n\n4. Memory and maintenance overhead\nIndex pages consume buffer-cache memory when cached, and the database needs CPU and I/O for index traversal, maintenance, and sometimes rebuilding. \n\nThese costs and benefits are summarized below:\n\n| Operation | Without index | With B-tree index |\n| :--- | :--- | :--- |\n| Find a specific row | Often \\(O(n)\\) | \\(O(\\log n)\\) tree search |\n| Insert a row | Insert into table | Insert into table and maintain index |\n| Update indexed column | Update table | Update table and index |\n| Delete a row | Delete from table | Delete from table and index |\n| Storage | Lower | Higher |\n\nThese are simplified comparisons. A query's actual performance also depends on selectivity, table organization, caching, and whether the index can satisfy the query without accessing the table. Selectivity refers to the ratio of distinct values in a column to the total number of rows; low selectivity means an index is less likely to be useful as it does not sufficiently narrow the search space.\n\nConsider this table:\nCREATE TABLE users (\n    id BIGINT PRIMARY KEY,\n    email VARCHAR(255),\n    name VARCHAR(100)\n);\n\nA primary key normally has an index created automatically. If your application frequently looks up users by email, another index may help:\nCREATE INDEX idx_users_email ON users(email);\n\nNow this query can use the email index:\nSELECT * FROM users WHERE email = 'user@example.com';\n\nHowever, indexing every column is usually a mistake. Each additional index adds storage and write overhead, and a low-selectivity column may offer little benefit for some queries. Practical rule: Index columns frequently used in selective WHERE conditions, joins, and relevant ORDER BY operations. Verify the benefit using EXPLAIN or your database's execution-plan tools.\n\nThe key idea: A B-tree index is a read-performance optimization purchased with storage and write-performance costs. It is most valuable when the speed gained by repeated lookups outweighs the overhead of maintaining the index."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.1-flash-lite",
+      "input_tokens": 1741,
+      "output_tokens": 788,
+      "latency_ms": 59496,
+      "cost_usd": 0.0,
+      "served_from_cache": false,
+      "notes": [
+        "Model is not in the catalogue; cost could not be estimated for this call."
+      ]
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.1-flash-lite",
+      "input_tokens": 2423,
+      "output_tokens": 323,
+      "latency_ms": 2866,
+      "cost_usd": 0.0,
+      "served_from_cache": false,
+      "notes": [
+        "Model is not in the catalogue; cost could not be estimated for this call."
+      ]
+    },
+    {
+      "stage": "C",
+      "label": "T2 — Prerequisite-aware concept sequencing",
+      "provider": "gemini",
+      "model_id": "gemini-3.1-flash-lite",
+      "input_tokens": 2633,
+      "output_tokens": 964,
+      "latency_ms": 24610,
+      "cost_usd": 0.0,
+      "served_from_cache": false,
+      "notes": [
+        "Model is not in the catalogue; cost could not be estimated for this call."
+      ]
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.1-flash-lite",
+      "input_tokens": 3042,
+      "output_tokens": 166,
+      "latency_ms": 2109,
+      "cost_usd": 0.0,
+      "served_from_cache": false,
+      "notes": [
+        "Model is not in the catalogue; cost could not be estimated for this call."
+      ]
+    }
+  ],
+  "total_cost_usd": 0.0,
+  "is_synthetic": false,
+  "control_limitations": [
+    "Model is not in the catalogue; cost could not be estimated for this call."
+  ]
+}

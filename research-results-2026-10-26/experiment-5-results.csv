@@ -1,0 +1,20 @@
+﻿topic,condition,response_id,study_id,item_count,no_explanation_correct,diagnostic_item_count,correct_with_quote,diagnostic_correct_with_quote,proxy_model,raw_file
+caching,chatgpt baseline,7ac6680a-25b1-4216-b8d9-d58317d5e206,ab9996c4-2d8c-432e-b4e6-2171d381d23f,3,3,0,3,0,gemini-3.5-flash-lite,proxy-caching.json
+caching,claude baseline,7ecd8f9f-d2e8-418f-8f96-dee096278d2a,ab9996c4-2d8c-432e-b4e6-2171d381d23f,3,3,0,3,0,gemini-3.5-flash-lite,proxy-caching.json
+caching,chatgpt transformed,0398fa76-f4a2-4991-ab36-d5b57ce2d23f,ab9996c4-2d8c-432e-b4e6-2171d381d23f,3,3,0,3,0,gemini-3.5-flash-lite,proxy-caching.json
+caching,claude transformed,2b2760c8-88b7-4b88-a0c8-610b7d45d518,ab9996c4-2d8c-432e-b4e6-2171d381d23f,3,3,0,3,0,gemini-3.5-flash-lite,proxy-caching.json
+databases,chatgpt baseline,fe4b2942-b26f-4bc3-bef3-df0640e69137,4889de82-d620-4919-a359-323f10049d6a,3,3,0,3,0,gemini-3.5-flash-lite,proxy-databases.json
+databases,claude baseline,41e2edb9-7232-46f7-baeb-4efbcdc058b7,4889de82-d620-4919-a359-323f10049d6a,3,3,0,3,0,gemini-3.5-flash-lite,proxy-databases.json
+databases,chatgpt transformed,75a65eec-d3a4-4575-8442-5e1e4b418544,4889de82-d620-4919-a359-323f10049d6a,3,3,0,3,0,gemini-3.5-flash-lite,proxy-databases.json
+databases,claude transformed,e52c37c9-8fbf-49a9-8fba-cc269ad31278,4889de82-d620-4919-a359-323f10049d6a,3,3,0,3,0,gemini-3.5-flash-lite,proxy-databases.json
+tcp,chatgpt baseline,4ffa3cbb-1e8d-4a46-ad5d-69e476710992,4d3465b9-03dd-4ca7-b8db-932a333073a6,3,3,0,3,0,gemini-3.5-flash-lite,proxy-tcp.json
+tcp,claude baseline,3cfaae4b-bf68-4beb-9eef-a00f8f92bce1,4d3465b9-03dd-4ca7-b8db-932a333073a6,3,3,0,2,0,gemini-3.5-flash-lite,proxy-tcp.json
+tcp,claude transformed,497782e3-bcd3-45a7-a4a6-6982604a205b,4d3465b9-03dd-4ca7-b8db-932a333073a6,3,3,0,2,0,gemini-3.5-flash-lite,proxy-tcp.json
+immunology,chatgpt baseline,77fa0bb5-fe74-4069-b4ce-c01aed582d0f,05d3026b-119d-47cc-a09e-3b9dc40610ae,3,3,0,3,0,gemini-3.5-flash-lite,proxy-immunology.json
+immunology,claude baseline,0f26480d-7a72-4396-8964-0f189a6a59fd,05d3026b-119d-47cc-a09e-3b9dc40610ae,3,3,0,3,0,gemini-3.5-flash-lite,proxy-immunology.json
+immunology,chatgpt transformed,8b8649cf-3149-42ea-8359-33764409b5de,05d3026b-119d-47cc-a09e-3b9dc40610ae,3,3,0,3,0,gemini-3.5-flash-lite,proxy-immunology.json
+immunology,claude transformed,20065d60-4b1b-4b8d-9800-e74020c5927c,05d3026b-119d-47cc-a09e-3b9dc40610ae,3,3,0,3,0,gemini-3.5-flash-lite,proxy-immunology.json
+interest,chatgpt baseline,fb628255-20fd-4e30-b898-169bff702874,c88e17e4-fd06-4ce0-9cb5-ee1a771e4386,3,3,0,3,0,gemini-3.5-flash-lite,proxy-interest.json
+interest,claude baseline,1183e608-2143-4cc2-b81e-0755c4fc29cf,c88e17e4-fd06-4ce0-9cb5-ee1a771e4386,3,3,0,3,0,gemini-3.5-flash-lite,proxy-interest.json
+interest,chatgpt transformed,6a65a6cd-203b-4c57-886d-db9648994959,c88e17e4-fd06-4ce0-9cb5-ee1a771e4386,3,3,0,3,0,gemini-3.5-flash-lite,proxy-interest.json
+interest,claude transformed,0a31de56-9c29-4a4f-bb13-6412dbc164d0,c88e17e4-fd06-4ce0-9cb5-ee1a771e4386,3,3,0,3,0,gemini-3.5-flash-lite,proxy-interest.json
