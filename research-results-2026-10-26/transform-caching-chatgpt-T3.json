@@ -1,0 +1,230 @@
+{
+  "variant_response_id": "85742255-dc46-48af-8584-6eb2a62d89e8",
+  "text": "Write-through and write-back are two cache write policies that determine when data is written to the cache and to the next level of memory (such as RAM or disk).\n\nThe main tradeoff is data consistency and simplicity vs. write performance.\n\n1. Write-through cache\nWhen the CPU writes data, the cache is updated, and the same data is immediately written to the next memory level. This is triggered by a CPU write operation, through the mechanism of propagating the write signal simultaneously to the cache controller and the lower-level memory interface. \n\nThe components interact as follows: the CPU is responsible for issuing the write request and providing data; the cache is responsible for storing and updating its local copy; and the next-level memory is responsible for accepting and committing the incoming write data. The CPU needs an acknowledgment from the memory system that the write has been processed before it can proceed securely, depending on the system's design.\n\n- Precondition: A memory write operation is initiated by the CPU.\n- Cause: The CPU issues a write command, which triggers an immediate update to both the cache and lower-level memory.\n- Effect: Both the cache and main memory reflect the new data simultaneously, assuming writes complete successfully.\n- Exception: If the lower-level memory is busy or stalls, the write may experience a delay before completion.\n\nExample: Suppose the CPU changes a value from 10 to 20.\n1. The cache value becomes 20 because the cache controller processes the write locally.\n2. Main memory is also updated to 20 because the write operation is propagated immediately.\n3. The write completes according to the system's memory-write acknowledgment rules, which dictate when the CPU can move on to subsequent instructions.\n\nAdvantages\n- Main memory stays up to date with the cache, assuming writes complete successfully, because every write is propagated instantly.\n- Simpler recovery and cache management, because the memory state does not diverge from the cache state.\n- Less risk of losing the latest value if the cache is discarded, provided the memory write has completed, because a persistent copy already resides in lower-level memory.\n\nDisadvantages\n- Every write generates a memory write, as a direct causal result of the write-through policy.\n- Higher write latency if the CPU must wait for the lower-level memory to complete the transaction.\n- Greater memory-bus traffic, caused by the continuous stream of write requests traveling from the cache to main memory.\n\nA write buffer can reduce the CPU's waiting time by temporarily storing data before committing it to lower-level memory, although the memory write still needs to happen eventually. The source does not specify the detailed internal mechanism of how write buffers temporarily store data before committing it to lower-level memory.\n\n2. Write-back cache\nWhen the CPU writes data, only the cache is updated initially. Main memory is updated later, usually when the modified cache block is evicted. \n\nThe components interact as follows: the CPU writes exclusively to the cache, which is responsible for catching the write and setting a status indicator. Lower-level memory is entirely bypassed during these intermediate writes and remains unmodified until an explicit eviction event occurs. The source does not specify how cache tags and sets determine precisely when a block is chosen for eviction.\n\n- Precondition: The targeted cache line must be present in the cache when the CPU performs a write operation.\n- Cause: A CPU write to a cache block triggers an immediate local cache update and causes the block to be marked as a dirty block.\n- Effect: The cache block holds newer data than the corresponding block in main memory, creating a temporary state of divergence.\n- Exception: If the cache block is never evicted during the program's execution or if the system loses power before eviction, the deferred update to main memory will not occur.\n\nExample: Suppose the CPU changes a value from 10 to 20.\n1. The cache value becomes 20 due to the immediate local write.\n2. Main memory remains at 10 temporarily because the write operation is withheld from lower-level memory.\n3. The cache marks the block as dirty, indicating that it has been modified relative to main memory.\n4. When that block is evicted, the modified data is written to main memory because the eviction process triggers a write-back of the dirty contents.\n\nIf the same cache block is written five times before eviction, the system may need only one write-back of that block instead of five separate memory writes, because the intermediate changes are accumulated locally within the cache block.\n\nAdvantages\n- Faster writes in the common case, because the CPU does not wait for slow lower-level memory.\n- Fewer writes to lower-level memory, caused by consolidating multiple writes to the same block.\n- Reduced memory-bus traffic, especially when the same cache block is modified repeatedly, because updates are held locally.\n\nDisadvantages\n- Main memory may contain stale data while a dirty block remains in the cache, as an effect of deferring the memory update.\n- Evicting a dirty block requires a write-back, which can cause a delay when the eviction occurs.\n- Cache coherence, recovery, and data-loss handling are more complex, because multiple memory levels hold differing versions of the data.\n\n3. Side-by-side comparison\nFeature | Write-through | Write-back\n--- | --- | ---\nCache updated on write | Immediately | Immediately\nMain memory updated | On each write | Later, on write-back\nWrite latency | Generally higher | Generally lower\nMemory traffic | Higher | Lower\nDirty bit required | Not for this policy alone | Yes, typically\nImplementation | Simpler | More complex\nMain memory consistency | More up to date after completed writes | May be stale\nRepeated writes to same block | Each write propagates | Can be combined into one write-back\n\n4. A quick numerical example\nSuppose the CPU writes to the same cache block 100 times before it is evicted.\nWrite-through\n100 writes\n-> 100 lower-level write operations, assuming each write propagates separately.\n\nWrite-back\n1 write-back\n-> One lower-level write-back if the block is eventually evicted while dirty.\n\nThis is an illustrative example, not a universal performance ratio. Actual traffic depends on write buffers, cache-line size, eviction behavior, and memory-system design.\n\n5. When should each be used?\n- Write-through: Appropriate when simpler consistency behavior is valuable, or when lower-level writes are inexpensive and predictable.\n- Write-back: Common in CPU caches because it reduces memory traffic and improves write performance.\n\nOne important distinction: write-through does not automatically mean durable storage. A write reaching RAM, for example, does not guarantee that it has been persisted to disk.\n\nExam tip: Remember these two phrases:\n- Write-through = update cache and memory together.\n- Write-back = update cache now, write memory back later.",
+  "applied_treatments": [
+    "T3"
+  ],
+  "treatment_order": [
+    "T3"
+  ],
+  "analysis": {
+    "main_topic": "Cache write policies (write-through and write-back)",
+    "primary_claims": [
+      "Write-through caches update both the cache and the next memory level immediately on every write.",
+      "Write-back caches update only the cache immediately and defer updating lower-level memory until the block is evicted.",
+      "Write-through provides better data consistency and simplicity at the cost of higher write latency and memory-bus traffic.",
+      "Write-back improves write performance and reduces memory traffic, especially for repeatedly written blocks, but increases complexity and risk of stale data."
+    ],
+    "key_concepts": [
+      "Write-through cache",
+      "Write-back cache",
+      "Cache consistency",
+      "Eviction",
+      "Dirty block",
+      "Write latency",
+      "Memory-bus traffic",
+      "Write buffer"
+    ],
+    "prerequisite_concepts": [
+      "CPU",
+      "Cache memory",
+      "Main memory (RAM)",
+      "Memory write operations"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "Write-through",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Write-back",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Eviction",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Dirty block",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Write latency",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "Cache coherence",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "Stale data",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Write buffer",
+        "explained_in_text": false,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "Suppose the CPU changes a value from 10 to 20 in a write-through cache.",
+      "Suppose the CPU changes a value from 10 to 20 in a write-back cache.",
+      "Suppose the CPU writes to the same cache block 100 times before it is evicted."
+    ],
+    "missing_intermediate_steps": [
+      "Explanation of how cache tags and sets determine when a block is chosen for eviction.",
+      "Detailed mechanism of how write buffers temporarily store data before committing it to lower-level memory."
+    ],
+    "assumed_prior_knowledge": [
+      "Basic understanding of hierarchical computer memory architecture (CPU, cache, RAM).",
+      "Familiarity with what a memory write operation entails."
+    ],
+    "possible_confusions": [
+      "Confusing write-through memory consistency with guaranteed disk persistence.",
+      "Assuming write-back caches never update main memory until the entire program terminates, rather than upon block eviction."
+    ],
+    "ambiguous_references": []
+  },
+  "plan": {
+    "learner_level": "intermediate",
+    "learning_objectives": [
+      "Understand the mechanism of write-through cache policies",
+      "Understand the mechanism of write-back cache policies",
+      "Compare the tradeoffs of write-through and write-back regarding latency, traffic, and data consistency"
+    ],
+    "prerequisite_order": [
+      "CPU architecture basics",
+      "Memory hierarchy (Cache vs Main Memory)",
+      "Memory write operations"
+    ],
+    "explanation_sequence": [
+      "Introduction to cache write policies",
+      "Write-through mechanism and example",
+      "Write-back mechanism, dirty blocks, and eviction",
+      "Side-by-side performance and trade-off comparison",
+      "Summary and practical application guidelines"
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": false,
+    "needs_diagram": true,
+    "analogy_rationale": "The source material already provides clear numerical and step-by-step concrete examples of cache updates, making an abstract analogy redundant.",
+    "detail_level": "thorough",
+    "techniques_not_needed": [
+      "analogy",
+      "The source text's examples and side-by-side tables are already sufficiently intuitive, so an additional analogy would add unnecessary cognitive load."
+    ]
+  },
+  "fidelity": {
+    "verdict": "warnings",
+    "warnings": [
+      {
+        "type": "unjustified_certainty",
+        "severity": "medium",
+        "detail": "Absolute language appears more often after transformation: never. Check the source supports the stronger claim.",
+        "source_excerpt": "",
+        "transformed_excerpt": "",
+        "detector": "deterministic"
+      },
+      {
+        "type": "boundary_violation",
+        "severity": "medium",
+        "detail": "Treatment T3 added presentation structure (0 headings/tables, 8 list items). That is T5's role. This variant is not a clean single-treatment condition and should be excluded from strict ablation analysis.",
+        "detector": "deterministic"
+      }
+    ],
+    "numeric_drift": [],
+    "preserved_claims": [
+      "Write-through writes to cache and immediately to next memory level",
+      "Write-back updates only cache initially and updates main memory later upon eviction",
+      "Write-through provides better data consistency and simplicity",
+      "Write-back provides better write performance and fewer memory writes"
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewritten text expands significantly on the explanations by adding descriptive mechanisms (preconditions, causes, effects, exceptions) and explicit meta-commentary ('The source does not specify...'), but it does not alter, contradict, or drop any substantive technical claims or numbers from the original.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 2,
+    "llm_warning_count": 0,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T3",
+      "name": "Mechanism and causal explanation",
+      "stats": {
+        "words_before": 633,
+        "words_after": 1124,
+        "word_delta": 491,
+        "sentences_before": 55,
+        "sentences_after": 68,
+        "avg_sentence_words_before": 11.51,
+        "avg_sentence_words_after": 16.53,
+        "headings_added": 0,
+        "list_items_added": 8,
+        "table_rows_added": 0,
+        "word_similarity": 0.6409
+      },
+      "unified_diff": "--- T3:before\n+++ T3:after\n@@ -2,71 +2,71 @@\n \n The main tradeoff is data consistency and simplicity vs. write performance.\n+\n 1. Write-through cache\n-When the CPU writes data, the cache is updated, and the same data is immediately written to the next memory level.\n-CPU\n+When the CPU writes data, the cache is updated, and the same data is immediately written to the next memory level. This is triggered by a CPU write operation, through the mechanism of propagating the write signal simultaneously to the cache controller and the lower-level memory interface. \n \n-Write data\n+The components interact as follows: the CPU is responsible for issuing the write request and providing data; the cache is responsible for storing and updating its local copy; and the next-level memory is responsible for accepting and committing the incoming write data. The CPU needs an acknowledgment from the memory system that the write has been processed before it can proceed securely, depending on the system's design.\n \n-\n-Cache + Main Memory\n-\n-Both are updated on the write\n-\n+- Precondition: A memory write operation is initiated by the CPU.\n+- Cause: The CPU issues a write command, which triggers an immediate update to both the cache and lower-level memory.\n+- Effect: Both the cache and main memory reflect the new data simultaneously, assuming writes complete successfully.\n+- Exception: If the lower-level memory is busy or stalls, the write may experience a delay before completion.\n \n Example: Suppose the CPU changes a value from 10 to 20.\n-1. The cache value becomes 20.\n-2. Main memory is also updated to 20.\n-3. The write completes according to the system's memory-write acknowledgment rules.\n+1. The cache value becomes 20 because the cache controller processes the write locally.\n+2. Main memory is also updated to 20 because the write operation is propagated immediately.\n+3. The write completes according to the system's memory-write acknowledgment rules, which dictate when the CPU can move on to subsequent instructions.\n+\n Advantages\n-- Main memory stays up to date with the cache, assuming writes complete successfully.\n-- Simpler recovery and cache management.\n-- Less risk of losing the latest value if the cache is discarded, provided the memory write has completed.\n+- Main memory stays up to date with the cache, assuming writes complete successfully, because every write is propagated instantly.\n+- Simpler recovery and cache management, because the memory state does not diverge from the cache state.\n+- Less risk of losing the latest value if the cache is discarded, provided the memory write has completed, because a persistent copy already resides in lower-level memory.\n+\n Disadvantages\n-- Every write generates a memory write.\n-- Higher write latency if the CPU must wait for the lower-level memory.\n-- Greater memory-bus traffic.\n-A write buffer can reduce the CPU's waiting time, although the memory write still needs to happen.\n+- Every write generates a memory write, as a direct causal result of the write-through policy.\n+- Higher write latency if the CPU must wait for the lower-level memory to complete the transaction.\n+- Greater memory-bus traffic, caused by the continuous stream of write requests traveling from the cache to main memory.\n+\n+A write buffer can reduce the CPU's waiting time by temporarily storing data before committing it to lower-level memory, although the memory write still needs to happen eventually. The source does not specify the detailed internal mechanism of how write buffers temporarily store data before committing it to lower-level memory.\n+\n 2. Write-back cache\n-When the CPU writes data, only the cache is updated initially. Main memory is updated later, usually when the modified cache block is evicted.\n-CPU\n+When the CPU writes data, only the cache is updated initially. Main memory is updated later, usually when the modified cache block is evicted. \n \n-Write data\n+The components interact as follows: the CPU writes exclusively to the cache, which is responsible for catching the write and setting a status indicator. Lower-level memory is entirely bypassed during these intermediate writes and remains unmodified until an explicit eviction event occurs. The source does not specify how cache tags and sets determine precisely when a block is chosen for eviction.\n \n-\n-Cache\n-\n-Updated immediately; block marked dirty\n-\n-\n-Main Memory\n-\n-Updated later when the dirty block is written back\n-\n+- Precondition: The targeted cache line must be present in the cache when the CPU performs a write operation.\n+- Cause: A CPU write to a cache block triggers an immediate local cache update and causes the block to be marked as a dirty block.\n+- Effect: The cache block holds newer data than the corresponding block in main memory, creating a temporary state of divergence.\n+- Exception: If the cache block is never evicted during the program's execution or if the system loses power before eviction, the deferred update to main memory will not occur.\n \n Example: Suppose the CPU changes a value from 10 to 20.\n-1. The cache value becomes 20.\n-2. Main memory remains at 10 temporarily.\n-3. The cache marks the block as dirty, indicating that it has been modified.\n-4. When that block is evicted, the modified data is written to main memory.\n-If the same cache block is written five times before eviction, the system may need only one write-back of that block instead of five separate memory writes.\n+1. The cache value becomes 20 due to the immediate local write.\n+2. Main memory remains at 10 temporarily because the write operation is withheld from lower-level memory.\n+3. The cache marks the block as dirty, indicating that it has been modified relative to main memory.\n+4. When that block is evicted, the modified data is written to main memory because the eviction process triggers a write-back of the dirty contents.\n+\n+If the same cache block is written five times before eviction, the system may need only one write-back of that block instead of five separate memory writes, because the intermediate changes are accumulated locally within the cache block.\n \n Advantages\n-- Faster writes in the common case.\n-- Fewer writes to lower-level memory.\n-- Reduced memory-bus traffic, especially when the same cache block is modified repeatedly.\n+- Faster writes in the common case, because the CPU does not wait for slow lower-level memory.\n+- Fewer writes to lower-level memory, caused by consolidating multiple writes to the same block.\n+- Reduced memory-bus traffic, especially when the same cache block is modified repeatedly, because updates are held locally.\n+\n Disadvantages\n-- Main memory may contain stale data while a dirty block remains in the cache.\n-- Evicting a dirty block requires a write-back, which can cause a delay.\n-- Cache coherence, recovery, and data-loss handling are more complex.\n+- Main memory may contain stale data while a dirty block remains in the cache, as an effect of deferring the memory update.\n+- Evicting a dirty block requires a write-back, which can cause a delay when the eviction occurs.\n+- Cache coherence, recovery, and data-loss handling are more complex, because multiple memory levels hold differing versions of the data.\n+\n 3. Side-by-side comparison\n-Feature\tWrite-through\tWrite-back\n-Cache updated on write\tImmediately\tImmediately\n-Main memory updated\tOn each write\tLater, on write-back\n-Write latency\tGenerally higher\tGenerally lower\n-Memory traffic\tHigher\tLower\n-Dirty bit required\tNot for this policy alone\tYes, typically\n-Implementation\tSimpler\tMore complex\n-Main memory consistency\tMore up to date after completed writes\tMay be stale\n-Repeated writes to same block\tEach write propagates\tCan be combined into one write-back\n+Feature | Write-through | Write-back\n+--- | --- | ---\n+Cache updated on write | Immediately | Immediately\n+Main memory updated | On each write | Later, on write-back\n+Write latency | Generally higher | Generally lower\n+Memory traffic | Higher | Lower\n+Dirty bit required | Not for this policy alone | Yes, typically\n+Implementation | Simpler | More complex\n+Main memory consistency | More up to date after completed writes | May be stale\n+Repeated writes to same block | Each write propagates | Can be combined into one write-back\n \n 4. A quick numerical example\n@@ -74,21 +74,16 @@\n Write-through\n 100 writes\n-\n-\n-\n-100 lower-level write operations, assuming each write propagates separately.\n+-> 100 lower-level write operations, assuming each write propagates separately.\n \n Write-back\n 1 write-back\n-\n-\n-\n-One lower-level write-back if the block is eventually evicted while dirty.\n-\n+-> One lower-level write-back if the block is eventually evicted while dirty.\n \n This is an illustrative example, not a universal performance ratio. Actual traffic depends on write buffers, cache-line size, eviction behavior, and memory-system design.\n+\n 5. When should each be used?\n - Write-through: Appropriate when simpler consistency behavior is valuable, or when lower-level writes are inexpensive and predictable.\n - Write-back: Common in CPU caches because it reduces memory traffic and improves write performance.\n+\n One important distinction: write-through does not automatically mean durable storage. A write reaching RAM, for example, does not guarantee that it has been persisted to disk.\n \n@@ -96,14 +91,2 @@\n - Write-through = update cache and memory together.\n - Write-back = update cache now, write memory back later.\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-You're using the free version of ChatGPT. Upgrade for advanced models, better memory, and higher-quality image creation.",
+      "text_after": "Write-through and write-back are two cache write policies that determine when data is written to the cache and to the next level of memory (such as RAM or disk).\n\nThe main tradeoff is data consistency and simplicity vs. write performance.\n\n1. Write-through cache\nWhen the CPU writes data, the cache is updated, and the same data is immediately written to the next memory level. This is triggered by a CPU write operation, through the mechanism of propagating the write signal simultaneously to the cache controller and the lower-level memory interface. \n\nThe components interact as follows: the CPU is responsible for issuing the write request and providing data; the cache is responsible for storing and updating its local copy; and the next-level memory is responsible for accepting and committing the incoming write data. The CPU needs an acknowledgment from the memory system that the write has been processed before it can proceed securely, depending on the system's design.\n\n- Precondition: A memory write operation is initiated by the CPU.\n- Cause: The CPU issues a write command, which triggers an immediate update to both the cache and lower-level memory.\n- Effect: Both the cache and main memory reflect the new data simultaneously, assuming writes complete successfully.\n- Exception: If the lower-level memory is busy or stalls, the write may experience a delay before completion.\n\nExample: Suppose the CPU changes a value from 10 to 20.\n1. The cache value becomes 20 because the cache controller processes the write locally.\n2. Main memory is also updated to 20 because the write operation is propagated immediately.\n3. The write completes according to the system's memory-write acknowledgment rules, which dictate when the CPU can move on to subsequent instructions.\n\nAdvantages\n- Main memory stays up to date with the cache, assuming writes complete successfully, because every write is propagated instantly.\n- Simpler recovery and cache management, because the memory state does not diverge from the cache state.\n- Less risk of losing the latest value if the cache is discarded, provided the memory write has completed, because a persistent copy already resides in lower-level memory.\n\nDisadvantages\n- Every write generates a memory write, as a direct causal result of the write-through policy.\n- Higher write latency if the CPU must wait for the lower-level memory to complete the transaction.\n- Greater memory-bus traffic, caused by the continuous stream of write requests traveling from the cache to main memory.\n\nA write buffer can reduce the CPU's waiting time by temporarily storing data before committing it to lower-level memory, although the memory write still needs to happen eventually. The source does not specify the detailed internal mechanism of how write buffers temporarily store data before committing it to lower-level memory.\n\n2. Write-back cache\nWhen the CPU writes data, only the cache is updated initially. Main memory is updated later, usually when the modified cache block is evicted. \n\nThe components interact as follows: the CPU writes exclusively to the cache, which is responsible for catching the write and setting a status indicator. Lower-level memory is entirely bypassed during these intermediate writes and remains unmodified until an explicit eviction event occurs. The source does not specify how cache tags and sets determine precisely when a block is chosen for eviction.\n\n- Precondition: The targeted cache line must be present in the cache when the CPU performs a write operation.\n- Cause: A CPU write to a cache block triggers an immediate local cache update and causes the block to be marked as a dirty block.\n- Effect: The cache block holds newer data than the corresponding block in main memory, creating a temporary state of divergence.\n- Exception: If the cache block is never evicted during the program's execution or if the system loses power before eviction, the deferred update to main memory will not occur.\n\nExample: Suppose the CPU changes a value from 10 to 20.\n1. The cache value becomes 20 due to the immediate local write.\n2. Main memory remains at 10 temporarily because the write operation is withheld from lower-level memory.\n3. The cache marks the block as dirty, indicating that it has been modified relative to main memory.\n4. When that block is evicted, the modified data is written to main memory because the eviction process triggers a write-back of the dirty contents.\n\nIf the same cache block is written five times before eviction, the system may need only one write-back of that block instead of five separate memory writes, because the intermediate changes are accumulated locally within the cache block.\n\nAdvantages\n- Faster writes in the common case, because the CPU does not wait for slow lower-level memory.\n- Fewer writes to lower-level memory, caused by consolidating multiple writes to the same block.\n- Reduced memory-bus traffic, especially when the same cache block is modified repeatedly, because updates are held locally.\n\nDisadvantages\n- Main memory may contain stale data while a dirty block remains in the cache, as an effect of deferring the memory update.\n- Evicting a dirty block requires a write-back, which can cause a delay when the eviction occurs.\n- Cache coherence, recovery, and data-loss handling are more complex, because multiple memory levels hold differing versions of the data.\n\n3. Side-by-side comparison\nFeature | Write-through | Write-back\n--- | --- | ---\nCache updated on write | Immediately | Immediately\nMain memory updated | On each write | Later, on write-back\nWrite latency | Generally higher | Generally lower\nMemory traffic | Higher | Lower\nDirty bit required | Not for this policy alone | Yes, typically\nImplementation | Simpler | More complex\nMain memory consistency | More up to date after completed writes | May be stale\nRepeated writes to same block | Each write propagates | Can be combined into one write-back\n\n4. A quick numerical example\nSuppose the CPU writes to the same cache block 100 times before it is evicted.\nWrite-through\n100 writes\n-> 100 lower-level write operations, assuming each write propagates separately.\n\nWrite-back\n1 write-back\n-> One lower-level write-back if the block is eventually evicted while dirty.\n\nThis is an illustrative example, not a universal performance ratio. Actual traffic depends on write buffers, cache-line size, eviction behavior, and memory-system design.\n\n5. When should each be used?\n- Write-through: Appropriate when simpler consistency behavior is valuable, or when lower-level writes are inexpensive and predictable.\n- Write-back: Common in CPU caches because it reduces memory traffic and improves write performance.\n\nOne important distinction: write-through does not automatically mean durable storage. A write reaching RAM, for example, does not guarantee that it has been persisted to disk.\n\nExam tip: Remember these two phrases:\n- Write-through = update cache and memory together.\n- Write-back = update cache now, write memory back later."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1689,
+      "output_tokens": 747,
+      "latency_ms": 3149,
+      "cost_usd": 0.002374,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2337,
+      "output_tokens": 305,
+      "latency_ms": 3478,
+      "cost_usd": 0.001464,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T3 — Mechanism and causal explanation",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2220,
+      "output_tokens": 1458,
+      "latency_ms": 5164,
+      "cost_usd": 0.004311,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 3488,
+      "output_tokens": 161,
+      "latency_ms": 1816,
+      "cost_usd": 0.001449,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.009598,
+  "is_synthetic": false,
+  "control_limitations": []
+}

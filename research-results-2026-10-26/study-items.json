@@ -1,0 +1,27 @@
+{
+  "caching": [
+    {"dimension": "A_immediate_comprehension", "prompt": "Which policy updates the backing store before considering a write complete?", "options": ["Write-through", "Write-back", "Neither policy"], "correct_option_index": 0},
+    {"dimension": "B_mechanistic_understanding", "prompt": "Why can write-back complete writes faster than write-through?", "options": ["It delays writes to the backing store", "It removes the need for a cache", "It writes every change to the backing store twice"], "correct_option_index": 0},
+    {"dimension": "C_transfer", "prompt": "A cache fails before its modified data reaches backing storage. Which policy is more exposed to losing that change?", "options": ["Write-through", "Write-back", "Both equally"], "correct_option_index": 1}
+  ],
+  "databases": [
+    {"dimension": "A_immediate_comprehension", "prompt": "How does a B-tree index avoid scanning every table row for a lookup?", "options": ["It narrows the search through sorted keys", "It duplicates every table row in memory", "It searches rows in random order"], "correct_option_index": 0},
+    {"dimension": "B_mechanistic_understanding", "prompt": "Why can adding a B-tree index slow inserts, updates, and deletes?", "options": ["The index must also be maintained", "The database can no longer store rows", "The index disables caching"], "correct_option_index": 0},
+    {"dimension": "C_transfer", "prompt": "A table gets another B-tree index. What additional resource does the index itself require?", "options": ["Storage space", "A second database server", "No additional resources"], "correct_option_index": 0}
+  ],
+  "tcp": [
+    {"dimension": "A_immediate_comprehension", "prompt": "Which message starts the TCP three-way handshake?", "options": ["SYN", "SYN-ACK", "ACK"], "correct_option_index": 0},
+    {"dimension": "B_mechanistic_understanding", "prompt": "What does the server's SYN-ACK do?", "options": ["Acknowledges the client's sequence number and sends the server's sequence number", "Only closes the connection", "Acknowledges the server's own number without replying to the client"], "correct_option_index": 0},
+    {"dimension": "C_transfer", "prompt": "After receiving the server's SYN-ACK, which message confirms the server's starting sequence number?", "options": ["The client's final ACK", "A second server SYN", "No further message"], "correct_option_index": 0}
+  ],
+  "immunology": [
+    {"dimension": "A_immediate_comprehension", "prompt": "What does a vaccine present so the immune system can learn to recognize a pathogen?", "options": ["A safe antigen or weakened or inactivated form", "Only a list of symptoms", "No pathogen-related material"], "correct_option_index": 0},
+    {"dimension": "B_mechanistic_understanding", "prompt": "Which cells can remain after the initial vaccine response and help with later recognition?", "options": ["Memory B and T cells", "Only red blood cells", "Only platelets"], "correct_option_index": 0},
+    {"dimension": "C_transfer", "prompt": "On a later encounter with the real pathogen, what role do immune memory cells play?", "options": ["They support a faster and stronger response", "They prevent any immune response", "They turn into the pathogen"], "correct_option_index": 0}
+  ],
+  "interest": [
+    {"dimension": "A_immediate_comprehension", "prompt": "What amount is simple interest calculated on each period?", "options": ["The original principal", "The principal plus all past interest", "Only the most recent interest payment"], "correct_option_index": 0},
+    {"dimension": "B_mechanistic_understanding", "prompt": "What makes compound interest grow faster than simple interest over time?", "options": ["Past interest also earns interest", "The original principal disappears", "The interest rate must increase every period"], "correct_option_index": 0},
+    {"dimension": "C_transfer", "prompt": "At the same positive rate and starting principal, why does the compound-interest balance pull farther ahead over repeated periods?", "options": ["The amount that earns compound interest keeps growing", "Simple interest becomes negative", "Compound interest stops using the principal"], "correct_option_index": 0}
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "variant_response_id": "f0a7b14f-eee5-4d7b-8c66-5aedeb0dc906",
+  "text": "Both policies answer the same question: when a CPU writes to an address that’s in the cache, when does main memory find out?\n\nWrite-through\n\nOn every write, the cache updates its own copy and immediately writes the value to the next level (memory or a lower cache). Memory is always consistent with the cache.\n\nPros: Simple. Memory is never stale, so cache coherence in multiprocessor systems is easier, and a cache line can be dropped on eviction without writing anything back. Crash recovery is easier because memory holds the latest data.\nCons: Every store generates memory traffic, so write bandwidth and latency become a bottleneck. This is usually softened with a write buffer, which lets the CPU continue while writes drain in the background, but the buffer can still fill under heavy write bursts.\n\nWrite-back\n\nOn a write hit, the cache updates only its own copy and sets a dirty bit on that line. Memory is updated later, when the dirty line is evicted (or flushed explicitly).\n\nPros: Repeated writes to the same line collapse into a single memory write, which saves a lot of bandwidth and power. Writes complete at cache speed. It also lets you write whole lines in bursts, which memory handles efficiently.\nCons: More complex. You need dirty bits and eviction logic, and evicting a dirty line costs an extra write that can add latency on a miss. Memory can hold stale data, so multiprocessor systems need a coherence protocol (MESI and similar) to make sure other cores and DMA devices see the right values. A crash or power loss can lose data that was only in the cache.\n\nWrite misses: the second decision\n\nEach policy is usually paired with a write-miss policy:\n\nWrite-allocate loads the line into the cache, then performs the write. This is typically paired with write-back, since later writes to nearby data will then hit.\nNo-write-allocate sends the write straight to memory without loading the line. This is typically paired with write-through, since there’s little benefit in caching data you only wrote.\n\nSummary\n\n\tWrite-through\tWrite-back\nMemory traffic\tHigh (every write)\tLow (on eviction)\nMemory consistency\tAlways up to date\tCan be stale\nComplexity\tLow\tHigher (dirty bits, coherence)\nEviction cost\tNone\tExtra write if dirty\nData-loss risk on crash\tLow\tHigher\n\nIn practice: Write-back dominates in modern CPU caches (L1 through L3) because bandwidth and speed matter most. Write-through shows up where consistency and simplicity matter more, such as some L1 designs (often paired with a write-back L2 behind them), embedded systems, and storage or database layers that need durability guarantees. The same tradeoff appears outside hardware too: OS page caches and disk controllers use write-back for speed, while “write-through” modes are offered when you can’t afford to lose recent writes.\n\nFor example, consider a processor running an application that logs a stream of telemetry data to a local variable array in memory, repeatedly incrementing a counter variable at address `0x7FFF1000` 1,000 times in a tight loop. \n- In a write-through cache setup, every single one of those 1,000 increments immediately triggers a transaction across the memory bus to update main memory. \n- In a write-back cache setup, the CPU updates the L1 cache line on the first write, sets the dirty bit, and processes the remaining 999 increments entirely within the fast L1 cache without touching main memory; the final aggregated value is written to main memory only much later when that cache line is eventually evicted. \n\nThis mapping breaks down if the cache controller encounters a capacity miss or explicit invalidation command before the loop finishes, forcing an early write-back of the dirty line mid-stream rather than waiting for natural loop completion.",
+  "applied_treatments": [
+    "T4"
+  ],
+  "treatment_order": [
+    "T4"
+  ],
+  "analysis": {
+    "main_topic": "Write-through and write-back cache policies and their tradeoffs",
+    "primary_claims": [
+      "Write-through updates both the cache and main memory immediately on every write, keeping memory consistent but creating a bandwidth and latency bottleneck.",
+      "Write-back updates only the cache on a write hit and sets a dirty bit, deferring the memory update until the line is evicted.",
+      "Write-allocate loads a missed line into the cache before writing, whereas no-write-allocate bypasses the cache and sends the write directly to memory.",
+      "Write-back dominates in modern CPU caches because bandwidth and speed are prioritized, while write-through is used when simplicity, consistency, or durability are paramount."
+    ],
+    "key_concepts": [
+      "Write-through",
+      "Write-back",
+      "Write buffer",
+      "Dirty bit",
+      "Cache eviction",
+      "Write-allocate",
+      "No-write-allocate",
+      "Cache coherence"
+    ],
+    "prerequisite_concepts": [
+      "CPU caching basics",
+      "Main memory",
+      "Cache lines",
+      "Write hits and misses"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "write-through",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "write-back",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "cache line",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "eviction",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "write buffer",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "dirty bit",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "cache coherence",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "write-allocate",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "no-write-allocate",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "MESI",
+        "explained_in_text": false,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "OS page caches and disk controllers using write-back for speed versus write-through modes for durability"
+    ],
+    "missing_intermediate_steps": [
+      "Detailed explanation of how dirty lines are flushed explicitly",
+      "Step-by-step breakdown of how a write-allocate policy interacts with cache line replacement"
+    ],
+    "assumed_prior_knowledge": [
+      "Understanding of multiprocessor systems and core interactions",
+      "Familiarity with DMA devices",
+      "Basic knowledge of computer system crashes and data loss risks"
+    ],
+    "possible_confusions": [
+      "Confusing whether write-allocate is exclusively paired with write-back and no-write-allocate with write-through (text states 'typically', leaving room for other combinations)",
+      "Misinterpreting how a write buffer handles heavy write bursts when it fills up"
+    ],
+    "ambiguous_references": [
+      "the second decision"
+    ]
+  },
+  "plan": {
+    "learner_level": "intermediate",
+    "learning_objectives": [
+      "Understand the difference between write-through and write-back cache policies",
+      "Identify the pros, cons, and tradeoffs of each caching policy regarding bandwidth, latency, complexity, and consistency",
+      "Distinguish between write-allocate and no-write-allocate miss policies and their common pairings"
+    ],
+    "prerequisite_order": [
+      "CPU caching basics",
+      "Main memory",
+      "Cache lines",
+      "Write hits and misses"
+    ],
+    "explanation_sequence": [
+      "Define the core question of when main memory is updated on a write",
+      "Explain write-through policy, its mechanics, pros, and cons",
+      "Explain write-back policy, its mechanics, dirty bits, pros, and cons",
+      "Explain write-miss policies (write-allocate vs no-write-allocate) and their typical pairings",
+      "Summarize via comparison table and real-world usage contexts"
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": false,
+    "needs_diagram": false,
+    "analogy_rationale": "The concepts map cleanly to direct computer architecture terminology already familiar at an intermediate level, making an analogy unnecessary.",
+    "detail_level": "thorough",
+    "techniques_not_needed": [
+      "needs_analogy: The direct architectural concepts of memory updates, buffers, and bits are precise enough without an everyday metaphor.",
+      "needs_diagram: While helpful, the text explanation and summary table already provide sufficient clarity for the text-based instructional scope."
+    ]
+  },
+  "fidelity": {
+    "verdict": "serious_concerns",
+    "warnings": [
+      {
+        "type": "numeric_change",
+        "severity": "high",
+        "detail": "3 numeric difference(s) detected between source and transformed text. Numbers must not change.",
+        "detector": "deterministic"
+      },
+      {
+        "type": "new_claim",
+        "severity": "medium",
+        "detail": "The rewritten version adds an illustrative example with a specific memory address (0x7FFF1000) and specific loop counts (1,000 times, 999 increments) which were not present in the original text.",
+        "transformed_excerpt": "For example, consider a processor running an application that logs a stream of telemetry data to a local variable array in memory, repeatedly incrementing a counter variable at address `0x7FFF1000` 1,000 times in a tight loop.",
+        "detector": "llm_reviewer"
+      }
+    ],
+    "numeric_drift": [
+      {
+        "source_value": "(not present)",
+        "transformed_value": "0x",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "1.000",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "999",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      }
+    ],
+    "preserved_claims": [
+      "Write-through updates its own copy and immediately writes to the next level.",
+      "Write-back updates only its own copy and sets a dirty bit on a write hit.",
+      "Write-allocate and no-write-allocate write-miss policies.",
+      "Summary table of write-through vs write-back characteristics.",
+      "Practical applications in modern CPU caches and outside hardware."
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewrite is identical to the original except for an added illustrative example at the end involving a concrete address and loop count. This introduces new claims/details not found in the source text.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 1,
+    "llm_warning_count": 1,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T4",
+      "name": "Concrete examples and analogies",
+      "stats": {
+        "words_before": 459,
+        "words_after": 612,
+        "word_delta": 153,
+        "sentences_before": 24,
+        "sentences_after": 28,
+        "avg_sentence_words_before": 19.12,
+        "avg_sentence_words_after": 21.86,
+        "headings_added": 0,
+        "list_items_added": 2,
+        "table_rows_added": 0,
+        "word_similarity": 0.8571
+      },
+      "unified_diff": "--- T4:before\n+++ T4:after\n@@ -32,2 +32,8 @@\n \n In practice: Write-back dominates in modern CPU caches (L1 through L3) because bandwidth and speed matter most. Write-through shows up where consistency and simplicity matter more, such as some L1 designs (often paired with a write-back L2 behind them), embedded systems, and storage or database layers that need durability guarantees. The same tradeoff appears outside hardware too: OS page caches and disk controllers use write-back for speed, while “write-through” modes are offered when you can’t afford to lose recent writes.\n+\n+For example, consider a processor running an application that logs a stream of telemetry data to a local variable array in memory, repeatedly incrementing a counter variable at address `0x7FFF1000` 1,000 times in a tight loop. \n+- In a write-through cache setup, every single one of those 1,000 increments immediately triggers a transaction across the memory bus to update main memory. \n+- In a write-back cache setup, the CPU updates the L1 cache line on the first write, sets the dirty bit, and processes the remaining 999 increments entirely within the fast L1 cache without touching main memory; the final aggregated value is written to main memory only much later when that cache line is eventually evicted. \n+\n+This mapping breaks down if the cache controller encounters a capacity miss or explicit invalidation command before the loop finishes, forcing an early write-back of the dirty line mid-stream rather than waiting for natural loop completion.",
+      "text_after": "Both policies answer the same question: when a CPU writes to an address that’s in the cache, when does main memory find out?\n\nWrite-through\n\nOn every write, the cache updates its own copy and immediately writes the value to the next level (memory or a lower cache). Memory is always consistent with the cache.\n\nPros: Simple. Memory is never stale, so cache coherence in multiprocessor systems is easier, and a cache line can be dropped on eviction without writing anything back. Crash recovery is easier because memory holds the latest data.\nCons: Every store generates memory traffic, so write bandwidth and latency become a bottleneck. This is usually softened with a write buffer, which lets the CPU continue while writes drain in the background, but the buffer can still fill under heavy write bursts.\n\nWrite-back\n\nOn a write hit, the cache updates only its own copy and sets a dirty bit on that line. Memory is updated later, when the dirty line is evicted (or flushed explicitly).\n\nPros: Repeated writes to the same line collapse into a single memory write, which saves a lot of bandwidth and power. Writes complete at cache speed. It also lets you write whole lines in bursts, which memory handles efficiently.\nCons: More complex. You need dirty bits and eviction logic, and evicting a dirty line costs an extra write that can add latency on a miss. Memory can hold stale data, so multiprocessor systems need a coherence protocol (MESI and similar) to make sure other cores and DMA devices see the right values. A crash or power loss can lose data that was only in the cache.\n\nWrite misses: the second decision\n\nEach policy is usually paired with a write-miss policy:\n\nWrite-allocate loads the line into the cache, then performs the write. This is typically paired with write-back, since later writes to nearby data will then hit.\nNo-write-allocate sends the write straight to memory without loading the line. This is typically paired with write-through, since there’s little benefit in caching data you only wrote.\n\nSummary\n\n\tWrite-through\tWrite-back\nMemory traffic\tHigh (every write)\tLow (on eviction)\nMemory consistency\tAlways up to date\tCan be stale\nComplexity\tLow\tHigher (dirty bits, coherence)\nEviction cost\tNone\tExtra write if dirty\nData-loss risk on crash\tLow\tHigher\n\nIn practice: Write-back dominates in modern CPU caches (L1 through L3) because bandwidth and speed matter most. Write-through shows up where consistency and simplicity matter more, such as some L1 designs (often paired with a write-back L2 behind them), embedded systems, and storage or database layers that need durability guarantees. The same tradeoff appears outside hardware too: OS page caches and disk controllers use write-back for speed, while “write-through” modes are offered when you can’t afford to lose recent writes.\n\nFor example, consider a processor running an application that logs a stream of telemetry data to a local variable array in memory, repeatedly incrementing a counter variable at address `0x7FFF1000` 1,000 times in a tight loop. \n- In a write-through cache setup, every single one of those 1,000 increments immediately triggers a transaction across the memory bus to update main memory. \n- In a write-back cache setup, the CPU updates the L1 cache line on the first write, sets the dirty bit, and processes the remaining 999 increments entirely within the fast L1 cache without touching main memory; the final aggregated value is written to main memory only much later when that cache line is eventually evicted. \n\nThis mapping breaks down if the cache controller encounters a capacity miss or explicit invalidation command before the loop finishes, forcing an early write-back of the dirty line mid-stream rather than waiting for natural loop completion."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1386,
+      "output_tokens": 824,
+      "latency_ms": 3414,
+      "cost_usd": 0.002476,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2107,
+      "output_tokens": 373,
+      "latency_ms": 3972,
+      "cost_usd": 0.001565,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T4 — Concrete examples and analogies",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1609,
+      "output_tokens": 814,
+      "latency_ms": 2820,
+      "cost_usd": 0.002518,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2535,
+      "output_tokens": 300,
+      "latency_ms": 1771,
+      "cost_usd": 0.00151,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.008069,
+  "is_synthetic": false,
+  "control_limitations": []
+}
