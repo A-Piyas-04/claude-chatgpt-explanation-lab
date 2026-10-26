@@ -9,6 +9,8 @@ Treatment: **T2**. There are **20/20** saved cells: ChatGPT and Claude source an
 
 ## Interpretation limits
 
+T2 was chosen from Experiment 3 because 9/10 of its first-model runs had clean automated audits. The second rewriter had its own fidelity failures, listed in the table and CSV. A clean result is only a screening outcome.
+
 Both rewriters use Gemini. This is a comparison of rewriter models on ChatGPT and Claude source text; it does **not** fill the ChatGPT-to-Claude or Claude-to-ChatGPT website rewrite cells in the manual. Neither source model has an API key configured in this app.
 
 Any change can reflect the treatment, the rewriter, a second pass, or their interaction. The all-5/5 Gemini judge cannot rank these outputs, and no human comprehension outcome was collected. The CSV supports matched descriptive comparisons and fidelity screening, not a causal portability claim.

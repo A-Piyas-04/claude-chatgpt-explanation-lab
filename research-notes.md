@@ -166,15 +166,15 @@ Each table compares the three prompt conditions within each model. "A" is the ba
 
 ## Experiment 3 - Mechanism isolation
 
-No saved transformation variants or fidelity reports were in the database when this file was generated. Results pending.
+Completed 60 single-technique Gemini transformations: T1 through T6 on each of the ten baseline answers. T2 (prerequisite-aware sequencing) had the most clean automated fidelity audits, 9/10. The TCP ChatGPT T2 variant had a deterministic numeric-change warning and was excluded from the proxy study. Clean audits do not establish that learning improved. See [Experiment 3 report](research-results-2026-10-26/experiment-3-report.md) and [CSV results](research-results-2026-10-26/experiment-3-results.csv).
 
 ## Experiment 4 - Cross-model transformation
 
-No cross-model transformation variants were in the database when this file was generated. Results pending.
+Completed 20 matched T2 rewrites of the ten baselines: ten by Gemini 3.5 Flash-Lite and ten by Gemini 3.1 Flash-Lite. Their clean-audit counts were 9/10 and 6/10 respectively. Both are Gemini rewriters; these runs do not fill the ChatGPT-to-Claude or Claude-to-ChatGPT website rewrite cells. See [Experiment 4 report](research-results-2026-10-26/experiment-4-report.md) and [CSV results](research-results-2026-10-26/experiment-4-results.csv).
 
 ## Experiment 5 - AI proxy answerability
 
-No studies or AI proxy reports were in the database when this file was generated. Results pending. AI proxy results, when available, measure answerability from text, not human comprehension.
+Created five draft studies and ran the Gemini AI proxy on 19 eligible answer conditions. The TCP ChatGPT T2 variant was excluded after its fidelity warning. Gemini answered all 15 assessment items correctly without any explanation, leaving **zero diagnostic items**. These studies therefore cannot measure added answerability; they do not measure human comprehension. See [Experiment 5 report](research-results-2026-10-26/experiment-5-report.md) and [CSV results](research-results-2026-10-26/experiment-5-results.csv).
 
 ## Source and limits
 

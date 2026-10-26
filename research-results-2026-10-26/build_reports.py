@@ -121,6 +121,8 @@ def build_stage3(conn: sqlite3.Connection) -> list[dict]:
         "",
         "## Interpretation",
         "",
+        "T2 had the most clean audits (9/10). Its TCP ChatGPT variant had a deterministic numeric-change warning and was excluded from the proxy study. This makes T2 a relatively safe *candidate* in this batch, not a demonstrated improvement in comprehension.",
+        "",
         "A clean verdict means the automated audit detected no issue. It does not verify factual accuracy. Runs with boundary violations or factual warnings are retained in the raw files and should not be counted as clean isolation of that treatment.",
         "",
         "The diagnostic columns in `experiment-3-results.csv` describe text changes. The existing Gemini judge gave 5/5 on every dimension for all 30 imported answers, so that judge cannot establish which treatment improved teaching. No human comprehension outcomes exist.",
@@ -192,6 +194,8 @@ def build_stage4(conn: sqlite3.Connection, treatment: str) -> list[dict]:
         "",
         "## Interpretation limits",
         "",
+        "T2 was chosen from Experiment 3 because 9/10 of its first-model runs had clean automated audits. The second rewriter had its own fidelity failures, listed in the table and CSV. A clean result is only a screening outcome.",
+        "",
         "Both rewriters use Gemini. This is a comparison of rewriter models on ChatGPT and Claude source text; it does **not** fill the ChatGPT-to-Claude or Claude-to-ChatGPT website rewrite cells in the manual. Neither source model has an API key configured in this app.",
         "",
         "Any change can reflect the treatment, the rewriter, a second pass, or their interaction. The all-5/5 Gemini judge cannot rank these outputs, and no human comprehension outcome was collected. The CSV supports matched descriptive comparisons and fidelity screening, not a causal portability claim.",
@@ -247,6 +251,8 @@ def build_stage5(conn: sqlite3.Connection) -> list[dict]:
         "",
         "## Interpretation",
         "",
+        "All five no-explanation controls scored 3/3, leaving zero diagnostic items across the study set. The TCP study had three conditions because its ChatGPT T2 variant failed the fidelity screen and was excluded.",
+        "",
         "First read the no-explanation result. When diagnostic items = 0, Gemini already answered every question before seeing an explanation, so the study cannot measure added answerability. A correct choice plus an exact quote shows textual support only. It does not show that a person learned the concept.",
         "",
         "Question wording and randomized answer order are stored in each `study-*-config.json`. Per-item choices and quotes are stored in each `proxy-*.json`. The corresponding `proxy-*-report.md` is the report persisted by the app.",
@@ -254,6 +260,48 @@ def build_stage5(conn: sqlite3.Connection) -> list[dict]:
     ]
     (OUT / "experiment-5-report.md").write_text("\n".join(lines), encoding="utf-8")
     return rows
+
+
+def build_examples(conn: sqlite3.Connection, treatment: str) -> None:
+    lines = [
+        f"# Candidate before-and-after examples - {treatment}",
+        "",
+        "One clean variant per topic, chosen for a visible text change. These are examples to inspect, not proven teaching improvements. The automated fidelity audit may miss errors.",
+        "",
+    ]
+    for topic in TOPICS:
+        candidates = []
+        for author in ("chatgpt", "claude"):
+            path = OUT / f"transform-{topic}-{author}-{treatment}.json"
+            raw = load(path)
+            if raw["fidelity"]["verdict"] == "clean":
+                similarity = raw["changes"][0]["stats"]["word_similarity"]
+                candidates.append((similarity, author, raw, path))
+        if not candidates:
+            continue
+        similarity, author, raw, path = min(candidates, key=lambda item: item[0])
+        variant = details(conn, raw["variant_response_id"])
+        baseline = details(conn, variant["parent_response_id"])
+        source_text = conn.execute("SELECT text FROM responses WHERE id=?", (baseline["id"],)).fetchone()[0]
+        lines += [
+            f"## {topic} - {author}",
+            "",
+            f"Source ID: `{baseline['id']}`. Variant ID: `{variant['id']}`. Automated word similarity: {similarity:.3f}. Raw pipeline record: `{path.name}`.",
+            "",
+            "### Before",
+            "",
+            "````markdown",
+            source_text,
+            "````",
+            "",
+            "### After",
+            "",
+            "````markdown",
+            raw["text"],
+            "````",
+            "",
+        ]
+    (OUT / "candidate-before-after.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 def main() -> None:
@@ -292,6 +340,7 @@ def main() -> None:
     stage3 = build_stage3(conn)
     stage4 = build_stage4(conn, treatment)
     stage5 = build_stage5(conn)
+    build_examples(conn, treatment)
     (OUT / "README.md").write_text("\n".join([
         "# ExplanationLab research results - 2026-10-26",
         "",
@@ -299,10 +348,20 @@ def main() -> None:
         "",
         f"- Experiment 3: {len(stage3)}/60 single-treatment runs; see `experiment-3-report.md`, `experiment-3-results.csv`, and `transform-*.json`.",
         f"- Experiment 4: {len(stage4)}/20 rewriter cells for {treatment}; see `experiment-4-report.md`, `experiment-4-results.csv`, and `cross-*.json`.",
-        f"- Experiment 5: {len(stage5)}/20 proxy condition results; see `experiment-5-report.md`, `experiment-5-results.csv`, `proxy-*.json`, and `study-*-config.json`.",
+        f"- Experiment 5: five complete draft proxy studies with {len(stage5)} eligible conditions; see `experiment-5-report.md`, `experiment-5-results.csv`, `proxy-*.json`, and `study-*-config.json`.",
         f"- Inputs: `input-dataset.json` preserves {len(questions)} questions and {len(answers)} imported answers so the result folder can be read without opening the app.",
+        "- Examples: `candidate-before-after.md` holds one clean T2 source/rewrite pair per topic for later human review.",
         "",
         "The app database retains the source answers, saved variants, fidelity audits, and draft studies. CSV files link rows to response and study IDs. No real participant was tested. The ChatGPT/Claude website rewrite cells in Experiment 4 require access to those sites or provider keys and are not represented by the Gemini rewriter comparison here.",
+        "",
+    ]), encoding="utf-8")
+    (OUT / "NEXT_STEPS.md").write_text("\n".join([
+        "# What these results cannot finish automatically",
+        "",
+        "1. The original Experiment 4 design needs ChatGPT-to-Claude and Claude-to-ChatGPT web rewrites. Only Gemini is connected here, so this folder contains a two-Gemini rewriter comparison instead. Complete those ten web-chat rewrites with the same T2 instruction if a full cross-provider grid is required.",
+        "2. The five AI proxy studies have zero diagnostic items: Gemini answered all 15 textbook questions without explanations. For an informative proxy follow-up, use explanation-dependent material that Gemini is unlikely to know beforehand and write the assessment items before inspecting the proxy result.",
+        "3. No person read an explanation or took a test. A claim about human comprehension still requires a separate participant study with grading.",
+        "4. The Gemini judge assigned 5/5 on all nine dimensions of all 30 imported answers, so it cannot rank those prompt versions. Use a better calibrated or independently assessed outcome before declaring a teaching winner.",
         "",
     ]), encoding="utf-8")
     print("reports built", len(stage3), len(stage4), len(stage5))
