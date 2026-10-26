@@ -1,0 +1,206 @@
+{
+  "variant_response_id": "fb062768-a507-4215-bb5f-d077b0af40cd",
+  "text": "The key difference is that simple interest is calculated only on your original money. Compound interest is calculated on your original money plus the interest you have already earned. Compound interest can grow much faster over time because compound interest calculates interest on your original money plus the interest you have already earned.\n\n1. Understand the difference\nImagine you deposit ৳10,000 in a bank account that pays 10% interest per year.\n\n\n\n\n\n\n\n\n\nSimple interest\n\nYou earn interest only on the original ৳10,000. Every year, you earn ৳1,000.\n\nSame interest every year: ৳1,000.\n\n\n\n\n\n\n\n\n\n\n\n\nCompound interest\n\nYou earn interest on your original ৳10,000 and on the interest accumulated in previous years.\n\nInterest grows each year as your balance increases.\n\n\n\n2. Compare them year by year\nAssume both accounts start with ৳10,000 and earn 10% annually, with no additional deposits or withdrawals.\nYear\tSimple interest balance\tCompound interest balance\n0\t৳10,000\t৳10,000\n1\t৳11,000\t৳11,000\n2\t৳12,000\t৳12,100\n3\t৳13,000\t৳13,310\n4\t৳14,000\t৳14,641\n5\t৳15,000\t৳16,105.10\n\nNotice what happens in Year 2:\n- Simple: You earn 10% of ৳10,000 = ৳1,000.\n- Compound: You earn 10% of ৳11,000 = ৳1,100.\nThe extra ৳100 comes from earning interest on the previous year's interest. This is called earning interest on interest.\n3. Why does the gap grow over time?\nThere are three important reasons:\n1. Simple interest grows linearly. The same amount is added each year.\n2. Compound interest grows exponentially. Each year's interest is calculated on an increasingly larger balance.\n3. The growth builds on itself. Interest earned earlier generates additional interest in later years.\nFor example, after 20 years at 10% annually:\n- Simple interest: ৳30,000 total.\n- Compound interest: approximately ৳67,275.\n- Difference: approximately ৳37,275.\nThe longer you leave the money invested, the more significant the difference can become.\n4. The formulas\nFor an initial principal \\(P\\) (which is the initial amount of money), annual interest rate \\(r\\), and time \\(t\\) in years:\n\nSimple interest\n\\[\nA=P(1+rt)\n\\]\n\nCompound interest\n\\[\nA=P(1+r)^t\n\\]\n\nHere, \\(A\\) is the final balance and \\(r\\) is expressed as a decimal. For example, 10% means \\(r=0.10\\).\n5. The practical takeaway\n- For saving and investing: Compound growth can help your money accumulate faster when returns are reinvested.\n- For borrowing: Compound interest can make debt grow faster when unpaid interest is added to the balance.\n- For time: Starting earlier matters because compound interest has more time to build on itself.\nOne final point: compounding frequency matters too. Monthly compounding can produce a different result from annual compounding at the same nominal annual rate.\n\nRemember: Simple interest earns money on your original money. Compound interest earns money on your original money and on the money your money has already earned.",
+  "applied_treatments": [
+    "T1"
+  ],
+  "treatment_order": [
+    "T1"
+  ],
+  "analysis": {
+    "main_topic": "The difference between simple interest and compound interest and why the gap between them grows over time",
+    "primary_claims": [
+      "Simple interest is calculated only on the original principal amount.",
+      "Compound interest is calculated on the original principal plus previously accumulated interest.",
+      "Simple interest grows linearly, while compound interest grows exponentially.",
+      "The gap between simple and compound interest widens over time because compound growth builds on itself.",
+      "Compounding frequency affects the final return compared to annual compounding at the same nominal rate."
+    ],
+    "key_concepts": [
+      "Simple interest",
+      "Compound interest",
+      "Principal",
+      "Annual interest rate",
+      "Linear growth",
+      "Exponential growth",
+      "Compounding frequency"
+    ],
+    "prerequisite_concepts": [
+      "Basic arithmetic (percentages and addition)",
+      "Concept of investing and bank balances"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "simple interest",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "compound interest",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "principal",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "linear growth",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "exponential growth",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "compounding frequency",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "nominal annual rate",
+        "explained_in_text": false,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "Depositing ৳10,000 at 10% interest per year for 5 years and 20 years"
+    ],
+    "missing_intermediate_steps": [
+      "Detailed derivation of the compound interest formula A = P(1 + r)^t from year-to-year multiplication"
+    ],
+    "assumed_prior_knowledge": [
+      "How to calculate percentages",
+      "Basic understanding of algebraic variables like P, r, t, and A"
+    ],
+    "possible_confusions": [
+      "Confusing nominal annual rate with effective annual rate when compounding frequency changes"
+    ],
+    "ambiguous_references": [
+      "monthly compounding can produce a different result from annual compounding at the same nominal annual rate"
+    ]
+  },
+  "plan": {
+    "learner_level": "beginner",
+    "learning_objectives": [
+      "Distinguish between simple interest and compound interest",
+      "Understand why compound interest grows exponentially while simple interest grows linearly",
+      "Identify how time and compounding frequency impact growth over the long term"
+    ],
+    "prerequisite_order": [
+      "Basic arithmetic and percentages",
+      "Concept of bank balances and investing"
+    ],
+    "explanation_sequence": [
+      "Define simple vs compound interest conceptually",
+      "Compare side-by-side year-by-year values using a concrete numeric example",
+      "Explain the mechanics of earning interest on interest",
+      "Contrast linear versus exponential growth over longer periods",
+      "Introduce mathematical formulas for simple and compound interest",
+      "Discuss practical takeaways for saving, borrowing, and compounding frequency"
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": false,
+    "needs_diagram": false,
+    "analogy_rationale": "An analogy is not strictly needed because the numerical deposit example clearly illustrates the exact math and step-by-step growth year over year.",
+    "detail_level": "thorough",
+    "techniques_not_needed": [
+      "Needs analogy, because the tabular year-by-year numerical example provides a direct and precise mathematical demonstration without requiring a non-financial metaphor.",
+      "Needs diagram, because the side-by-side table and clear algebraic formulas already map out the growth trajectories sufficiently."
+    ]
+  },
+  "fidelity": {
+    "verdict": "clean",
+    "warnings": [],
+    "numeric_drift": [],
+    "preserved_claims": [
+      "Simple interest is calculated only on the original principal in every period.",
+      "Compound interest is calculated on the principal plus the interest already accumulated.",
+      "Because compound interest earns interest on past interest, the balance grows faster than with simple interest.",
+      "The gap widens over time because the amount that compound interest is applied to keeps growing each period."
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewrite is effectively identical to the original with minor stylistic elaborations that do not alter the technical claims.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 0,
+    "llm_warning_count": 0,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T1",
+      "name": "Vocabulary and sentence clarification",
+      "stats": {
+        "words_before": 433,
+        "words_after": 453,
+        "word_delta": 20,
+        "sentences_before": 41,
+        "sentences_after": 42,
+        "avg_sentence_words_before": 10.56,
+        "avg_sentence_words_after": 10.79,
+        "headings_added": 0,
+        "list_items_added": 0,
+        "table_rows_added": 0,
+        "word_similarity": 0.9549
+      },
+      "unified_diff": "--- T1:before\n+++ T1:after\n@@ -1,3 +1,4 @@\n-The key difference is that simple interest is calculated only on your original money, while compound interest is calculated on your original money plus the interest you've already earned. This is why compound interest can grow much faster over time.\n+The key difference is that simple interest is calculated only on your original money. Compound interest is calculated on your original money plus the interest you have already earned. Compound interest can grow much faster over time because compound interest calculates interest on your original money plus the interest you have already earned.\n+\n 1. Understand the difference\n Imagine you deposit ৳10,000 in a bank account that pays 10% interest per year.\n@@ -61,5 +62,5 @@\n The longer you leave the money invested, the more significant the difference can become.\n 4. The formulas\n-For an initial principal \\(P\\), annual interest rate \\(r\\), and time \\(t\\) in years:\n+For an initial principal \\(P\\) (which is the initial amount of money), annual interest rate \\(r\\), and time \\(t\\) in years:\n \n Simple interest",
+      "text_after": "The key difference is that simple interest is calculated only on your original money. Compound interest is calculated on your original money plus the interest you have already earned. Compound interest can grow much faster over time because compound interest calculates interest on your original money plus the interest you have already earned.\n\n1. Understand the difference\nImagine you deposit ৳10,000 in a bank account that pays 10% interest per year.\n\n\n\n\n\n\n\n\n\nSimple interest\n\nYou earn interest only on the original ৳10,000. Every year, you earn ৳1,000.\n\nSame interest every year: ৳1,000.\n\n\n\n\n\n\n\n\n\n\n\n\nCompound interest\n\nYou earn interest on your original ৳10,000 and on the interest accumulated in previous years.\n\nInterest grows each year as your balance increases.\n\n\n\n2. Compare them year by year\nAssume both accounts start with ৳10,000 and earn 10% annually, with no additional deposits or withdrawals.\nYear\tSimple interest balance\tCompound interest balance\n0\t৳10,000\t৳10,000\n1\t৳11,000\t৳11,000\n2\t৳12,000\t৳12,100\n3\t৳13,000\t৳13,310\n4\t৳14,000\t৳14,641\n5\t৳15,000\t৳16,105.10\n\nNotice what happens in Year 2:\n- Simple: You earn 10% of ৳10,000 = ৳1,000.\n- Compound: You earn 10% of ৳11,000 = ৳1,100.\nThe extra ৳100 comes from earning interest on the previous year's interest. This is called earning interest on interest.\n3. Why does the gap grow over time?\nThere are three important reasons:\n1. Simple interest grows linearly. The same amount is added each year.\n2. Compound interest grows exponentially. Each year's interest is calculated on an increasingly larger balance.\n3. The growth builds on itself. Interest earned earlier generates additional interest in later years.\nFor example, after 20 years at 10% annually:\n- Simple interest: ৳30,000 total.\n- Compound interest: approximately ৳67,275.\n- Difference: approximately ৳37,275.\nThe longer you leave the money invested, the more significant the difference can become.\n4. The formulas\nFor an initial principal \\(P\\) (which is the initial amount of money), annual interest rate \\(r\\), and time \\(t\\) in years:\n\nSimple interest\n\\[\nA=P(1+rt)\n\\]\n\nCompound interest\n\\[\nA=P(1+r)^t\n\\]\n\nHere, \\(A\\) is the final balance and \\(r\\) is expressed as a decimal. For example, 10% means \\(r=0.10\\).\n5. The practical takeaway\n- For saving and investing: Compound growth can help your money accumulate faster when returns are reinvested.\n- For borrowing: Compound interest can make debt grow faster when unpaid interest is added to the balance.\n- For time: Starting earlier matters because compound interest has more time to build on itself.\nOne final point: compounding frequency matters too. Monthly compounding can produce a different result from annual compounding at the same nominal annual rate.\n\nRemember: Simple interest earns money on your original money. Compound interest earns money on your original money and on the money your money has already earned."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1562,
+      "output_tokens": 630,
+      "latency_ms": 2415,
+      "cost_usd": 0.002044,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2099,
+      "output_tokens": 339,
+      "latency_ms": 1733,
+      "cost_usd": 0.001477,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T1 — Vocabulary and sentence clarification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1408,
+      "output_tokens": 805,
+      "latency_ms": 2347,
+      "cost_usd": 0.002435,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2690,
+      "output_tokens": 140,
+      "latency_ms": 1503,
+      "cost_usd": 0.001157,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.007113,
+  "is_synthetic": false,
+  "control_limitations": []
+}

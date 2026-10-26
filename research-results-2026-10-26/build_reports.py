@@ -262,6 +262,33 @@ def main() -> None:
     treatment = parser.parse_args().treatment
     conn = sqlite3.connect(DB)
     conn.row_factory = sqlite3.Row
+    questions = []
+    for row in conn.execute("SELECT id, text, domain, topic, conceptual_difficulty, factual_checklist FROM research_questions"):
+        if row["topic"].strip() in TOPICS and row["text"].startswith((
+            "How do write-through", "How does a B-tree", "How does the TCP",
+            "How does a vaccine", "How is compound interest",
+        )):
+            item = dict(row)
+            item["topic"] = item["topic"].strip()
+            item["factual_checklist"] = json.loads(item["factual_checklist"])
+            questions.append(item)
+    question_ids = {q["id"] for q in questions}
+    answers = []
+    for row in conn.execute("""
+        SELECT id, question_id, provider, model_id, label, text, created_at,
+               control_limitations, is_synthetic
+        FROM responses WHERE origin='manual_import' ORDER BY question_id, provider, label
+    """):
+        if row["question_id"] not in question_ids:
+            continue
+        item = dict(row)
+        item["control_limitations"] = json.loads(item["control_limitations"])
+        answers.append(item)
+    (OUT / "input-dataset.json").write_text(json.dumps({
+        "questions": questions,
+        "imported_answers": answers,
+        "note": "Web-chat answers are copied from the app database. Hidden provider settings are unknown.",
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
     stage3 = build_stage3(conn)
     stage4 = build_stage4(conn, treatment)
     stage5 = build_stage5(conn)
@@ -273,6 +300,7 @@ def main() -> None:
         f"- Experiment 3: {len(stage3)}/60 single-treatment runs; see `experiment-3-report.md`, `experiment-3-results.csv`, and `transform-*.json`.",
         f"- Experiment 4: {len(stage4)}/20 rewriter cells for {treatment}; see `experiment-4-report.md`, `experiment-4-results.csv`, and `cross-*.json`.",
         f"- Experiment 5: {len(stage5)}/20 proxy condition results; see `experiment-5-report.md`, `experiment-5-results.csv`, `proxy-*.json`, and `study-*-config.json`.",
+        f"- Inputs: `input-dataset.json` preserves {len(questions)} questions and {len(answers)} imported answers so the result folder can be read without opening the app.",
         "",
         "The app database retains the source answers, saved variants, fidelity audits, and draft studies. CSV files link rows to response and study IDs. No real participant was tested. The ChatGPT/Claude website rewrite cells in Experiment 4 require access to those sites or provider keys and are not represented by the Gemini rewriter comparison here.",
         "",

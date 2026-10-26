@@ -1,10 +1,10 @@
 # Experiment 4 - Cross-model transformations
 
-Treatment: **T2**. There are **5/20** saved cells: ChatGPT and Claude source answers, each rewritten by two Gemini models across five questions.
+Treatment: **T2**. There are **8/20** saved cells: ChatGPT and Claude source answers, each rewritten by two Gemini models across five questions.
 
 | Rewriter | Cells | Clean | Warnings | Serious concerns | Median word change |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| gemini-3.5-flash-lite | 5 | 5 | 0 | 0 | +0 |
+| gemini-3.5-flash-lite | 8 | 8 | 0 | 0 | +0 |
 | gemini-3.5-flash | 0 | 0 | 0 | 0 | +0 |
 
 ## Interpretation limits

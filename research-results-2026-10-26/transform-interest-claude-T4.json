@@ -1,0 +1,237 @@
+{
+  "variant_response_id": "05149a59-1024-4dfd-8cac-50b319706bba",
+  "text": "Simple interest is calculated only on your original amount (the principal). Compound interest is calculated on the principal plus all the interest you’ve already earned, so interest earns interest.\n\nA quick example: $1,000 at 5% per year, such as a traditional bank savings account deposit.\n\nSimple interest: you earn $50 every year, always 5% of the original $1,000. After 10 years: $1,000 + $500 = $1,500.\nCompound interest (annual): year 1 you earn $50, but in year 2 you earn 5% of $1,050 = $52.50, in year 3 5% of $1,102.50 = $55.13, and so on. After 10 years: $1,000 × 1.05¹⁰ ≈ $1,629.\n\n*(Diagram concept: Imagine a two-line chart where the horizontal axis represents time in years (from 0 to 10) and the vertical axis represents total dollar amount (from $1,000 to $1,650). A straight, upward-sloping line tracks the simple interest growth from $1,000 to $1,500. A curved line, starting at the same point, bows progressively upward away from the straight line, reaching $1,629 at year 10, visually illustrating the widening gap over time.)*\n\nThe formulas:\n\nSimple: A = P(1 + rt)\nCompound: A = P(1 + r/n)^(nt), where n is how many times per year interest is compounded\n\nWhy the gap grows over time:\n\nSimple interest grows by the same fixed amount each period, which is a straight line. Compound interest grows by a fixed percentage of an ever-larger balance, which is an exponential curve.\n\nIn the early years the two are nearly identical, because there’s little accumulated interest to earn interest on. The gap in year 2 is just 5% of the $50 earned in year 1, or $2.50. But each year the compounding base is larger, so each year’s “interest on interest” is larger, and that extra amount itself starts earning more interest. The difference between the two isn’t just growing, it’s growing at an accelerating rate.\n\nYou can see it in the 10-year numbers above: the gap is $129. Stretch it to 30 years and simple interest gives $2,500, while compound gives about $4,322, a gap of over $1,800.\n\nThings that widen the gap further:\n\nA higher interest rate\nLonger time horizons\nMore frequent compounding (monthly vs. annually), though this effect is smaller than rate and time\n\nThis is why compounding works in your favor on savings and investments, and against you on debt like credit cards, where unpaid interest gets added to the balance and starts accruing interest itself.",
+  "applied_treatments": [
+    "T4"
+  ],
+  "treatment_order": [
+    "T4"
+  ],
+  "analysis": {
+    "main_topic": "The difference between simple and compound interest and the mechanics of compounding growth over time",
+    "primary_claims": [
+      "Simple interest is calculated only on the principal amount, while compound interest is calculated on the principal plus previously earned interest.",
+      "Simple interest grows in a linear fashion, whereas compound interest grows exponentially.",
+      "The gap between simple and compound interest grows at an accelerating rate over time due to interest earning interest on an ever-larger base.",
+      "Higher interest rates, longer time horizons, and more frequent compounding intervals all widen the gap between simple and compound interest."
+    ],
+    "key_concepts": [
+      "Simple interest",
+      "Compound interest",
+      "Principal",
+      "Interest rate",
+      "Compounding frequency",
+      "Exponential growth",
+      "Linear growth"
+    ],
+    "prerequisite_concepts": [
+      "Percentages",
+      "Basic arithmetic operations",
+      "Basic understanding of time periods"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "principal",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "compounded",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "exponential curve",
+        "explained_in_text": true,
+        "necessary": false
+      },
+      {
+        "term": "accruing",
+        "explained_in_text": true,
+        "necessary": false
+      }
+    ],
+    "existing_examples": [
+      "$1,000 at 5% per year compared over 10 years for both simple and compound interest",
+      "Extension of the 10-year example to 30 years to show the widened gap of $1,800"
+    ],
+    "missing_intermediate_steps": [
+      "Explicit algebraic derivation of how the formula A = P(1 + r/n)^(nt) is derived from sequential yearly compounding."
+    ],
+    "assumed_prior_knowledge": [
+      "Familiarity with mathematical notation like exponents and variables in formulas (A, P, r, t, n)",
+      "Understanding that 1.05¹⁰ represents multiplying by 1.05 ten times consecutively"
+    ],
+    "possible_confusions": [
+      "Confusing the compounding frequency (n) with the total time (t) in the compound interest formula.",
+      "Assuming that more frequent compounding has a massive impact compared to the interest rate and time horizon."
+    ],
+    "ambiguous_references": [
+      "You can see it in the 10-year numbers above: the gap is $129."
+    ]
+  },
+  "plan": {
+    "learner_level": "beginner",
+    "learning_objectives": [
+      "Differentiate between simple interest and compound interest",
+      "Understand why compound interest grows exponentially while simple interest grows linearly",
+      "Identify factors that widen the gap between simple and compound interest over time"
+    ],
+    "prerequisite_order": [
+      "Percentages",
+      "Basic arithmetic operations",
+      "Basic understanding of time periods"
+    ],
+    "explanation_sequence": [
+      "Define simple and compound interest using the core concept of principal",
+      "Provide a side-by-side numerical example ($1,000 at 5% over 10 years)",
+      "Contrast linear growth (simple) with exponential growth (compound)",
+      "Explain the mechanics of why the gap grows over time through interest earning interest",
+      "Highlight variables that expand the gap (rate, time horizon, compounding frequency)",
+      "Discuss real-world applications in savings and debt"
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": false,
+    "needs_diagram": true,
+    "analogy_rationale": "An analogy is not strictly required because the numerical example and the mathematical explanation of 'interest earning interest' are already intuitive and clear.",
+    "detail_level": "moderate",
+    "techniques_not_needed": [
+      "Needs analogy: The mathematical mechanics of money growing on money are straightforward enough with concrete numbers and do not require cross-domain comparison."
+    ]
+  },
+  "fidelity": {
+    "verdict": "serious_concerns",
+    "warnings": [
+      {
+        "type": "numeric_change",
+        "severity": "high",
+        "detail": "6 numeric difference(s) detected between source and transformed text. Numbers must not change.",
+        "detector": "deterministic"
+      }
+    ],
+    "numeric_drift": [
+      {
+        "source_value": "(not present)",
+        "transformed_value": "1.000",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "10",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "1.500",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "1.629",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "0",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "1.650",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      }
+    ],
+    "preserved_claims": [
+      "Simple interest is calculated only on the original principal in every period.",
+      "Compound interest is calculated on the principal plus the interest already accumulated.",
+      "Because compound interest earns interest on past interest, the balance grows faster than with simple interest.",
+      "The gap widens over time because the amount that compound interest is applied to keeps growing each period."
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewritten text introduces a minor illustrative addition (such as a traditional bank savings account deposit) and an ASCII diagram concept, but these do not alter any technical claims, introduce contradictions, or change any numbers. All core claims are preserved.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 1,
+    "llm_warning_count": 0,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T4",
+      "name": "Concrete examples and analogies",
+      "stats": {
+        "words_before": 326,
+        "words_after": 405,
+        "word_delta": 79,
+        "sentences_before": 17,
+        "sentences_after": 19,
+        "avg_sentence_words_before": 19.18,
+        "avg_sentence_words_after": 21.32,
+        "headings_added": 0,
+        "list_items_added": 0,
+        "table_rows_added": 0,
+        "word_similarity": 0.8892
+      },
+      "unified_diff": "--- T4:before\n+++ T4:after\n@@ -1,8 +1,10 @@\n Simple interest is calculated only on your original amount (the principal). Compound interest is calculated on the principal plus all the interest you’ve already earned, so interest earns interest.\n \n-A quick example: $1,000 at 5% per year.\n+A quick example: $1,000 at 5% per year, such as a traditional bank savings account deposit.\n \n Simple interest: you earn $50 every year, always 5% of the original $1,000. After 10 years: $1,000 + $500 = $1,500.\n Compound interest (annual): year 1 you earn $50, but in year 2 you earn 5% of $1,050 = $52.50, in year 3 5% of $1,102.50 = $55.13, and so on. After 10 years: $1,000 × 1.05¹⁰ ≈ $1,629.\n+\n+*(Diagram concept: Imagine a two-line chart where the horizontal axis represents time in years (from 0 to 10) and the vertical axis represents total dollar amount (from $1,000 to $1,650). A straight, upward-sloping line tracks the simple interest growth from $1,000 to $1,500. A curved line, starting at the same point, bows progressively upward away from the straight line, reaching $1,629 at year 10, visually illustrating the widening gap over time.)*\n \n The formulas:",
+      "text_after": "Simple interest is calculated only on your original amount (the principal). Compound interest is calculated on the principal plus all the interest you’ve already earned, so interest earns interest.\n\nA quick example: $1,000 at 5% per year, such as a traditional bank savings account deposit.\n\nSimple interest: you earn $50 every year, always 5% of the original $1,000. After 10 years: $1,000 + $500 = $1,500.\nCompound interest (annual): year 1 you earn $50, but in year 2 you earn 5% of $1,050 = $52.50, in year 3 5% of $1,102.50 = $55.13, and so on. After 10 years: $1,000 × 1.05¹⁰ ≈ $1,629.\n\n*(Diagram concept: Imagine a two-line chart where the horizontal axis represents time in years (from 0 to 10) and the vertical axis represents total dollar amount (from $1,000 to $1,650). A straight, upward-sloping line tracks the simple interest growth from $1,000 to $1,500. A curved line, starting at the same point, bows progressively upward away from the straight line, reaching $1,629 at year 10, visually illustrating the widening gap over time.)*\n\nThe formulas:\n\nSimple: A = P(1 + rt)\nCompound: A = P(1 + r/n)^(nt), where n is how many times per year interest is compounded\n\nWhy the gap grows over time:\n\nSimple interest grows by the same fixed amount each period, which is a straight line. Compound interest grows by a fixed percentage of an ever-larger balance, which is an exponential curve.\n\nIn the early years the two are nearly identical, because there’s little accumulated interest to earn interest on. The gap in year 2 is just 5% of the $50 earned in year 1, or $2.50. But each year the compounding base is larger, so each year’s “interest on interest” is larger, and that extra amount itself starts earning more interest. The difference between the two isn’t just growing, it’s growing at an accelerating rate.\n\nYou can see it in the 10-year numbers above: the gap is $129. Stretch it to 30 years and simple interest gives $2,500, while compound gives about $4,322, a gap of over $1,800.\n\nThings that widen the gap further:\n\nA higher interest rate\nLonger time horizons\nMore frequent compounding (monthly vs. annually), though this effect is smaller than rate and time\n\nThis is why compounding works in your favor on savings and investments, and against you on debt like credit cards, where unpaid interest gets added to the balance and starts accruing interest itself."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1307,
+      "output_tokens": 629,
+      "latency_ms": 3766,
+      "cost_usd": 0.001965,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1847,
+      "output_tokens": 338,
+      "latency_ms": 2161,
+      "cost_usd": 0.001399,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T4 — Concrete examples and analogies",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1497,
+      "output_tokens": 659,
+      "latency_ms": 2110,
+      "cost_usd": 0.002097,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2291,
+      "output_tokens": 158,
+      "latency_ms": 2479,
+      "cost_usd": 0.001082,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.006543,
+  "is_synthetic": false,
+  "control_limitations": []
+}

@@ -1,15 +1,15 @@
 # Experiment 3 - Single-treatment transformations
 
-Saved runs: **26/60**. Each run used one treatment, Gemini 3.5 Flash-Lite, stages A/B/D, and saved a variant.
+Saved runs: **45/60**. Each run used one treatment, Gemini 3.5 Flash-Lite, stages A/B/D, and saved a variant.
 
 | Treatment | Runs | Clean | Warnings | Serious concerns | Median word change |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| T1 | 5 | 4 | 0 | 1 | +71 |
-| T2 | 5 | 5 | 0 | 0 | +0 |
-| T3 | 4 | 0 | 4 | 0 | +275 |
-| T4 | 4 | 0 | 2 | 2 | +134.5 |
-| T5 | 4 | 2 | 0 | 2 | +38.5 |
-| T6 | 4 | 2 | 1 | 1 | +0 |
+| T1 | 8 | 6 | 1 | 1 | +42.5 |
+| T2 | 8 | 8 | 0 | 0 | +0 |
+| T3 | 8 | 0 | 6 | 2 | +235 |
+| T4 | 7 | 1 | 2 | 4 | +120 |
+| T5 | 7 | 2 | 0 | 5 | +38 |
+| T6 | 7 | 5 | 1 | 1 | +0 |
 
 ## Interpretation
 
