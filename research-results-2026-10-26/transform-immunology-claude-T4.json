@@ -1,0 +1,284 @@
+{
+  "variant_response_id": "c7e9f2ed-ebd3-4a6c-aa99-1addd302596c",
+  "text": "A vaccine works by showing your immune system a safe preview of a pathogen, so it can build a response in advance without you ever getting sick.\n\nThe core idea: antigens without the infection\n\nYour immune system recognizes pathogens by their antigens, which are molecules (usually proteins or sugars) on the surface of a virus or bacterium. The disease itself comes from the pathogen replicating, releasing toxins, and damaging tissue. A vaccine delivers the antigen part without the dangerous part, using one of several approaches:\n\nLive-attenuated (measles, MMR, chickenpox): the pathogen is weakened so it replicates only a little, if at all, in a healthy person.\nInactivated (polio shot, hepatitis A): the pathogen is killed, so it can’t replicate but still displays its antigens.\nSubunit, toxoid, and conjugate (hepatitis B, tetanus, HPV): only a purified piece of the pathogen, or a detoxified toxin, is used.\nmRNA and viral vector (COVID-19 vaccines): the vaccine delivers instructions for your own cells to make one harmless antigen, such as the spike protein, which the immune system then sees.\n\nWhat happens in your body\n\nDetection. Immune cells like dendritic cells and macrophages encounter the vaccine antigen, engulf it, and display fragments of it to other immune cells.\nActivation. Helper T cells that match those fragments get activated and coordinate the response. Adjuvants (ingredients added to many vaccines) boost this step by signaling “danger,” which makes the response stronger.\nAntibody production. B cells that recognize the antigen multiply and become plasma cells, which pump out antibodies tailored to that antigen. Killer T cells also expand to destroy infected cells.\nMemory. This is the key payoff. After the response winds down, long-lived memory B and T cells remain, sometimes for decades. They are the “trained” part of the system.\n\nWhy you don’t get sick\n\nThe vaccine lacks the ability to cause real disease: the antigen is a fragment, a killed organism, or a crippled one. The mild symptoms some people feel afterward, like a sore arm or low fever, are signs the immune system is responding, not an infection.\n\nWhat happens when you meet the real pathogen\n\nMemory cells recognize it right away. Instead of the slow first-time response, which can take over a week and gives the pathogen a head start, your body responds within hours to days, producing large amounts of antibodies and killer T cells quickly. The infection is either stopped outright or kept mild.\n\nBecause of this, some vaccines need boosters: for some pathogens, memory fades over time, or the pathogen mutates (as with flu and COVID-19), so the immune system needs a refresher or an update.\n\n***\n\n**Analogy:**\nThink of a vaccine like a **workplace security drill using a detailed wanted poster** of an intruder. \n* *Mapping:* The wanted poster corresponds to the vaccine antigen—it gives security personnel (your immune system) the exact physical description of the threat without letting the actual dangerous criminal inside the building. The security team reviews the poster and runs drills to practice their response.\n* *Where the mapping breaks:* A real security poster is just ink on paper and cannot take any action on its own, whereas vaccine antigens actively trigger biochemical reactions in immune cells, sometimes causing temporary localized inflammation (like a sore arm) as part of the process.\n\n**Concrete Example:**\nConsider an adult receiving the standard tetanus, diphtheria, and pertussis (Tdap) vaccine before starting work at a landscaping company where soil exposure is common. \n* *Mapping:* The injected vaccine contains a toxoid (a detoxified toxin from the *Clostridium tetani* bacterium), which serves as the harmless antigen. The person's dendritic cells detect this toxoid, helper T cells coordinate the response, and B cells produce specialized antibodies and memory cells without the person ever contracting lockjaw. When the gardener later encounters active tetanus spores from the soil, their long-term memory cells immediately recognize the toxin and neutralize it within hours before a full-blown infection can take hold. \n* *Where the mapping stops:* Unlike a software update or a physical file that remains identical in storage over time, biological memory cells can naturally wane in population or function over the years, which is why a booster dose is required every ten years.",
+  "applied_treatments": [
+    "T4"
+  ],
+  "treatment_order": [
+    "T4"
+  ],
+  "analysis": {
+    "main_topic": "How vaccines train the immune system without causing disease",
+    "primary_claims": [
+      "Vaccines deliver pathogen antigens without the dangerous replication or toxins that cause disease.",
+      "Different vaccine types use live-attenuated, inactivated, subunit/toxoid/conjugate, or mRNA/viral vector approaches.",
+      "Immune cells like dendritic cells and macrophages engulf vaccine antigens and display fragments to activate helper T cells.",
+      "Adjuvants boost the immune response by signaling danger.",
+      "B cells multiply into plasma cells to produce antibodies, while killer T cells expand to destroy infected cells.",
+      "Long-lived memory B and T cells remain after the response, providing fast protection upon future exposure to the real pathogen.",
+      "Mild post-vaccination symptoms are signs of immune response, not infection."
+    ],
+    "key_concepts": [
+      "antigen",
+      "pathogen",
+      "live-attenuated vaccine",
+      "inactivated vaccine",
+      "subunit vaccine",
+      "mRNA vaccine",
+      "dendritic cell",
+      "macrophage",
+      "helper T cell",
+      "killer T cell",
+      "B cell",
+      "antibody",
+      "memory cell",
+      "adjuvant"
+    ],
+    "prerequisite_concepts": [
+      "basic cellular biology",
+      "concept of infection and disease",
+      "general function of the human body"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "antigen",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "pathogen",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "live-attenuated",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "inactivated",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "subunit",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "toxoid",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "conjugate",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "mRNA",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "viral vector",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "dendritic cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "macrophages",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "Helper T cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "Adjuvants",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "B cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "plasma cells",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "antibodies",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Killer T cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "memory B and T cells",
+        "explained_in_text": true,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "Live-attenuated (measles, MMR, chickenpox)",
+      "Inactivated (polio shot, hepatitis A)",
+      "Subunit, toxoid, and conjugate (hepatitis B, tetanus, HPV)",
+      "mRNA and viral vector (COVID-19 vaccines)"
+    ],
+    "missing_intermediate_steps": [
+      "Detailed chemical mechanism of how mRNA instructs cell ribosomes to synthesize the antigen protein",
+      "Exact intracellular signaling pathways linking antigen presentation to T cell receptor binding"
+    ],
+    "assumed_prior_knowledge": [
+      "Understanding that viruses and bacteria can cause human disease",
+      "Basic awareness that the body has a defense system called the immune system"
+    ],
+    "possible_confusions": [
+      "Believing that mild symptoms like a low fever mean the vaccine has infected the person with the disease",
+      "Confusing how different vaccine types deliver antigens into the body"
+    ],
+    "ambiguous_references": [
+      "They are the trained part of the system",
+      "the pathogen is weakened so it replicates only a little"
+    ]
+  },
+  "plan": {
+    "learner_level": "beginner",
+    "learning_objectives": [
+      "Understand how vaccines introduce harmless parts of pathogens (antigens) rather than causing disease.",
+      "Identify different vaccine approaches like live-attenuated, inactivated, subunit, and mRNA.",
+      "Describe the immune response steps including detection, activation, antibody production, and memory formation.",
+      "Explain why memory cells allow the body to fight off future infections quickly."
+    ],
+    "prerequisite_order": [
+      "Basic cellular biology",
+      "Concept of infection and disease",
+      "General function of the human body and immune defense"
+    ],
+    "explanation_sequence": [
+      "Introduce the core concept of vaccines providing a safe preview using antigens without causing disease.",
+      "Explain the different types of vaccines and how they deliver antigens.",
+      "Detail the step-by-step immune response: detection, activation, antibody production, and memory cell creation.",
+      "Clarify why post-vaccination symptoms are signs of immune activation, not the disease itself.",
+      "Describe how memory cells provide rapid protection during future exposure to the real pathogen."
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": true,
+    "needs_diagram": true,
+    "analogy_rationale": "An analogy comparing a vaccine to a 'wanted poster' or a security drill helps beginners grasp how the immune system learns to recognize a threat without actually experiencing the real danger.",
+    "detail_level": "moderate",
+    "techniques_not_needed": [
+      "Advanced mathematical modeling of immune cell proliferation, because it is overly technical for a beginner learning how vaccines generally work."
+    ]
+  },
+  "fidelity": {
+    "verdict": "warnings",
+    "warnings": [
+      {
+        "type": "boundary_violation",
+        "severity": "medium",
+        "detail": "Treatment T4 added presentation structure (0 headings/tables, 4 list items). That is T5's role. This variant is not a clean single-treatment condition and should be excluded from strict ablation analysis.",
+        "detector": "deterministic"
+      }
+    ],
+    "numeric_drift": [],
+    "preserved_claims": [
+      "A vaccine presents a harmless piece, or a weakened or inactivated form, of the pathogen rather than the full live disease-causing agent.",
+      "The immune system responds by producing antibodies and activating cells specific to that antigen.",
+      "Memory B cells and T cells are formed and remain after the response fades.",
+      "On a later real exposure, those memory cells produce a faster and stronger response."
+    ],
+    "checklist_coverage": [],
+    "notes": "",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 1,
+    "llm_warning_count": 0,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T4",
+      "name": "Concrete examples and analogies",
+      "stats": {
+        "words_before": 435,
+        "words_after": 696,
+        "word_delta": 261,
+        "sentences_before": 25,
+        "sentences_after": 34,
+        "avg_sentence_words_before": 17.4,
+        "avg_sentence_words_after": 20.47,
+        "headings_added": 0,
+        "list_items_added": 4,
+        "table_rows_added": 0,
+        "word_similarity": 0.7692
+      },
+      "unified_diff": "--- T4:before\n+++ T4:after\n@@ -26,2 +26,14 @@\n \n Because of this, some vaccines need boosters: for some pathogens, memory fades over time, or the pathogen mutates (as with flu and COVID-19), so the immune system needs a refresher or an update.\n+\n+***\n+\n+**Analogy:**\n+Think of a vaccine like a **workplace security drill using a detailed wanted poster** of an intruder. \n+* *Mapping:* The wanted poster corresponds to the vaccine antigen—it gives security personnel (your immune system) the exact physical description of the threat without letting the actual dangerous criminal inside the building. The security team reviews the poster and runs drills to practice their response.\n+* *Where the mapping breaks:* A real security poster is just ink on paper and cannot take any action on its own, whereas vaccine antigens actively trigger biochemical reactions in immune cells, sometimes causing temporary localized inflammation (like a sore arm) as part of the process.\n+\n+**Concrete Example:**\n+Consider an adult receiving the standard tetanus, diphtheria, and pertussis (Tdap) vaccine before starting work at a landscaping company where soil exposure is common. \n+* *Mapping:* The injected vaccine contains a toxoid (a detoxified toxin from the *Clostridium tetani* bacterium), which serves as the harmless antigen. The person's dendritic cells detect this toxoid, helper T cells coordinate the response, and B cells produce specialized antibodies and memory cells without the person ever contracting lockjaw. When the gardener later encounters active tetanus spores from the soil, their long-term memory cells immediately recognize the toxin and neutralize it within hours before a full-blown infection can take hold. \n+* *Where the mapping stops:* Unlike a software update or a physical file that remains identical in storage over time, biological memory cells can naturally wane in population or function over the years, which is why a booster dose is required every ten years.",
+      "text_after": "A vaccine works by showing your immune system a safe preview of a pathogen, so it can build a response in advance without you ever getting sick.\n\nThe core idea: antigens without the infection\n\nYour immune system recognizes pathogens by their antigens, which are molecules (usually proteins or sugars) on the surface of a virus or bacterium. The disease itself comes from the pathogen replicating, releasing toxins, and damaging tissue. A vaccine delivers the antigen part without the dangerous part, using one of several approaches:\n\nLive-attenuated (measles, MMR, chickenpox): the pathogen is weakened so it replicates only a little, if at all, in a healthy person.\nInactivated (polio shot, hepatitis A): the pathogen is killed, so it can’t replicate but still displays its antigens.\nSubunit, toxoid, and conjugate (hepatitis B, tetanus, HPV): only a purified piece of the pathogen, or a detoxified toxin, is used.\nmRNA and viral vector (COVID-19 vaccines): the vaccine delivers instructions for your own cells to make one harmless antigen, such as the spike protein, which the immune system then sees.\n\nWhat happens in your body\n\nDetection. Immune cells like dendritic cells and macrophages encounter the vaccine antigen, engulf it, and display fragments of it to other immune cells.\nActivation. Helper T cells that match those fragments get activated and coordinate the response. Adjuvants (ingredients added to many vaccines) boost this step by signaling “danger,” which makes the response stronger.\nAntibody production. B cells that recognize the antigen multiply and become plasma cells, which pump out antibodies tailored to that antigen. Killer T cells also expand to destroy infected cells.\nMemory. This is the key payoff. After the response winds down, long-lived memory B and T cells remain, sometimes for decades. They are the “trained” part of the system.\n\nWhy you don’t get sick\n\nThe vaccine lacks the ability to cause real disease: the antigen is a fragment, a killed organism, or a crippled one. The mild symptoms some people feel afterward, like a sore arm or low fever, are signs the immune system is responding, not an infection.\n\nWhat happens when you meet the real pathogen\n\nMemory cells recognize it right away. Instead of the slow first-time response, which can take over a week and gives the pathogen a head start, your body responds within hours to days, producing large amounts of antibodies and killer T cells quickly. The infection is either stopped outright or kept mild.\n\nBecause of this, some vaccines need boosters: for some pathogens, memory fades over time, or the pathogen mutates (as with flu and COVID-19), so the immune system needs a refresher or an update.\n\n***\n\n**Analogy:**\nThink of a vaccine like a **workplace security drill using a detailed wanted poster** of an intruder. \n* *Mapping:* The wanted poster corresponds to the vaccine antigen—it gives security personnel (your immune system) the exact physical description of the threat without letting the actual dangerous criminal inside the building. The security team reviews the poster and runs drills to practice their response.\n* *Where the mapping breaks:* A real security poster is just ink on paper and cannot take any action on its own, whereas vaccine antigens actively trigger biochemical reactions in immune cells, sometimes causing temporary localized inflammation (like a sore arm) as part of the process.\n\n**Concrete Example:**\nConsider an adult receiving the standard tetanus, diphtheria, and pertussis (Tdap) vaccine before starting work at a landscaping company where soil exposure is common. \n* *Mapping:* The injected vaccine contains a toxoid (a detoxified toxin from the *Clostridium tetani* bacterium), which serves as the harmless antigen. The person's dendritic cells detect this toxoid, helper T cells coordinate the response, and B cells produce specialized antibodies and memory cells without the person ever contracting lockjaw. When the gardener later encounters active tetanus spores from the soil, their long-term memory cells immediately recognize the toxin and neutralize it within hours before a full-blown infection can take hold. \n* *Where the mapping stops:* Unlike a software update or a physical file that remains identical in storage over time, biological memory cells can naturally wane in population or function over the years, which is why a booster dose is required every ten years."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1335,
+      "output_tokens": 1172,
+      "latency_ms": 3496,
+      "cost_usd": 0.003331,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2410,
+      "output_tokens": 375,
+      "latency_ms": 2216,
+      "cost_usd": 0.00166,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T4 — Concrete examples and analogies",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1567,
+      "output_tokens": 897,
+      "latency_ms": 3263,
+      "cost_usd": 0.002713,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2573,
+      "output_tokens": 114,
+      "latency_ms": 1417,
+      "cost_usd": 0.001057,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.008761,
+  "is_synthetic": false,
+  "control_limitations": []
+}

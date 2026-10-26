@@ -1,0 +1,278 @@
+{
+  "variant_response_id": "20065d60-4b1b-4b8d-9800-e74020c5927c",
+  "text": "A vaccine works by showing your immune system a safe preview of a pathogen, so it can build a response in advance without you ever getting sick.\n\nThe core idea: antigens without the infection\n\nYour immune system recognizes pathogens by their antigens, which are molecules (usually proteins or sugars) on the surface of a virus or bacterium. The disease itself comes from the pathogen replicating, releasing toxins, and damaging tissue. A vaccine delivers the antigen part without the dangerous part, using one of several approaches:\n\nLive-attenuated (measles, MMR, chickenpox): the pathogen is weakened so it replicates only a little, if at all, in a healthy person.\nInactivated (polio shot, hepatitis A): the pathogen is killed, so it can’t replicate but still displays its antigens.\nSubunit, toxoid, and conjugate (hepatitis B, tetanus, HPV): only a purified piece of the pathogen, or a detoxified toxin, is used.\nmRNA and viral vector (COVID-19 vaccines): the vaccine delivers instructions for your own cells to make one harmless antigen, such as the spike protein, which the immune system then sees.\n\nNow that the vaccine has been introduced, what happens in your body follows:\n\nDetection. Immune cells like dendritic cells and macrophages encounter the vaccine antigen, engulf it, and display fragments of it to other immune cells.\nActivation. Helper T cells that match those fragments get activated and coordinate the response. Adjuvants (ingredients added to many vaccines) boost this step by signaling “danger,” which makes the response stronger.\nAntibody production. B cells that recognize the antigen multiply and become plasma cells, which pump out antibodies tailored to that antigen. Killer T cells also expand to destroy infected cells.\nMemory. This is the key payoff. After the response winds down, long-lived memory B and T cells remain, sometimes for decades. They are the “trained” part of the system.\n\nNow that the biological mechanisms and memory formation are in place, why you don’t get sick can be understood:\n\nThe vaccine lacks the ability to cause real disease: the antigen is a fragment, a killed organism, or a crippled one. The mild symptoms some people feel afterward, like a sore arm or low fever, are signs the immune system is responding, not an infection.\n\nNow that the safety of the vaccine and the establishment of memory cells are established, what happens when you meet the real pathogen follows:\n\nMemory cells recognize it right away. Instead of the slow first-time response, which can take over a week and gives the pathogen a head start, your body responds within hours to days, producing large amounts of antibodies and killer T cells quickly. The infection is either stopped outright or kept mild.\n\nBecause of this, some vaccines need boosters: for some pathogens, memory fades over time, or the pathogen mutates (as with flu and COVID-19), so the immune system needs a refresher or an update.",
+  "applied_treatments": [
+    "T2"
+  ],
+  "treatment_order": [
+    "T2"
+  ],
+  "analysis": {
+    "main_topic": "How vaccines train the immune system to recognize pathogens without causing disease",
+    "primary_claims": [
+      "Vaccines introduce antigens without the dangerous replication or toxins of a real infection.",
+      "Different vaccine types use live-attenuated pathogens, inactivated pathogens, purified subunits/toxins, or genetic instructions (mRNA/viral vector).",
+      "Immune cells like dendritic cells and macrophages engulf and display vaccine antigens to activate helper T cells.",
+      "Adjuvants signal danger to enhance the immune response.",
+      "B cells multiply into plasma cells to produce antibodies, while killer T cells expand to destroy infected cells.",
+      "Long-lived memory B and T cells remain after the response, providing rapid defense upon future exposure to the real pathogen.",
+      "Mild post-vaccine symptoms are signs of immune response, not the disease itself."
+    ],
+    "key_concepts": [
+      "Antigen",
+      "Pathogen",
+      "Live-attenuated vaccine",
+      "Inactivated vaccine",
+      "Subunit/toxoid/conjugate vaccine",
+      "mRNA and viral vector vaccine",
+      "Dendritic cells",
+      "Macrophages",
+      "Helper T cells",
+      "Adjuvants",
+      "B cells",
+      "Plasma cells",
+      "Antibodies",
+      "Killer T cells",
+      "Memory cells",
+      "Boosters"
+    ],
+    "prerequisite_concepts": [
+      "Basic cellular biology",
+      "Concept of infection and disease",
+      "General understanding that the body has a defense system"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "pathogen",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "antigens",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "live-attenuated",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "inactivated",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "subunit",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "toxoid",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "conjugate",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "mRNA",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "viral vector",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "dendritic cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "macrophages",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "Helper T cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "adjuvants",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "B cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "plasma cells",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "antibodies",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Killer T cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "memory B and T cells",
+        "explained_in_text": true,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "Live-attenuated (measles, MMR, chickenpox)",
+      "Inactivated (polio shot, hepatitis A)",
+      "Subunit, toxoid, and conjugate (hepatitis B, tetanus, HPV)",
+      "mRNA and viral vector (COVID-19 vaccines)"
+    ],
+    "missing_intermediate_steps": [
+      "Detailed chemical mechanism of how mRNA instructs host cells to manufacture the spike protein",
+      "Specific biochemical signaling pathways between antigen-presenting cells and T cells"
+    ],
+    "assumed_prior_knowledge": [
+      "Basic knowledge that viruses and bacteria cause diseases",
+      "General awareness that the human body contains blood cells and tissues that fight sickness"
+    ],
+    "possible_confusions": [
+      "Confusing mild post-vaccine symptoms with actually contracting the disease from the vaccine",
+      "Assuming all vaccines use the exact same biological mechanism"
+    ],
+    "ambiguous_references": [
+      "They are the 'trained' part of the system."
+    ]
+  },
+  "plan": {
+    "learner_level": "beginner",
+    "learning_objectives": [
+      "Understand how vaccines present safe previews of antigens without causing disease",
+      "Identify different types of vaccines and their basic mechanisms",
+      "Describe the step-by-step immune response involving dendritic cells, T cells, B cells, and memory cells",
+      "Explain why post-vaccine symptoms occur and how memory cells protect against future infections"
+    ],
+    "prerequisite_order": [
+      "Basic cellular biology",
+      "Concept of infection and disease",
+      "General understanding that the body has a defense system"
+    ],
+    "explanation_sequence": [
+      "Introduction to the core concept of antigens vs. dangerous replication",
+      "Overview of vaccine types (live-attenuated, inactivated, subunit, mRNA)",
+      "Step-by-step bodily response (detection, activation, antibody production, memory)",
+      "Clarification on why vaccines do not cause real disease",
+      "Explanation of what happens during a future encounter with the real pathogen and the role of boosters"
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": true,
+    "needs_diagram": true,
+    "analogy_rationale": "An analogy comparing a vaccine to a \"wanted poster\" or a security drill helps a beginner grasp how the immune system learns to recognize a threat without facing the actual danger.",
+    "detail_level": "moderate",
+    "techniques_not_needed": [
+      "Advanced biochemical pathway analysis, because the learner is at a beginner level and needs conceptual clarity over molecular complexity."
+    ]
+  },
+  "fidelity": {
+    "verdict": "clean",
+    "warnings": [],
+    "numeric_drift": [],
+    "preserved_claims": [
+      "A vaccine presents a harmless piece, or a weakened or inactivated form, of the pathogen rather than the full live disease-causing agent.",
+      "The immune system responds by producing antibodies and activating cells specific to that antigen.",
+      "Memory B cells and T cells are formed and remain after the response fades.",
+      "On a later real exposure, those memory cells produce a faster and stronger response."
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewrite only adds transitional phrases between sections without altering any factual claims, numbers, caveats, or meaning.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 0,
+    "llm_warning_count": 0,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T2",
+      "name": "Prerequisite-aware concept sequencing",
+      "stats": {
+        "words_before": 435,
+        "words_after": 473,
+        "word_delta": 38,
+        "sentences_before": 25,
+        "sentences_after": 25,
+        "avg_sentence_words_before": 17.4,
+        "avg_sentence_words_after": 18.92,
+        "headings_added": 0,
+        "list_items_added": 0,
+        "table_rows_added": 0,
+        "word_similarity": 0.9515
+      },
+      "unified_diff": "--- T2:before\n+++ T2:after\n@@ -10,5 +10,5 @@\n mRNA and viral vector (COVID-19 vaccines): the vaccine delivers instructions for your own cells to make one harmless antigen, such as the spike protein, which the immune system then sees.\n \n-What happens in your body\n+Now that the vaccine has been introduced, what happens in your body follows:\n \n Detection. Immune cells like dendritic cells and macrophages encounter the vaccine antigen, engulf it, and display fragments of it to other immune cells.\n@@ -17,9 +17,9 @@\n Memory. This is the key payoff. After the response winds down, long-lived memory B and T cells remain, sometimes for decades. They are the “trained” part of the system.\n \n-Why you don’t get sick\n+Now that the biological mechanisms and memory formation are in place, why you don’t get sick can be understood:\n \n The vaccine lacks the ability to cause real disease: the antigen is a fragment, a killed organism, or a crippled one. The mild symptoms some people feel afterward, like a sore arm or low fever, are signs the immune system is responding, not an infection.\n \n-What happens when you meet the real pathogen\n+Now that the safety of the vaccine and the establishment of memory cells are established, what happens when you meet the real pathogen follows:\n \n Memory cells recognize it right away. Instead of the slow first-time response, which can take over a week and gives the pathogen a head start, your body responds within hours to days, producing large amounts of antibodies and killer T cells quickly. The infection is either stopped outright or kept mild.",
+      "text_after": "A vaccine works by showing your immune system a safe preview of a pathogen, so it can build a response in advance without you ever getting sick.\n\nThe core idea: antigens without the infection\n\nYour immune system recognizes pathogens by their antigens, which are molecules (usually proteins or sugars) on the surface of a virus or bacterium. The disease itself comes from the pathogen replicating, releasing toxins, and damaging tissue. A vaccine delivers the antigen part without the dangerous part, using one of several approaches:\n\nLive-attenuated (measles, MMR, chickenpox): the pathogen is weakened so it replicates only a little, if at all, in a healthy person.\nInactivated (polio shot, hepatitis A): the pathogen is killed, so it can’t replicate but still displays its antigens.\nSubunit, toxoid, and conjugate (hepatitis B, tetanus, HPV): only a purified piece of the pathogen, or a detoxified toxin, is used.\nmRNA and viral vector (COVID-19 vaccines): the vaccine delivers instructions for your own cells to make one harmless antigen, such as the spike protein, which the immune system then sees.\n\nNow that the vaccine has been introduced, what happens in your body follows:\n\nDetection. Immune cells like dendritic cells and macrophages encounter the vaccine antigen, engulf it, and display fragments of it to other immune cells.\nActivation. Helper T cells that match those fragments get activated and coordinate the response. Adjuvants (ingredients added to many vaccines) boost this step by signaling “danger,” which makes the response stronger.\nAntibody production. B cells that recognize the antigen multiply and become plasma cells, which pump out antibodies tailored to that antigen. Killer T cells also expand to destroy infected cells.\nMemory. This is the key payoff. After the response winds down, long-lived memory B and T cells remain, sometimes for decades. They are the “trained” part of the system.\n\nNow that the biological mechanisms and memory formation are in place, why you don’t get sick can be understood:\n\nThe vaccine lacks the ability to cause real disease: the antigen is a fragment, a killed organism, or a crippled one. The mild symptoms some people feel afterward, like a sore arm or low fever, are signs the immune system is responding, not an infection.\n\nNow that the safety of the vaccine and the establishment of memory cells are established, what happens when you meet the real pathogen follows:\n\nMemory cells recognize it right away. Instead of the slow first-time response, which can take over a week and gives the pathogen a head start, your body responds within hours to days, producing large amounts of antibodies and killer T cells quickly. The infection is either stopped outright or kept mild.\n\nBecause of this, some vaccines need boosters: for some pathogens, memory fades over time, or the pathogen mutates (as with flu and COVID-19), so the immune system needs a refresher or an update."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1337,
+      "output_tokens": 1188,
+      "latency_ms": 3420,
+      "cost_usd": 0.003371,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2422,
+      "output_tokens": 361,
+      "latency_ms": 2112,
+      "cost_usd": 0.001629,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T2 — Prerequisite-aware concept sequencing",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2674,
+      "output_tokens": 606,
+      "latency_ms": 2422,
+      "cost_usd": 0.002317,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2282,
+      "output_tokens": 149,
+      "latency_ms": 1401,
+      "cost_usd": 0.001057,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.008374,
+  "is_synthetic": false,
+  "control_limitations": []
+}

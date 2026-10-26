@@ -46,6 +46,7 @@ def main() -> None:
         )
     )
     assert len(sources) == 10, f"Expected 10 baseline sources; found {len(sources)}"
+    last_start = 0.0
     for source in sources:
         topic = source["topic"].strip()
         author = "chatgpt" if source["provider"] == "openai" else "claude"
@@ -54,6 +55,12 @@ def main() -> None:
             if path.exists():
                 print(topic, author, treatment, "already saved", flush=True)
                 continue
+            # A full pipeline usually makes four Gemini requests. The user's
+            # free-tier quota is 15 requests per minute for this model.
+            remaining = 22.0 - (time.monotonic() - last_start)
+            if remaining > 0:
+                time.sleep(remaining)
+            last_start = time.monotonic()
             payload = {
                 "treatments": [treatment],
                 "provider": "gemini",
@@ -75,7 +82,10 @@ def main() -> None:
                     if attempt == 3:
                         print(topic, author, treatment, "FAILED", str(exc), flush=True)
                         raise
-                    time.sleep(3 * attempt)
+                    # 429s are surfaced by the local API as HTTP 502. Waiting a
+                    # full minute lets the provider's rolling quota recover.
+                    print(topic, author, treatment, "retrying after", str(exc), flush=True)
+                    time.sleep(65)
 
 
 if __name__ == "__main__":

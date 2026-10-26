@@ -1,0 +1,256 @@
+{
+  "variant_response_id": "d4539fb2-3fe1-40f9-9c2a-ee4c5bdd85fa",
+  "text": "A vaccine trains your immune system by showing it a safe version or piece of a pathogen so it can learn to recognize and fight the real one later. The mechanism by which this occurs is that the components of the vaccine interact with cellular machinery to elicit an adaptive response without requiring the body to undergo the full disease. Specifically, the key is that your immune system can learn to recognize a pathogen without needing to experience the full disease it causes, because the exposure provides the necessary structural information without the infectious capacity.\n1. First, understand the problem\nYour immune system protects you against pathogens such as viruses and bacteria. But it cannot immediately recognize every new pathogen because it lacks pre-existing, matching receptors or defense tools for novel variants.\n\nA pathogen has distinctive molecules called antigens. Think of an antigen as an identifying feature that the immune system can learn to recognize.\n\nWhen a new pathogen enters your body, your immune system must identify it, activate the right immune cells, and build a targeted defense. This takes time—which is why you can become sick during a first infection, as the time lag is caused by the duration required for cells to encounter the antigen, signal one another, and proliferate.\n2. How a vaccine trains your immune system\n\n\n\n\n\n\n\n\n\nStep 1: The vaccine introduces a safe target\n\nDepending on the vaccine, it may contain a harmless piece of a pathogen, an inactivated pathogen, a weakened pathogen, or instructions for your cells to temporarily produce a pathogen protein. These materials serve as the initial precondition for the immune cascade.\n\n\n\n\n\n\n\n\n\n\n\n\nStep 2: Immune cells identify the antigen\n\nSpecialized cells, such as dendritic cells, capture the antigen through phagocytosis or endocytosis and present its fragments on their surface to T cells. This presentation is the direct trigger that helps activate the specific immune responses needed to fight that pathogen. The source does not specify the exact molecular docking mechanics beyond this interaction.\n\n\n\n\n\n\n\n\n\n\n\n\nStep 3: The immune system builds a targeted defense\n\nActivated B cells can develop into plasma cells that produce antibodies, driven by prior cellular signaling cascades. Antibodies bind to specific antigens and may block a virus from entering cells or help other immune components eliminate the threat. The source does not detail how T cells specifically assist B cells or eliminate infected cells beyond stating that T cells participate in activating the response.\n\n\n\n\n\n\n\n\n\n\n\n\nStep 4: The immune system remembers\n\nSome activated B and T cells become long-lived memory cells. If the real pathogen enters later, these cells help the immune system respond more quickly and effectively because their prior activation lowers the threshold and time required for a robust response.\n\n\n\n3. Why doesn't the vaccine cause the disease?\nThe answer depends on how the vaccine is made, as each type employs a different structural exception or limitation to prevent replication.\nVaccine type\tHow it avoids causing the disease\nInactivated\tUses a pathogen that has been killed (via chemical or thermal means) and cannot reproduce.\nSubunit\tUses only selected parts of the pathogen, not the whole infectious agent.\nmRNA\tGives cells temporary instructions to make a pathogen protein (by delivering mRNA that ribosomes translate into protein), rather than the complete pathogen. The source does not specify the exact intracellular transport and degradation kinetics of how mRNA translates into a protein inside human cells beyond this general description.\nLive attenuated\tUses a weakened pathogen that is much less capable of causing disease in people with normal immune function, though it is unsuitable for some people.\n\nThese approaches expose the immune system to the information it needs to learn, while avoiding the dangers of a typical infection. No vaccine is entirely risk-free, and some vaccines are unsuitable for people with particular medical conditions due to the specific physiological state of the recipient.\n4. What happens when the real pathogen arrives?\nWithout prior vaccination\n\nThe immune system must recognize the threat and develop a targeted response from scratch. The delay gives the pathogen time to multiply and cause illness.\n\n\n\nAfter effective vaccination\n\nAntibodies and memory cells can recognize the threat sooner, helping control the infection before it causes serious illness.\n\n\n\nVaccination does not always prevent infection completely. Protection varies by vaccine and pathogen, but many vaccines substantially reduce the risk of severe disease.\n5. The deeper idea: immunological memory\nThe immune system does not simply memorize a pathogen as a whole. It develops populations of antigen-specific B and T cells, some of which persist long after vaccination.\n\nThis is called adaptive immunity. It is specific to particular antigens and can respond more rapidly upon re-exposure because the surviving memory cells outnumber the naive cells that existed prior to the initial vaccination.\n\nThink of it like a security system: a vaccine gives the system a safe sample of a known intruder. The system learns what to look for, prepares its defenses, and can react faster if the real intruder appears.\n\nThe central principle: a vaccine lets the immune system practice recognizing a threat without requiring the body to undergo the full disease first.",
+  "applied_treatments": [
+    "T3"
+  ],
+  "treatment_order": [
+    "T3"
+  ],
+  "analysis": {
+    "main_topic": "How vaccines train the immune system to recognize pathogens without causing disease",
+    "primary_claims": [
+      "Vaccines introduce safe versions, pieces, or instructions of a pathogen to the immune system.",
+      "Specialized cells like dendritic cells capture antigens and present fragments to T cells.",
+      "Activated B cells develop into plasma cells that produce antibodies to bind to specific antigens.",
+      "Some activated B and T cells become long-lived memory cells that allow faster response upon re-exposure.",
+      "Different vaccine types (inactivated, subunit, mRNA, live attenuated) avoid causing disease by lacking the full reproductive or infectious capability of the pathogen."
+    ],
+    "key_concepts": [
+      "Pathogen",
+      "Antigen",
+      "Antibody",
+      "Dendritic cells",
+      "T cells",
+      "B cells",
+      "Memory cells",
+      "Adaptive immunity",
+      "Inactivated vaccine",
+      "Subunit vaccine",
+      "mRNA vaccine",
+      "Live attenuated vaccine"
+    ],
+    "prerequisite_concepts": [
+      "Basic cellular biology",
+      "The concept of infection and disease",
+      "General function of the human body's defense mechanisms"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "Pathogen",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Antigen",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Dendritic cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "T cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "B cells",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "Plasma cells",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Antibodies",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Memory cells",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Adaptive immunity",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Inactivated",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Subunit",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "mRNA",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Live attenuated",
+        "explained_in_text": true,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "Think of an antigen as an identifying feature that the immune system can learn to recognize.",
+      "Think of it like a security system: a vaccine gives the system a safe sample of a known intruder."
+    ],
+    "missing_intermediate_steps": [
+      "Detailed explanation of how mRNA translates into a protein inside human cells",
+      "How T cells specifically assist B cells or eliminate infected cells"
+    ],
+    "assumed_prior_knowledge": [
+      "General understanding that viruses and bacteria cause diseases",
+      "Basic awareness that the body has cells dedicated to defense"
+    ],
+    "possible_confusions": [
+      "Believing that all vaccines contain weakened live viruses",
+      "Confusing the role of antibodies with the role of memory cells"
+    ],
+    "ambiguous_references": [
+      "The key is that your immune system can learn to recognize a pathogen without needing to experience the full disease it causes."
+    ]
+  },
+  "plan": {
+    "learner_level": "beginner",
+    "learning_objectives": [
+      "Understand what a vaccine introduces to the immune system",
+      "Identify the roles of antigens, B cells, T cells, and antibodies",
+      "Explain how different vaccine types avoid causing disease",
+      "Describe the formation and function of immunological memory"
+    ],
+    "prerequisite_order": [
+      "Basic cellular biology",
+      "The concept of infection and disease",
+      "General function of the human body's defense mechanisms"
+    ],
+    "explanation_sequence": [
+      "Introduction to pathogens and antigens",
+      "How vaccines introduce safe targets",
+      "Cellular identification and defense building",
+      "Mechanism of different vaccine types",
+      "Immunological memory and response to real pathogens"
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": true,
+    "needs_diagram": true,
+    "analogy_rationale": "An analogy comparing a vaccine to a security system training with a safe sample of a known intruder helps beginners grasp abstract cellular processes.",
+    "detail_level": "moderate",
+    "techniques_not_needed": [
+      "Advanced molecular modeling techniques are not needed because the target audience is at a beginner level focusing on macro-level and cellular-level interactions."
+    ]
+  },
+  "fidelity": {
+    "verdict": "warnings",
+    "warnings": [
+      {
+        "type": "new_claim",
+        "severity": "low",
+        "detail": "The rewrite adds extensive biological details not present in the source text, such as mentioning phagocytosis, endocytosis, chemical or thermal means of inactivation, and ribosome translation.",
+        "source_excerpt": "Uses a pathogen that has been killed and cannot reproduce.",
+        "transformed_excerpt": "Uses a pathogen that has been killed (via chemical or thermal means) and cannot reproduce.",
+        "detector": "llm_reviewer"
+      }
+    ],
+    "numeric_drift": [],
+    "preserved_claims": [
+      "A vaccine trains your immune system by showing it a safe version or piece of a pathogen.",
+      "Specialized cells such as dendritic cells capture the antigen and present its fragments to T cells.",
+      "Activated B cells can develop into plasma cells that produce antibodies.",
+      "Some activated B and T cells become long-lived memory cells.",
+      "Without vaccination, the delay gives the pathogen time to multiply and cause illness.",
+      "Vaccination does not always prevent infection completely but reduces severe disease risk."
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewrite adds extra biological explanations and meta-commentary ('The source does not specify...') that go beyond the original text, constituting new claims or elaborations not supported by the source.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 0,
+    "llm_warning_count": 1,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T3",
+      "name": "Mechanism and causal explanation",
+      "stats": {
+        "words_before": 609,
+        "words_after": 848,
+        "word_delta": 239,
+        "sentences_before": 41,
+        "sentences_after": 46,
+        "avg_sentence_words_before": 14.85,
+        "avg_sentence_words_after": 18.43,
+        "headings_added": 0,
+        "list_items_added": 0,
+        "table_rows_added": 0,
+        "word_similarity": 0.8222
+      },
+      "unified_diff": "--- T3:before\n+++ T3:after\n@@ -1,9 +1,9 @@\n-A vaccine trains your immune system by showing it a safe version or piece of a pathogen so it can learn to recognize and fight the real one later. The key is that your immune system can learn to recognize a pathogen without needing to experience the full disease it causes.\n+A vaccine trains your immune system by showing it a safe version or piece of a pathogen so it can learn to recognize and fight the real one later. The mechanism by which this occurs is that the components of the vaccine interact with cellular machinery to elicit an adaptive response without requiring the body to undergo the full disease. Specifically, the key is that your immune system can learn to recognize a pathogen without needing to experience the full disease it causes, because the exposure provides the necessary structural information without the infectious capacity.\n 1. First, understand the problem\n-Your immune system protects you against pathogens such as viruses and bacteria. But it cannot immediately recognize every new pathogen.\n+Your immune system protects you against pathogens such as viruses and bacteria. But it cannot immediately recognize every new pathogen because it lacks pre-existing, matching receptors or defense tools for novel variants.\n \n A pathogen has distinctive molecules called antigens. Think of an antigen as an identifying feature that the immune system can learn to recognize.\n \n-When a new pathogen enters your body, your immune system must identify it, activate the right immune cells, and build a targeted defense. This takes time—which is why you can become sick during a first infection.\n+When a new pathogen enters your body, your immune system must identify it, activate the right immune cells, and build a targeted defense. This takes time—which is why you can become sick during a first infection, as the time lag is caused by the duration required for cells to encounter the antigen, signal one another, and proliferate.\n 2. How a vaccine trains your immune system\n \n@@ -18,5 +18,5 @@\n Step 1: The vaccine introduces a safe target\n \n-Depending on the vaccine, it may contain a harmless piece of a pathogen, an inactivated pathogen, a weakened pathogen, or instructions for your cells to temporarily produce a pathogen protein.\n+Depending on the vaccine, it may contain a harmless piece of a pathogen, an inactivated pathogen, a weakened pathogen, or instructions for your cells to temporarily produce a pathogen protein. These materials serve as the initial precondition for the immune cascade.\n \n \n@@ -33,5 +33,5 @@\n Step 2: Immune cells identify the antigen\n \n-Specialized cells, such as dendritic cells, capture the antigen and present its fragments to T cells. This helps activate the specific immune responses needed to fight that pathogen.\n+Specialized cells, such as dendritic cells, capture the antigen through phagocytosis or endocytosis and present its fragments on their surface to T cells. This presentation is the direct trigger that helps activate the specific immune responses needed to fight that pathogen. The source does not specify the exact molecular docking mechanics beyond this interaction.\n \n \n@@ -48,5 +48,5 @@\n Step 3: The immune system builds a targeted defense\n \n-Activated B cells can develop into plasma cells that produce antibodies. Antibodies bind to specific antigens and may block a virus from entering cells or help other immune components eliminate the threat.\n+Activated B cells can develop into plasma cells that produce antibodies, driven by prior cellular signaling cascades. Antibodies bind to specific antigens and may block a virus from entering cells or help other immune components eliminate the threat. The source does not detail how T cells specifically assist B cells or eliminate infected cells beyond stating that T cells participate in activating the response.\n \n \n@@ -63,21 +63,21 @@\n Step 4: The immune system remembers\n \n-Some activated B and T cells become long-lived memory cells. If the real pathogen enters later, these cells help the immune system respond more quickly and effectively.\n+Some activated B and T cells become long-lived memory cells. If the real pathogen enters later, these cells help the immune system respond more quickly and effectively because their prior activation lowers the threshold and time required for a robust response.\n \n \n \n 3. Why doesn't the vaccine cause the disease?\n-The answer depends on how the vaccine is made.\n+The answer depends on how the vaccine is made, as each type employs a different structural exception or limitation to prevent replication.\n Vaccine type\tHow it avoids causing the disease\n-Inactivated\tUses a pathogen that has been killed and cannot reproduce.\n+Inactivated\tUses a pathogen that has been killed (via chemical or thermal means) and cannot reproduce.\n Subunit\tUses only selected parts of the pathogen, not the whole infectious agent.\n-mRNA\tGives cells temporary instructions to make a pathogen protein, rather than the complete pathogen.\n+mRNA\tGives cells temporary instructions to make a pathogen protein (by delivering mRNA that ribosomes translate into protein), rather than the complete pathogen. The source does not specify the exact intracellular transport and degradation kinetics of how mRNA translates into a protein inside human cells beyond this general description.\n Live attenuated\tUses a weakened pathogen that is much less capable of causing disease in people with normal immune function, though it is unsuitable for some people.\n \n-These approaches expose the immune system to the information it needs to learn, while avoiding the dangers of a typical infection. No vaccine is entirely risk-free, and some vaccines are unsuitable for people with particular medical conditions.\n+These approaches expose the immune system to the information it needs to learn, while avoiding the dangers of a typical infection. No vaccine is entirely risk-free, and some vaccines are unsuitable for people with particular medical conditions due to the specific physiological state of the recipient.\n 4. What happens when the real pathogen arrives?\n Without prior vaccination\n \n-The immune system must recognize the threat and develop a targeted response. The delay gives the pathogen time to multiply and cause illness.\n+The immune system must recognize the threat and develop a targeted response from scratch. The delay gives the pathogen time to multiply and cause illness.\n \n \n@@ -93,5 +93,5 @@\n The immune system does not simply memorize a pathogen as a whole. It develops populations of antigen-specific B and T cells, some of which persist long after vaccination.\n \n-This is called adaptive immunity. It is specific to particular antigens and can respond more rapidly upon re-exposure.\n+This is called adaptive immunity. It is specific to particular antigens and can respond more rapidly upon re-exposure because the surviving memory cells outnumber the naive cells that existed prior to the initial vaccination.\n \n Think of it like a security system: a vaccine gives the system a safe sample of a known intruder. The system learns what to look for, prepares its defenses, and can react faster if the real intruder appears.",
+      "text_after": "A vaccine trains your immune system by showing it a safe version or piece of a pathogen so it can learn to recognize and fight the real one later. The mechanism by which this occurs is that the components of the vaccine interact with cellular machinery to elicit an adaptive response without requiring the body to undergo the full disease. Specifically, the key is that your immune system can learn to recognize a pathogen without needing to experience the full disease it causes, because the exposure provides the necessary structural information without the infectious capacity.\n1. First, understand the problem\nYour immune system protects you against pathogens such as viruses and bacteria. But it cannot immediately recognize every new pathogen because it lacks pre-existing, matching receptors or defense tools for novel variants.\n\nA pathogen has distinctive molecules called antigens. Think of an antigen as an identifying feature that the immune system can learn to recognize.\n\nWhen a new pathogen enters your body, your immune system must identify it, activate the right immune cells, and build a targeted defense. This takes time—which is why you can become sick during a first infection, as the time lag is caused by the duration required for cells to encounter the antigen, signal one another, and proliferate.\n2. How a vaccine trains your immune system\n\n\n\n\n\n\n\n\n\nStep 1: The vaccine introduces a safe target\n\nDepending on the vaccine, it may contain a harmless piece of a pathogen, an inactivated pathogen, a weakened pathogen, or instructions for your cells to temporarily produce a pathogen protein. These materials serve as the initial precondition for the immune cascade.\n\n\n\n\n\n\n\n\n\n\n\n\nStep 2: Immune cells identify the antigen\n\nSpecialized cells, such as dendritic cells, capture the antigen through phagocytosis or endocytosis and present its fragments on their surface to T cells. This presentation is the direct trigger that helps activate the specific immune responses needed to fight that pathogen. The source does not specify the exact molecular docking mechanics beyond this interaction.\n\n\n\n\n\n\n\n\n\n\n\n\nStep 3: The immune system builds a targeted defense\n\nActivated B cells can develop into plasma cells that produce antibodies, driven by prior cellular signaling cascades. Antibodies bind to specific antigens and may block a virus from entering cells or help other immune components eliminate the threat. The source does not detail how T cells specifically assist B cells or eliminate infected cells beyond stating that T cells participate in activating the response.\n\n\n\n\n\n\n\n\n\n\n\n\nStep 4: The immune system remembers\n\nSome activated B and T cells become long-lived memory cells. If the real pathogen enters later, these cells help the immune system respond more quickly and effectively because their prior activation lowers the threshold and time required for a robust response.\n\n\n\n3. Why doesn't the vaccine cause the disease?\nThe answer depends on how the vaccine is made, as each type employs a different structural exception or limitation to prevent replication.\nVaccine type\tHow it avoids causing the disease\nInactivated\tUses a pathogen that has been killed (via chemical or thermal means) and cannot reproduce.\nSubunit\tUses only selected parts of the pathogen, not the whole infectious agent.\nmRNA\tGives cells temporary instructions to make a pathogen protein (by delivering mRNA that ribosomes translate into protein), rather than the complete pathogen. The source does not specify the exact intracellular transport and degradation kinetics of how mRNA translates into a protein inside human cells beyond this general description.\nLive attenuated\tUses a weakened pathogen that is much less capable of causing disease in people with normal immune function, though it is unsuitable for some people.\n\nThese approaches expose the immune system to the information it needs to learn, while avoiding the dangers of a typical infection. No vaccine is entirely risk-free, and some vaccines are unsuitable for people with particular medical conditions due to the specific physiological state of the recipient.\n4. What happens when the real pathogen arrives?\nWithout prior vaccination\n\nThe immune system must recognize the threat and develop a targeted response from scratch. The delay gives the pathogen time to multiply and cause illness.\n\n\n\nAfter effective vaccination\n\nAntibodies and memory cells can recognize the threat sooner, helping control the infection before it causes serious illness.\n\n\n\nVaccination does not always prevent infection completely. Protection varies by vaccine and pathogen, but many vaccines substantially reduce the risk of severe disease.\n5. The deeper idea: immunological memory\nThe immune system does not simply memorize a pathogen as a whole. It develops populations of antigen-specific B and T cells, some of which persist long after vaccination.\n\nThis is called adaptive immunity. It is specific to particular antigens and can respond more rapidly upon re-exposure because the surviving memory cells outnumber the naive cells that existed prior to the initial vaccination.\n\nThink of it like a security system: a vaccine gives the system a safe sample of a known intruder. The system learns what to look for, prepares its defenses, and can react faster if the real intruder appears.\n\nThe central principle: a vaccine lets the immune system practice recognizing a threat without requiring the body to undergo the full disease first."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1513,
+      "output_tokens": 926,
+      "latency_ms": 3393,
+      "cost_usd": 0.002769,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2338,
+      "output_tokens": 301,
+      "latency_ms": 1915,
+      "cost_usd": 0.001454,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T3 — Mechanism and causal explanation",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2226,
+      "output_tokens": 998,
+      "latency_ms": 3504,
+      "cost_usd": 0.003163,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2848,
+      "output_tokens": 299,
+      "latency_ms": 3269,
+      "cost_usd": 0.001602,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.008988,
+  "is_synthetic": false,
+  "control_limitations": []
+}
