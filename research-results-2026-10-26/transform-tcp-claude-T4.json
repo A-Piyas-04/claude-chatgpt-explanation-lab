@@ -1,0 +1,289 @@
+{
+  "variant_response_id": "ca17a6aa-7f87-4e0b-a3d5-1a3fb48016cc",
+  "text": "The three-way handshake lets two machines agree that both can send and receive, and agree on the starting sequence numbers TCP uses to order and acknowledge data.\n\nTo make this concrete, consider a web browser running on a laptop (`192.168.1.50`) establishing an HTTPS connection to an Nginx web server (`203.0.113.10`) on port `443`. In this scenario, the laptop acts as the client and Nginx acts as the server.\n\nThe three steps\n\nSYN (client → server): The client sends a segment with the SYN flag set and its own initial sequence number, say x. This says: “I want to open a connection, and my bytes will be numbered starting from x.” In our scenario, the laptop sends a TCP segment to `203.0.113.10:443` with `SYN=1` and `Seq=3000`.\n\nSYN-ACK (server → client): The server replies with both SYN and ACK set. The ACK field is x+1, confirming it received the client’s SYN (a SYN consumes one sequence number). The segment also carries the server’s own initial sequence number, y. This says: “I got yours, and mine start at y.” Continuing the example, Nginx replies with `SYN=1`, `ACK=3001` (confirming `3000 + 1`), and its own sequence number `Seq=5000`.\n\nACK (client → server): The client sends a segment with ACK set and acknowledgment number y+1. This says: “I got yours too.” The connection is now established, and data can flow in both directions (the third segment can already carry data). In our scenario, the laptop responds with `ACK=5001` (confirming `5000 + 1`), completing the handshake so it can immediately send its HTTP GET request packet.\n\nWhy each step is needed\n\nTCP is full duplex, so each direction has its own sequence number space. For reliable delivery, each side must (a) announce its starting number and (b) have the other side confirm it. That’s four pieces of information: two SYNs and two ACKs. The server combines its ACK of the client’s SYN with its own SYN into one segment, which is why four messages collapse into three.\n\nStep 1 is the only way the server learns that a client wants a connection, and it tells the server the client’s starting sequence number.\nStep 2 proves to the client that the server is reachable and listening, that the client’s outgoing path works, and gives the server’s starting sequence number.\nStep 3 proves to the server that the client can actually receive its packets, so the return path works. Without it, the server could not be sure its SYN-ACK arrived, and each side would not have confirmation that the other has agreed on its numbers.\n\nWhy not two steps?\n\nTwo steps would leave the server unsure the client ever received its sequence number. It also invites trouble with old, delayed duplicate SYNs. If a stale SYN from a past connection attempt arrives, the server would open a connection the client never wanted. With three steps, the client’s final ACK must carry y+1; if the client didn’t send the original SYN, it responds to the SYN-ACK with a reset (RST), and the server drops the half-open connection.\n\nWhy random initial sequence numbers?\n\nStarting numbers are chosen unpredictably rather than at zero. This helps avoid confusion with segments from earlier connections between the same endpoints, and makes it harder for an attacker to forge packets by guessing sequence numbers.\n\nA related weakness\n\nBetween steps 2 and 3 the server holds state for a half-open connection. SYN flood attacks exploit this by sending many SYNs and never completing the handshake. Defenses like SYN cookies avoid allocating state until the final ACK arrives.",
+  "applied_treatments": [
+    "T4"
+  ],
+  "treatment_order": [
+    "T4"
+  ],
+  "analysis": {
+    "main_topic": "The TCP three-way handshake mechanism, its steps, and its rationale.",
+    "primary_claims": [
+      "The three-way handshake allows two machines to agree on starting sequence numbers and bidirectional communication capability.",
+      "Four individual pieces of information (two SYNs and two ACKs) are needed for full duplex reliability, but the server combines its ACK and SYN into one segment to collapse the exchange into three steps.",
+      "Each of the three steps serves a distinct purpose in verifying reachability, packet delivery, and return paths for both client and server.",
+      "A two-step handshake would leave the server unsure if the client received its sequence number and vulnerable to old, delayed duplicate SYNs.",
+      "Initial sequence numbers are randomized to prevent confusion with stale segments from prior connections and mitigate sequence guessing attacks.",
+      "SYN flood attacks exploit half-open connections held between steps 2 and 3, which can be mitigated using SYN cookies."
+    ],
+    "key_concepts": [
+      "TCP three-way handshake",
+      "SYN",
+      "SYN-ACK",
+      "ACK",
+      "Initial sequence numbers",
+      "Full duplex communication",
+      "Half-open connection",
+      "SYN flood attacks",
+      "SYN cookies"
+    ],
+    "prerequisite_concepts": [
+      "Client-server architecture",
+      "Network packets or segments",
+      "Bidirectional data transmission"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "TCP",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "segment",
+        "explained_in_text": false,
+        "necessary": true
+      },
+      {
+        "term": "SYN flag",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "ACK flag",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "sequence number",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "acknowledgment number",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "full duplex",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "reset (RST)",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "half-open connection",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "SYN flood attacks",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "SYN cookies",
+        "explained_in_text": true,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "Variables x and y representing initial sequence numbers."
+    ],
+    "missing_intermediate_steps": [
+      "Detailed explanation of how the network transmits these segments at the IP layer."
+    ],
+    "assumed_prior_knowledge": [
+      "Basic understanding of network communication between a client and a server",
+      "Concept of packet loss or delayed delivery in networks"
+    ],
+    "possible_confusions": [
+      "Confusing why a SYN consumes one sequence number with how data bytes consume sequence numbers.",
+      "Assuming the third step cannot carry data when it actually can."
+    ],
+    "ambiguous_references": [
+      "“This says: 'I want to open a connection...'” (Context makes it clear, but 'This' refers to the action/message of the SYN flag and sequence number)."
+    ]
+  },
+  "plan": {
+    "learner_level": "intermediate",
+    "learning_objectives": [
+      "Understand the step-by-step mechanism of the TCP three-way handshake",
+      "Explain why each of the three steps is necessary for reliable full-duplex communication",
+      "Identify security implications such as stale connection packets and SYN flood attacks"
+    ],
+    "prerequisite_order": [
+      "Client-server architecture",
+      "Network packets or segments",
+      "Bidirectional data transmission"
+    ],
+    "explanation_sequence": [
+      "Overview of handshake goals: agreeing on sequence numbers and full-duplex readiness",
+      "Step 1: SYN from client",
+      "Step 2: SYN-ACK from server",
+      "Step 3: ACK from client",
+      "Rationale for why each step is required",
+      "Analysis of why a two-step handshake fails",
+      "Importance of random initial sequence numbers",
+      "Security considerations: half-open connections and SYN floods"
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": false,
+    "needs_diagram": true,
+    "analogy_rationale": "An analogy is not strictly required because the step-by-step message exchange between client and server is direct enough to understand through concrete sequence diagrams and packet descriptions.",
+    "detail_level": "thorough",
+    "techniques_not_needed": [
+      "needs_analogy"
+    ]
+  },
+  "fidelity": {
+    "verdict": "serious_concerns",
+    "warnings": [
+      {
+        "type": "numeric_change",
+        "severity": "high",
+        "detail": "8 numeric difference(s) detected between source and transformed text. Numbers must not change.",
+        "detector": "deterministic"
+      }
+    ],
+    "numeric_drift": [
+      {
+        "source_value": "(not present)",
+        "transformed_value": "192.168",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "203.0",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "443",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "1",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "3000",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "3001",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "5000",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      },
+      {
+        "source_value": "(not present)",
+        "transformed_value": "5001",
+        "context": "appears in the transformed text but not in the source",
+        "direction": "added"
+      }
+    ],
+    "preserved_claims": [
+      "The client starts by sending a SYN message with its initial sequence number.",
+      "The server replies with a SYN-ACK, acknowledging the client's number and sending its own sequence number.",
+      "The client sends an ACK that acknowledges the server's sequence number, which completes the handshake.",
+      "All three steps are needed so both sides confirm they can send and receive and agree on starting sequence numbers."
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewrite successfully adds a concrete scenario with illustrative IP addresses, port numbers, and specific sequence numbers to aid understanding, without altering or contradicting any core technical claims from the original text.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 1,
+    "llm_warning_count": 0,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T4",
+      "name": "Concrete examples and analogies",
+      "stats": {
+        "words_before": 492,
+        "words_after": 591,
+        "word_delta": 99,
+        "sentences_before": 26,
+        "sentences_after": 31,
+        "avg_sentence_words_before": 18.92,
+        "avg_sentence_words_after": 19.06,
+        "headings_added": 0,
+        "list_items_added": 0,
+        "table_rows_added": 0,
+        "word_similarity": 0.9086
+      },
+      "unified_diff": "--- T4:before\n+++ T4:after\n@@ -1,9 +1,13 @@\n The three-way handshake lets two machines agree that both can send and receive, and agree on the starting sequence numbers TCP uses to order and acknowledge data.\n+\n+To make this concrete, consider a web browser running on a laptop (`192.168.1.50`) establishing an HTTPS connection to an Nginx web server (`203.0.113.10`) on port `443`. In this scenario, the laptop acts as the client and Nginx acts as the server.\n \n The three steps\n \n-SYN (client → server): The client sends a segment with the SYN flag set and its own initial sequence number, say x. This says: “I want to open a connection, and my bytes will be numbered starting from x.”\n-SYN-ACK (server → client): The server replies with both SYN and ACK set. The ACK field is x+1, confirming it received the client’s SYN (a SYN consumes one sequence number). The segment also carries the server’s own initial sequence number, y. This says: “I got yours, and mine start at y.”\n-ACK (client → server): The client sends a segment with ACK set and acknowledgment number y+1. This says: “I got yours too.” The connection is now established, and data can flow in both directions (the third segment can already carry data).\n+SYN (client → server): The client sends a segment with the SYN flag set and its own initial sequence number, say x. This says: “I want to open a connection, and my bytes will be numbered starting from x.” In our scenario, the laptop sends a TCP segment to `203.0.113.10:443` with `SYN=1` and `Seq=3000`.\n+\n+SYN-ACK (server → client): The server replies with both SYN and ACK set. The ACK field is x+1, confirming it received the client’s SYN (a SYN consumes one sequence number). The segment also carries the server’s own initial sequence number, y. This says: “I got yours, and mine start at y.” Continuing the example, Nginx replies with `SYN=1`, `ACK=3001` (confirming `3000 + 1`), and its own sequence number `Seq=5000`.\n+\n+ACK (client → server): The client sends a segment with ACK set and acknowledgment number y+1. This says: “I got yours too.” The connection is now established, and data can flow in both directions (the third segment can already carry data). In our scenario, the laptop responds with `ACK=5001` (confirming `5000 + 1`), completing the handshake so it can immediately send its HTTP GET request packet.\n \n Why each step is needed",
+      "text_after": "The three-way handshake lets two machines agree that both can send and receive, and agree on the starting sequence numbers TCP uses to order and acknowledge data.\n\nTo make this concrete, consider a web browser running on a laptop (`192.168.1.50`) establishing an HTTPS connection to an Nginx web server (`203.0.113.10`) on port `443`. In this scenario, the laptop acts as the client and Nginx acts as the server.\n\nThe three steps\n\nSYN (client → server): The client sends a segment with the SYN flag set and its own initial sequence number, say x. This says: “I want to open a connection, and my bytes will be numbered starting from x.” In our scenario, the laptop sends a TCP segment to `203.0.113.10:443` with `SYN=1` and `Seq=3000`.\n\nSYN-ACK (server → client): The server replies with both SYN and ACK set. The ACK field is x+1, confirming it received the client’s SYN (a SYN consumes one sequence number). The segment also carries the server’s own initial sequence number, y. This says: “I got yours, and mine start at y.” Continuing the example, Nginx replies with `SYN=1`, `ACK=3001` (confirming `3000 + 1`), and its own sequence number `Seq=5000`.\n\nACK (client → server): The client sends a segment with ACK set and acknowledgment number y+1. This says: “I got yours too.” The connection is now established, and data can flow in both directions (the third segment can already carry data). In our scenario, the laptop responds with `ACK=5001` (confirming `5000 + 1`), completing the handshake so it can immediately send its HTTP GET request packet.\n\nWhy each step is needed\n\nTCP is full duplex, so each direction has its own sequence number space. For reliable delivery, each side must (a) announce its starting number and (b) have the other side confirm it. That’s four pieces of information: two SYNs and two ACKs. The server combines its ACK of the client’s SYN with its own SYN into one segment, which is why four messages collapse into three.\n\nStep 1 is the only way the server learns that a client wants a connection, and it tells the server the client’s starting sequence number.\nStep 2 proves to the client that the server is reachable and listening, that the client’s outgoing path works, and gives the server’s starting sequence number.\nStep 3 proves to the server that the client can actually receive its packets, so the return path works. Without it, the server could not be sure its SYN-ACK arrived, and each side would not have confirmation that the other has agreed on its numbers.\n\nWhy not two steps?\n\nTwo steps would leave the server unsure the client ever received its sequence number. It also invites trouble with old, delayed duplicate SYNs. If a stale SYN from a past connection attempt arrives, the server would open a connection the client never wanted. With three steps, the client’s final ACK must carry y+1; if the client didn’t send the original SYN, it responds to the SYN-ACK with a reset (RST), and the server drops the half-open connection.\n\nWhy random initial sequence numbers?\n\nStarting numbers are chosen unpredictably rather than at zero. This helps avoid confusion with segments from earlier connections between the same endpoints, and makes it harder for an attacker to forge packets by guessing sequence numbers.\n\nA related weakness\n\nBetween steps 2 and 3 the server holds state for a half-open connection. SYN flood attacks exploit this by sending many SYNs and never completing the handshake. Defenses like SYN cookies avoid allocating state until the final ACK arrives."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1406,
+      "output_tokens": 881,
+      "latency_ms": 3966,
+      "cost_usd": 0.002624,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2199,
+      "output_tokens": 333,
+      "latency_ms": 2119,
+      "cost_usd": 0.001492,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T4 — Concrete examples and analogies",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1590,
+      "output_tokens": 836,
+      "latency_ms": 2837,
+      "cost_usd": 0.002567,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2580,
+      "output_tokens": 167,
+      "latency_ms": 1709,
+      "cost_usd": 0.001191,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.007874,
+  "is_synthetic": false,
+  "control_limitations": []
+}

@@ -1,0 +1,210 @@
+{
+  "variant_response_id": "b5a68fd2-e98c-4222-967e-a8b0577d0727",
+  "text": "The Transmission Control Protocol (Transmission Control Protocol (TCP), a standard for reliable data communication on the internet) three-way handshake is the process that a client and server use to establish a Transmission Control Protocol (TCP) connection before exchanging application data. It takes three messages because both sides need to synchronize their sequence numbers and confirm that communication works in both directions.\n\n1. First, understand the problem Transmission Control Protocol (TCP) must solve\nImagine your browser wants to connect to a web server.\n\nTransmission Control Protocol (TCP) needs to establish three things:\n- Reachability: Can the client reach the server, and can the server reach the client?\n- Synchronization: What sequence numbers should each side use to track the bytes it sends?\n- Agreement: Has each side received evidence that the other side can communicate with it?\nTransmission Control Protocol (TCP) uses three messages: SYN, SYN-ACK, and ACK.\n2. The three steps, one by one\n\nStep 1 — SYN\n\nClient → Server\n\n“I want to connect, and my initial sequence number is 100.”\nSYN = 1, Seq = 100\n\nThe client sends a synchronization request containing its initial sequence number. The server can now know that the client is attempting to establish a connection.\n\n\n\nStep 2 — SYN-ACK\n\nServer → Client\n\n“I received your request. My initial sequence number is 500, and I acknowledge your sequence number.”\nSYN = 1, ACK = 1, Seq = 500, Ack = 101\n\nThe server acknowledges the client's SYN by sending Ack = 101 and sends its own SYN with sequence number 500. The acknowledgment number is 101 because the SYN consumes one sequence number.\n\n\n\nStep 3 — ACK\n\nClient → Server\n\n“I received your synchronization request too.”\nACK = 1, Seq = 101, Ack = 501\n\nThe client acknowledges the server's SYN. Now both sides have evidence that the other side's messages are getting through, and the connection can be established.\n\n\nThe sequence numbers above are illustrative. Real Transmission Control Protocol (TCP) connections use initial sequence numbers selected by the endpoints, and the values are typically much larger.\n3. Why are three steps needed instead of two?\nThis is the most important part to understand.\n\nStep 1: The client proves nothing about the server yet\n\nThe client sends a SYN. This tells the server that the client wants to connect, but the client has not yet received anything from the server.\n\n\n\nStep 2: The server confirms the client's SYN and sends its own SYN\n\nThe server acknowledges the client's request and provides its own sequence number. But the server still does not know whether its SYN reached the client.\n\n\n\nStep 3: The client confirms receipt of the server's SYN\n\nThe final ACK tells the server that the client received its SYN. The server can now consider the handshake complete.\n\n\n\nWhy not stop after two messages?\n\nSuppose the server sends its SYN-ACK, but that message never reaches the client. If the server assumed the connection was fully established anyway, it would believe communication was ready even though the client had not confirmed receipt of the server's message.\n\nThe third step resolves that uncertainty.\n4. What do sequence numbers actually accomplish?\nTransmission Control Protocol (TCP) delivers a reliable, ordered stream of bytes. To do that, it tracks byte positions using sequence numbers.\n\nIn our example:\n- The client starts with sequence number 100.\n- Its SYN consumes one sequence number, so its next sequence number is 101.\n- The server starts at 500.\n- Its SYN consumes one sequence number, so the client acknowledges 501.\nThe acknowledgment number means “the next sequence number I expect from you.”\n\nAfter the handshake, data can flow in both directions. Transmission Control Protocol (TCP) uses sequence numbers and acknowledgments to detect missing data, retransmit lost segments, and put bytes back in order.\n\nOne important distinction: the handshake synchronizes sequence numbers; it does not transfer application data by itself in the ordinary case.\n5. Visualize the complete exchange\nClient\n\n\nServer\n\n\n\n1. SYN · Seq = 100\n\n2. SYN-ACK · Seq = 500, Ack = 101\n\n3. ACK · Seq = 101, Ack = 501\n\n\n\nConnection established\n\nBoth sides have synchronized their initial sequence numbers and confirmed receipt of the handshake messages.\n\n\n\n6. What happens if a message is lost?\nTransmission Control Protocol (TCP) does not assume every packet arrives.\n- If the SYN is lost, the client can retransmit it.\n- If the SYN-ACK is lost, the client may retransmit its SYN, prompting the server to resend its response.\n- If the final ACK is lost, the server may retransmit its SYN-ACK, and the client can acknowledge it again.\nTransmission Control Protocol (TCP)'s retransmission and timeout mechanisms help the endpoints recover from these losses.\n7. Quick recap\nStep\tMessage\tWhat it accomplishes\n1\tSYN\tClient requests a connection and provides its initial sequence number.\n2\tSYN-ACK\tServer acknowledges the client and provides its own initial sequence number.\n3\tACK\tClient acknowledges the server's sequence number, completing the handshake.\n\nRemember this mental model:\n\nSYN → SYN-ACK → ACK = request → response and acknowledgment → final confirmation.\n\nThe handshake establishes Transmission Control Protocol (TCP)'s connection state and synchronizes sequence numbers. It does not guarantee that the remote application is healthy or that every future packet will arrive; Transmission Control Protocol (TCP) handles reliability throughout the connection.",
+  "applied_treatments": [
+    "T1"
+  ],
+  "treatment_order": [
+    "T1"
+  ],
+  "analysis": {
+    "main_topic": "The TCP three-way handshake and sequence number synchronization",
+    "primary_claims": [
+      "The TCP three-way handshake requires three messages to synchronize sequence numbers and confirm bidirectional reachability.",
+      "A two-step handshake leaves the server uncertain whether its SYN-ACK message reached the client.",
+      "Sequence numbers track byte positions in the stream to ensure reliable, ordered delivery.",
+      "SYN packets consume one sequence number."
+    ],
+    "key_concepts": [
+      "TCP three-way handshake",
+      "SYN",
+      "SYN-ACK",
+      "ACK",
+      "Sequence numbers",
+      "Acknowledgment numbers",
+      "Bidirectional reachability"
+    ],
+    "prerequisite_concepts": [
+      "Client-server model",
+      "Network packets or messages",
+      "Basic computer networking concepts"
+    ],
+    "technical_vocabulary": [
+      {
+        "term": "TCP",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Three-way handshake",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Sequence numbers",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "SYN",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "SYN-ACK",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "ACK",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Acknowledgment number",
+        "explained_in_text": true,
+        "necessary": true
+      },
+      {
+        "term": "Retransmit",
+        "explained_in_text": true,
+        "necessary": true
+      }
+    ],
+    "existing_examples": [
+      "A browser connecting to a web server starting with client sequence number 100 and server sequence number 500."
+    ],
+    "missing_intermediate_steps": [
+      "Explanation of how actual packet headers store these flags and values in the TCP segment structure."
+    ],
+    "assumed_prior_knowledge": [
+      "General understanding that networks can drop or lose packets",
+      "Basic counting and arithmetic for sequence numbers"
+    ],
+    "possible_confusions": [
+      "Confusing why a SYN consumes a sequence number with how payload data consumes sequence numbers",
+      "Believing the handshake itself transfers application data"
+    ],
+    "ambiguous_references": []
+  },
+  "plan": {
+    "learner_level": "beginner",
+    "learning_objectives": [
+      "Understand how the TCP three-way handshake establishes a connection",
+      "Explain why three steps are necessary instead of two",
+      "Identify the roles of SYN, SYN-ACK, and ACK messages",
+      "Understand how sequence numbers and acknowledgment numbers track byte positions"
+    ],
+    "prerequisite_order": [
+      "Client-server model basics",
+      "Concept of unreliable networks where packets can be lost",
+      "Basic counting for sequence and acknowledgment numbers"
+    ],
+    "explanation_sequence": [
+      "Introduce the problem of establishing reliable bidirectional communication",
+      "Break down the three steps: SYN, SYN-ACK, and ACK",
+      "Analyze why a two-step handshake is insufficient",
+      "Explain sequence numbers and byte position tracking",
+      "Summarize the complete exchange and handling of lost messages"
+    ],
+    "needs_concrete_example": true,
+    "needs_analogy": false,
+    "needs_diagram": true,
+    "analogy_rationale": "An analogy is not strictly necessary because the browser-to-server concrete example and step-by-step message exchange directly map to the technical reality without requiring metaphorical translation.",
+    "detail_level": "thorough",
+    "techniques_not_needed": [
+      "analogy"
+    ]
+  },
+  "fidelity": {
+    "verdict": "clean",
+    "warnings": [],
+    "numeric_drift": [],
+    "preserved_claims": [
+      "The client starts by sending a SYN message with its initial sequence number.",
+      "The server replies with a SYN-ACK, acknowledging the client's number and sending its own sequence number.",
+      "The client sends an ACK that acknowledges the server's sequence number, which completes the handshake.",
+      "All three steps are needed so both sides confirm they can send and receive and agree on starting sequence numbers."
+    ],
+    "checklist_coverage": [],
+    "notes": "The rewrite simply expands acronyms repeatedly but maintains identical technical claims, structure, and values.",
+    "llm_review_ran": true,
+    "deterministic_warning_count": 0,
+    "llm_warning_count": 0,
+    "provisional": true
+  },
+  "changes": [
+    {
+      "treatment": "T1",
+      "name": "Vocabulary and sentence clarification",
+      "stats": {
+        "words_before": 843,
+        "words_after": 884,
+        "word_delta": 41,
+        "sentences_before": 62,
+        "sentences_after": 61,
+        "avg_sentence_words_before": 13.6,
+        "avg_sentence_words_after": 14.49,
+        "headings_added": 0,
+        "list_items_added": 0,
+        "table_rows_added": 0,
+        "word_similarity": 0.9543
+      },
+      "unified_diff": "--- T1:before\n+++ T1:after\n@@ -1,13 +1,12 @@\n-The TCP three-way handshake is the process that a client and server use to establish a TCP connection before exchanging application data. It takes three messages because both sides need to synchronize their sequence numbers and confirm that communication works in both directions.\n+The Transmission Control Protocol (Transmission Control Protocol (TCP), a standard for reliable data communication on the internet) three-way handshake is the process that a client and server use to establish a Transmission Control Protocol (TCP) connection before exchanging application data. It takes three messages because both sides need to synchronize their sequence numbers and confirm that communication works in both directions.\n \n-Let's understand why each step is necessary.\n-1. First, understand the problem TCP must solve\n+1. First, understand the problem Transmission Control Protocol (TCP) must solve\n Imagine your browser wants to connect to a web server.\n \n-TCP needs to establish three things:\n+Transmission Control Protocol (TCP) needs to establish three things:\n - Reachability: Can the client reach the server, and can the server reach the client?\n - Synchronization: What sequence numbers should each side use to track the bytes it sends?\n - Agreement: Has each side received evidence that the other side can communicate with it?\n-TCP uses three messages: SYN, SYN-ACK, and ACK.\n+Transmission Control Protocol (TCP) uses three messages: SYN, SYN-ACK, and ACK.\n 2. The three steps, one by one\n \n@@ -44,5 +43,5 @@\n \n \n-The sequence numbers above are illustrative. Real TCP connections use initial sequence numbers selected by the endpoints, and the values are typically much larger.\n+The sequence numbers above are illustrative. Real Transmission Control Protocol (TCP) connections use initial sequence numbers selected by the endpoints, and the values are typically much larger.\n 3. Why are three steps needed instead of two?\n This is the most important part to understand.\n@@ -72,5 +71,5 @@\n The third step resolves that uncertainty.\n 4. What do sequence numbers actually accomplish?\n-TCP delivers a reliable, ordered stream of bytes. To do that, it tracks byte positions using sequence numbers.\n+Transmission Control Protocol (TCP) delivers a reliable, ordered stream of bytes. To do that, it tracks byte positions using sequence numbers.\n \n In our example:\n@@ -81,5 +80,5 @@\n The acknowledgment number means “the next sequence number I expect from you.”\n \n-After the handshake, data can flow in both directions. TCP uses sequence numbers and acknowledgments to detect missing data, retransmit lost segments, and put bytes back in order.\n+After the handshake, data can flow in both directions. Transmission Control Protocol (TCP) uses sequence numbers and acknowledgments to detect missing data, retransmit lost segments, and put bytes back in order.\n \n One important distinction: the handshake synchronizes sequence numbers; it does not transfer application data by itself in the ordinary case.\n@@ -107,9 +106,9 @@\n \n 6. What happens if a message is lost?\n-TCP does not assume every packet arrives.\n+Transmission Control Protocol (TCP) does not assume every packet arrives.\n - If the SYN is lost, the client can retransmit it.\n - If the SYN-ACK is lost, the client may retransmit its SYN, prompting the server to resend its response.\n - If the final ACK is lost, the server may retransmit its SYN-ACK, and the client can acknowledge it again.\n-TCP's retransmission and timeout mechanisms help the endpoints recover from these losses.\n+Transmission Control Protocol (TCP)'s retransmission and timeout mechanisms help the endpoints recover from these losses.\n 7. Quick recap\n Step\tMessage\tWhat it accomplishes\n@@ -122,3 +121,3 @@\n SYN → SYN-ACK → ACK = request → response and acknowledgment → final confirmation.\n \n-The handshake establishes TCP's connection state and synchronizes sequence numbers. It does not guarantee that the remote application is healthy or that every future packet will arrive; TCP handles reliability throughout the connection.\n+The handshake establishes Transmission Control Protocol (TCP)'s connection state and synchronizes sequence numbers. It does not guarantee that the remote application is healthy or that every future packet will arrive; Transmission Control Protocol (TCP) handles reliability throughout the connection.",
+      "text_after": "The Transmission Control Protocol (Transmission Control Protocol (TCP), a standard for reliable data communication on the internet) three-way handshake is the process that a client and server use to establish a Transmission Control Protocol (TCP) connection before exchanging application data. It takes three messages because both sides need to synchronize their sequence numbers and confirm that communication works in both directions.\n\n1. First, understand the problem Transmission Control Protocol (TCP) must solve\nImagine your browser wants to connect to a web server.\n\nTransmission Control Protocol (TCP) needs to establish three things:\n- Reachability: Can the client reach the server, and can the server reach the client?\n- Synchronization: What sequence numbers should each side use to track the bytes it sends?\n- Agreement: Has each side received evidence that the other side can communicate with it?\nTransmission Control Protocol (TCP) uses three messages: SYN, SYN-ACK, and ACK.\n2. The three steps, one by one\n\nStep 1 — SYN\n\nClient → Server\n\n“I want to connect, and my initial sequence number is 100.”\nSYN = 1, Seq = 100\n\nThe client sends a synchronization request containing its initial sequence number. The server can now know that the client is attempting to establish a connection.\n\n\n\nStep 2 — SYN-ACK\n\nServer → Client\n\n“I received your request. My initial sequence number is 500, and I acknowledge your sequence number.”\nSYN = 1, ACK = 1, Seq = 500, Ack = 101\n\nThe server acknowledges the client's SYN by sending Ack = 101 and sends its own SYN with sequence number 500. The acknowledgment number is 101 because the SYN consumes one sequence number.\n\n\n\nStep 3 — ACK\n\nClient → Server\n\n“I received your synchronization request too.”\nACK = 1, Seq = 101, Ack = 501\n\nThe client acknowledges the server's SYN. Now both sides have evidence that the other side's messages are getting through, and the connection can be established.\n\n\nThe sequence numbers above are illustrative. Real Transmission Control Protocol (TCP) connections use initial sequence numbers selected by the endpoints, and the values are typically much larger.\n3. Why are three steps needed instead of two?\nThis is the most important part to understand.\n\nStep 1: The client proves nothing about the server yet\n\nThe client sends a SYN. This tells the server that the client wants to connect, but the client has not yet received anything from the server.\n\n\n\nStep 2: The server confirms the client's SYN and sends its own SYN\n\nThe server acknowledges the client's request and provides its own sequence number. But the server still does not know whether its SYN reached the client.\n\n\n\nStep 3: The client confirms receipt of the server's SYN\n\nThe final ACK tells the server that the client received its SYN. The server can now consider the handshake complete.\n\n\n\nWhy not stop after two messages?\n\nSuppose the server sends its SYN-ACK, but that message never reaches the client. If the server assumed the connection was fully established anyway, it would believe communication was ready even though the client had not confirmed receipt of the server's message.\n\nThe third step resolves that uncertainty.\n4. What do sequence numbers actually accomplish?\nTransmission Control Protocol (TCP) delivers a reliable, ordered stream of bytes. To do that, it tracks byte positions using sequence numbers.\n\nIn our example:\n- The client starts with sequence number 100.\n- Its SYN consumes one sequence number, so its next sequence number is 101.\n- The server starts at 500.\n- Its SYN consumes one sequence number, so the client acknowledges 501.\nThe acknowledgment number means “the next sequence number I expect from you.”\n\nAfter the handshake, data can flow in both directions. Transmission Control Protocol (TCP) uses sequence numbers and acknowledgments to detect missing data, retransmit lost segments, and put bytes back in order.\n\nOne important distinction: the handshake synchronizes sequence numbers; it does not transfer application data by itself in the ordinary case.\n5. Visualize the complete exchange\nClient\n\n\nServer\n\n\n\n1. SYN · Seq = 100\n\n2. SYN-ACK · Seq = 500, Ack = 101\n\n3. ACK · Seq = 101, Ack = 501\n\n\n\nConnection established\n\nBoth sides have synchronized their initial sequence numbers and confirmed receipt of the handshake messages.\n\n\n\n6. What happens if a message is lost?\nTransmission Control Protocol (TCP) does not assume every packet arrives.\n- If the SYN is lost, the client can retransmit it.\n- If the SYN-ACK is lost, the client may retransmit its SYN, prompting the server to resend its response.\n- If the final ACK is lost, the server may retransmit its SYN-ACK, and the client can acknowledge it again.\nTransmission Control Protocol (TCP)'s retransmission and timeout mechanisms help the endpoints recover from these losses.\n7. Quick recap\nStep\tMessage\tWhat it accomplishes\n1\tSYN\tClient requests a connection and provides its initial sequence number.\n2\tSYN-ACK\tServer acknowledges the client and provides its own initial sequence number.\n3\tACK\tClient acknowledges the server's sequence number, completing the handshake.\n\nRemember this mental model:\n\nSYN → SYN-ACK → ACK = request → response and acknowledgment → final confirmation.\n\nThe handshake establishes Transmission Control Protocol (TCP)'s connection state and synchronizes sequence numbers. It does not guarantee that the remote application is healthy or that every future packet will arrive; Transmission Control Protocol (TCP) handles reliability throughout the connection."
+    }
+  ],
+  "stages": [
+    {
+      "stage": "A",
+      "label": "Input analysis",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1927,
+      "output_tokens": 629,
+      "latency_ms": 4789,
+      "cost_usd": 0.002151,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "B",
+      "label": "Pedagogical planning",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 2463,
+      "output_tokens": 312,
+      "latency_ms": 1939,
+      "cost_usd": 0.001519,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "C",
+      "label": "T1 — Vocabulary and sentence clarification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 1774,
+      "output_tokens": 1213,
+      "latency_ms": 5491,
+      "cost_usd": 0.003565,
+      "served_from_cache": false,
+      "notes": []
+    },
+    {
+      "stage": "D",
+      "label": "Fidelity verification",
+      "provider": "gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_tokens": 3482,
+      "output_tokens": 149,
+      "latency_ms": 3532,
+      "cost_usd": 0.001417,
+      "served_from_cache": false,
+      "notes": []
+    }
+  ],
+  "total_cost_usd": 0.008652,
+  "is_synthetic": false,
+  "control_limitations": []
+}
